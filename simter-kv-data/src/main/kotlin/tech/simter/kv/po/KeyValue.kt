@@ -1,5 +1,6 @@
 package tech.simter.kv.po
 
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.Table
@@ -12,7 +13,7 @@ import javax.persistence.Table
 @Entity
 @Table(name = "ST_KEY_VALUE")
 data class KeyValue(
-  @Id
+  @Id @Column(length = 100)
   val key: String,
-  val value: String
+  val value: String?
 )

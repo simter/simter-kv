@@ -32,7 +32,7 @@ class KeyValueServiceImplTest @Autowired constructor(
 
     // verify
     StepVerifier.create(actual)
-      .expectNext(kv.value)
+      .expectNext(kv.value!!)
       .verifyComplete()
     verify(dao).findById(kv.key)
   }
