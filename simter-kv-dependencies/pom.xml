@@ -35,6 +35,11 @@
         <artifactId>simter-kv-rest-webflux</artifactId>
         <version>${revision}</version>
       </dependency>
+      <dependency>
+        <groupId>tech.simter</groupId>
+        <artifactId>simter-kv-starter</artifactId>
+        <version>${revision}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <build>

@@ -1,4 +1,4 @@
-# Simter Key-Value Manage
+# Simter Key-Value Modules
 
 ## Requirement
 
@@ -18,6 +18,7 @@ Name                              | Parent
 [simter-kv-data]                  | simter-kv-parent
 [simter-kv-data-jpa]              | simter-kv-parent
 [simter-kv-rest-webflux]          | simter-kv-parent
+[simter-kv-starter]               | simter-kv-parent
 
 
 [交通安全综合服务管理平台]: http://gd.122.gov.cn
@@ -28,3 +29,4 @@ Name                              | Parent
 [simter-kv-data]: https://github.com/simter/simter-kv/tree/master/simter-kv-data
 [simter-kv-data-jpa]: https://github.com/simter/simter-kv/tree/master/simter-kv-data-jpa
 [simter-kv-rest-webflux]: https://github.com/simter/simter-kv/tree/master/simter-kv-rest-webflux
+[simter-kv-starter]: https://github.com/simter/simter-kv/tree/master/simter-kv-starter
