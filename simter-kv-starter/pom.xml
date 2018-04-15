@@ -162,7 +162,7 @@
   <profiles>
     <profile>
       <!-- development environment: spring-boot + webflux + hibernate-jpa + postgres) -->
-      <id>dev</id>
+      <id>dev-jpa-hsql</id>
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
@@ -206,7 +206,7 @@
     </profile>
     <profile>
       <!-- production environment: spring-boot + webflux + hibernate-jpa + postgres) -->
-      <id>prod</id>
+      <id>prod-jpa-postgres</id>
       <activation>
         <activeByDefault>false</activeByDefault>
       </activation>
