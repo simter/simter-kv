@@ -4,7 +4,7 @@
  */
 create table st_kv (
   key   varchar(100) primary key,
-  value text
+  value text not null
 );
 comment on table st_kv is 'Key-Value Pair';
 comment on column st_kv.key is 'Key';

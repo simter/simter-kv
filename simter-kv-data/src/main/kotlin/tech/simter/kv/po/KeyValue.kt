@@ -15,5 +15,5 @@ import javax.persistence.Table
 data class KeyValue(
   @Id @Column(length = 100)
   val key: String,
-  val value: String?
+  val value: String
 )
