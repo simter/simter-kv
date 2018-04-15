@@ -23,7 +23,10 @@ logging:
     #---- spring reactive ----#
     #org.springframework.http.client.reactive: DEBUG
     #org.springframework.http.server.reactive: DEBUG
-    #org.springframework.web.reactive: DEBUG
+    #org.springframework.web.reactive: DEBUG                # debug to show match router
+
+    #---- reactor ----#
+    #reactor.ipc.netty: DEBUG # debug to show request/response
 
     #---- hibernate sql ----#
     org.hibernate.tool: ERROR
