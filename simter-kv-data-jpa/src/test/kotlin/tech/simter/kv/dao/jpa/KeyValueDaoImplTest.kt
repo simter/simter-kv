@@ -16,7 +16,7 @@ import javax.persistence.EntityManager
 /**
  * @author RJ
  */
-@SpringJUnitConfig(JpaTestConfiguration::class)
+@SpringJUnitConfig(ModuleConfiguration::class)
 @DataJpaTest
 class KeyValueDaoImplTest @Autowired constructor(
   val dao: KeyValueDao,

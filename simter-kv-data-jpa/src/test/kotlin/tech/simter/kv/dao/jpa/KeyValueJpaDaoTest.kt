@@ -13,7 +13,7 @@ import javax.persistence.EntityManager
 /**
  * @author RJ
  */
-@SpringJUnitConfig(JpaTestConfiguration::class)
+@SpringJUnitConfig(ModuleConfiguration::class)
 @DataJpaTest
 class KeyValueJpaDaoTest @Autowired constructor(val dao: KeyValueJpaDao, val em: EntityManager) {
   @Test

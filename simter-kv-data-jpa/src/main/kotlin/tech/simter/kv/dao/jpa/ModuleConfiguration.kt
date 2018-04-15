@@ -8,11 +8,18 @@ import org.springframework.context.annotation.FilterType.ASSIGNABLE_TYPE
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import tech.simter.kv.dao.KeyValueDao
 
+private const val MODULE_PACKAGE = "tech.simter.kv.dao.jpa"
+
 /**
+ * All configuration for this module.
+ *
  * @author RJ
  */
-@Configuration
-@ComponentScan("tech.simter.kv")
-@EnableJpaRepositories(excludeFilters = [Filter(type = ASSIGNABLE_TYPE, classes = [KeyValueDao::class])])
-@EntityScan(basePackages = ["tech.simter.kv"])
-class JpaTestConfiguration
+@Configuration("tech.simter.kv.dao.jpa.ModuleConfiguration")
+@ComponentScan(MODULE_PACKAGE)
+@EnableJpaRepositories(
+  basePackages = [MODULE_PACKAGE],
+  excludeFilters = [(Filter(type = ASSIGNABLE_TYPE, classes = [KeyValueDao::class]))]
+)
+@EntityScan(basePackages = ["tech.simter.kv.po"])
+class ModuleConfiguration
