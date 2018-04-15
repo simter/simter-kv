@@ -39,5 +39,17 @@
       <artifactId>reactor-test</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <!-- jsr353 by jackson-->
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.json</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr353</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 </project>
