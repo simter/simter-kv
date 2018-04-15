@@ -10,7 +10,6 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.web.reactive.config.EnableWebFlux
 import org.springframework.web.reactive.function.server.RouterFunctions.route
-import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import tech.simter.kv.po.KeyValue
 import tech.simter.kv.rest.webflux.handler.FindKeyValueHandler.Companion.REQUEST_PREDICATE
@@ -60,19 +59,22 @@ class FindKeyValueHandlerTest @Autowired constructor(
     // invoke
     client.get().uri("/$key")
       .exchange()
-      .expectStatus().isNoContent
+      .expectStatus().isOk
+      .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+      .expectBody()
+      .json("{}")
 
     // verify
     verify(service).getValue(key)
   }
 
   @Test
-  fun findWithMultiKey() {
+  fun findMulti() {
     // mock
     val kvList = (1..3).map { KeyValue("k-$it", "v-$it") }
-    val expected = Flux.fromIterable(kvList)
+    val expected = Mono.just(kvList.associate { it.key to it.value })
     val keyArray = kvList.map { it.key }.toTypedArray()
-    `when`(service.findAll(*keyArray)).thenReturn(expected)
+    `when`(service.find(*keyArray)).thenReturn(expected)
 
     // invoke
     val expectedJson = Json.createObjectBuilder()
@@ -85,6 +87,6 @@ class FindKeyValueHandlerTest @Autowired constructor(
       .json(expectedJson.build().toString())
 
     // verify
-    verify(service).findAll(*keyArray)
+    verify(service).find(*keyArray)
   }
 }

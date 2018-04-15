@@ -8,6 +8,7 @@ import org.springframework.web.reactive.function.server.RequestPredicate
 import org.springframework.web.reactive.function.server.RequestPredicates.GET
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
+import org.springframework.web.reactive.function.server.ServerResponse.ok
 import reactor.core.publisher.Mono
 import tech.simter.kv.service.KeyValueService
 
@@ -32,7 +33,10 @@ import tech.simter.kv.service.KeyValueService
  * Response: (if all key not exists)
  *
  * ```
- * 204 NO_CONTENT
+ * 200 OK
+ * Content-Type: application/json;charset=UTF-8
+ *
+ * {}
  * ```
  *
  * @author RJ
@@ -44,15 +48,15 @@ class FindKeyValueHandler @Autowired constructor(
   override fun handle(request: ServerRequest): Mono<ServerResponse> {
     val keys = request.pathVariable("key").split(",")
     return (
-      if (keys.size == 1) service.getValue(keys[0]).map { mapOf(keys[0] to it) }        // {key: value}
-      else service.findAll(*keys.toTypedArray()).collectMap({ it.key }, { it.value })  // {key1: value1, ...}
+      if (keys.size == 1) service.getValue(keys[0]).map { mapOf(keys[0] to it) } // {key: value}
+      else service.find(*keys.toTypedArray())  // {key1: value1, ...}
       )
       .flatMap({
-        ServerResponse.ok()
-          .contentType(MediaType.APPLICATION_JSON_UTF8)
-          .syncBody(it)
+        ok().contentType(MediaType.APPLICATION_JSON_UTF8).syncBody(it)
       })
-      .switchIfEmpty(ServerResponse.noContent().build())
+      .switchIfEmpty(
+        ok().contentType(MediaType.APPLICATION_JSON_UTF8).syncBody("{}")
+      )
   }
 
   companion object {
