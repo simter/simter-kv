@@ -15,7 +15,7 @@ import tech.simter.kv.service.KeyValueService
 
 /**
  * The [HandlerFunction] for find single key-value pair or multiple key-value pairs.
- * Multiple keys combine with comma.
+ * Multiple keys combine with comma. The key could not contains comma symbol `','`.
  *
  * Request:
  *

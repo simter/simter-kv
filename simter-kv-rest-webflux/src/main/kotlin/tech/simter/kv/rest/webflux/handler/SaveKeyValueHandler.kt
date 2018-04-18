@@ -10,9 +10,9 @@ import reactor.core.publisher.Mono
 import tech.simter.kv.service.KeyValueService
 
 /**
- * The [HandlerFunction] for save or update key-value pairs.
+ * The [HandlerFunction] for create or update key-value pairs.
  *
- * If the key is exists update its value, otherwise create a ney key-value pair.
+ * Update the value if key exists or create a new key-value pair otherwise.
  *
  * Request:
  *

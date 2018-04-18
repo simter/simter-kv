@@ -29,7 +29,7 @@ interface KeyValueService {
   /**
    * Create or update key-value pairs.
    *
-   * Update the value if key exists or create a new key-value pair otherwise .
+   * Update the value if key exists or create a new key-value pair otherwise.
    *
    * @param[keyValues] the key-value pairs to save or update
    * @return [Mono] signaling when operation has completed

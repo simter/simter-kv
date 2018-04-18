@@ -21,7 +21,6 @@ Name                              | Parent
 [simter-kv-starter]               | simter-kv-parent
 
 
-[交通安全综合服务管理平台]: http://gd.122.gov.cn
 [simter-build:0.5.0-SNAPSHOT]: https://github.com/simter/simter-build/tree/master
 [simter-kv-build]: https://github.com/simter/simter-kv
 [simter-kv-dependencies]: https://github.com/simter/simter-kv/tree/master/simter-kv-dependencies

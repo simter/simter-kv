@@ -6,12 +6,12 @@ import javax.persistence.Id
 import javax.persistence.Table
 
 /**
- * The Key-Value PO.
+ * The key-value pair PO.
  *
  * @author RJ
  */
 @Entity
-@Table(name = "ST_KEY_VALUE")
+@Table(name = "ST_KV")
 data class KeyValue(
   @Id @Column(length = 100)
   val key: String,
