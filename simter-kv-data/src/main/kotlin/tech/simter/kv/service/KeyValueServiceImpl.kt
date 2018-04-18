@@ -22,4 +22,8 @@ class KeyValueServiceImpl @Autowired constructor(
   override fun save(keyValues: Map<String, String>): Mono<Void> {
     return dao.save(keyValues)
   }
+
+  override fun delete(vararg keys: String): Mono<Void> {
+    return dao.delete(*keys)
+  }
 }

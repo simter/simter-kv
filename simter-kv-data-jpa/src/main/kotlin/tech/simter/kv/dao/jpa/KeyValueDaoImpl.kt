@@ -39,5 +39,13 @@ class KeyValueDaoImpl @Autowired constructor(
     return Mono.empty()
   }
 
+  override fun delete(vararg keys: String): Mono<Void> {
+    return if (keys.isEmpty()) Mono.empty<Void>()
+    else {
+      em.createQuery("delete from KeyValue where key in (:keys)")
+        .setParameter("keys", keys.toList())
+        .executeUpdate()
+      return Mono.empty()
+    }
   }
 }

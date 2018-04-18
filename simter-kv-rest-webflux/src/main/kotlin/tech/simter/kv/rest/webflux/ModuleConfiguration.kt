@@ -10,6 +10,7 @@ import org.springframework.http.MediaType.TEXT_PLAIN
 import org.springframework.web.reactive.config.EnableWebFlux
 import org.springframework.web.reactive.function.server.ServerResponse.ok
 import org.springframework.web.reactive.function.server.router
+import tech.simter.kv.rest.webflux.handler.DeleteKeyValueHandler
 import tech.simter.kv.rest.webflux.handler.FindKeyValueHandler
 import tech.simter.kv.rest.webflux.handler.SaveKeyValueHandler
 
@@ -27,7 +28,8 @@ import tech.simter.kv.rest.webflux.handler.SaveKeyValueHandler
 class ModuleConfiguration @Autowired constructor(
   @Value("\${simter.rest.context-path.kv:/}") private val contextPath: String,
   private val getValueHandler: FindKeyValueHandler,
-  private val saveKeyValueHandler: SaveKeyValueHandler
+  private val saveKeyValueHandler: SaveKeyValueHandler,
+  private val deleteKeyValueHandler: DeleteKeyValueHandler
 ) {
   private val logger = LoggerFactory.getLogger(ModuleConfiguration::class.java)
 
@@ -41,6 +43,8 @@ class ModuleConfiguration @Autowired constructor(
     contextPath.nest {
       // GET /{key}
       FindKeyValueHandler.REQUEST_PREDICATE.invoke(getValueHandler::handle)
+      // DELETE /{key}
+      DeleteKeyValueHandler.REQUEST_PREDICATE.invoke(deleteKeyValueHandler::handle)
       // GET /
       GET("/", { ok().contentType(TEXT_PLAIN).syncBody("simter-kv module") })
       // POST /

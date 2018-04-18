@@ -36,4 +36,12 @@ interface KeyValueDao {
    * @return [Mono] signaling when operation has completed
    */
   fun save(keyValues: Map<String, String>): Mono<Void>
+
+  /**
+   * Delete key-value pairs by key.
+   *
+   * @param[keys] the keys to delete
+   * @return [Mono] signaling when operation has completed
+   */
+  fun delete(vararg keys: String): Mono<Void>
 }

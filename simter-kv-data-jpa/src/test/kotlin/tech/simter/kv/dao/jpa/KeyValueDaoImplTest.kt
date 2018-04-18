@@ -105,4 +105,33 @@ class KeyValueDaoImplTest @Autowired constructor(
       ).isEqualTo(it)
     }
   }
+
+  @Test
+  fun delete() {
+    // 1. none key
+    StepVerifier.create(dao.delete()).verifyComplete()
+
+    // 2. delete not exists key
+    StepVerifier.create(dao.delete(UUID.randomUUID().toString())).verifyComplete()
+
+    // 3. delete exists key
+    // 3.1 prepare data
+    val pos = (1..3).map { KeyValue("k-$it", "v-$it") }
+    pos.forEach { em.persist(it) }
+    em.flush()
+    em.clear()
+
+    // 3.2 invoke
+    val actual = dao.delete(*pos.map { it.key }.toTypedArray())
+
+    // 3.3 verify empty result
+    StepVerifier.create(actual).verifyComplete()
+
+    // 3.4 verify deleted
+    assertEquals(0L,
+      em.createQuery("select count(key) from KeyValue where key in (:keys)")
+        .setParameter("keys", pos.map { it.key })
+        .singleResult
+    )
+  }
 }

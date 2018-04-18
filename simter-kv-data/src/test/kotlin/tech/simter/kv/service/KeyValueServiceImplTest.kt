@@ -147,4 +147,33 @@ class KeyValueServiceImplTest @Autowired constructor(
     StepVerifier.create(actual).expectNext().verifyComplete()
     verify(dao).save(kvs)
   }
+
+  @Test
+  fun deleteOne() {
+    // mock
+    val key = UUID.randomUUID().toString()
+    `when`(dao.delete(key)).thenReturn(Mono.empty())
+
+    // invoke
+    val actual = service.delete(key)
+
+    // verify
+    StepVerifier.create(actual).expectNext().verifyComplete()
+    verify(dao).delete(key)
+  }
+
+  @Test
+  fun deleteMulti() {
+    // mock
+    val keyList = (1..3).map { "k-$it" }
+    val keyArray = keyList.toTypedArray()
+    `when`(dao.delete(*keyArray)).thenReturn(Mono.empty())
+
+    // invoke
+    val actual = service.delete(*keyArray)
+
+    // verify
+    StepVerifier.create(actual).expectNext().verifyComplete()
+    verify(dao).delete(*keyArray)
+  }
 }
