@@ -33,10 +33,7 @@ import tech.simter.kv.service.KeyValueService
  * Response: (if all key not exists)
  *
  * ```
- * 200 OK
- * Content-Type: application/json;charset=UTF-8
- *
- * {}
+ * 204 No Content
  * ```
  *
  * @author RJ
@@ -54,9 +51,7 @@ class FindKeyValueHandler @Autowired constructor(
       .flatMap({
         ok().contentType(MediaType.APPLICATION_JSON_UTF8).syncBody(it)
       })
-      .switchIfEmpty(
-        ok().contentType(MediaType.APPLICATION_JSON_UTF8).syncBody("{}")
-      )
+      .switchIfEmpty(noContent().build())
   }
 
   companion object {

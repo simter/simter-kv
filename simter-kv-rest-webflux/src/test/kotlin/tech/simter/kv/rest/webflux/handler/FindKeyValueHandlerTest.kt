@@ -51,7 +51,7 @@ class FindKeyValueHandlerTest @Autowired constructor(
   }
 
   @Test
-  fun findButNotFound() {
+  fun findOneButNotFound() {
     // mock
     val key = UUID.randomUUID().toString()
     `when`(service.getValue(key)).thenReturn(Mono.empty())
@@ -59,10 +59,7 @@ class FindKeyValueHandlerTest @Autowired constructor(
     // invoke
     client.get().uri("/$key")
       .exchange()
-      .expectStatus().isOk
-      .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
-      .expectBody()
-      .json("{}")
+      .expectStatus().isNoContent
 
     // verify
     verify(service).getValue(key)
@@ -85,6 +82,22 @@ class FindKeyValueHandlerTest @Autowired constructor(
       .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
       .expectBody()
       .json(expectedJson.build().toString())
+
+    // verify
+    verify(service).find(*keyArray)
+  }
+
+  @Test
+  fun findMultiButNotFound() {
+    // mock
+    val keyList = (1..3).map { "k-$it" }
+    val keyArray = keyList.toTypedArray()
+    `when`(service.find(*keyArray)).thenReturn(Mono.empty())
+
+    // invoke
+    client.get().uri("/" + keyList.joinToString(","))
+      .exchange()
+      .expectStatus().isNoContent
 
     // verify
     verify(service).find(*keyArray)
