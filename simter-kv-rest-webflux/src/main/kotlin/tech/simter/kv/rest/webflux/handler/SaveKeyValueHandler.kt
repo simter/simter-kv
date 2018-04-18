@@ -10,9 +10,24 @@ import reactor.core.publisher.Mono
 import tech.simter.kv.service.KeyValueService
 
 /**
- * The [HandlerFunction] for save or update a key-value pair.
+ * The [HandlerFunction] for save or update key-value pairs.
  *
+ * If the key is exists update its value, otherwise create a ney key-value pair.
  *
+ * Request:
+ *
+ * ```
+ * POST /
+ * Content-Type : application/json;charset=utf-8
+ *
+ * {key1: value1, ...}
+ * ```
+ *
+ * Response:
+ *
+ * ```
+ * 204 No Content
+ * ```
  *
  * @author RJ
  */

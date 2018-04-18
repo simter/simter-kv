@@ -5,31 +5,34 @@ import reactor.core.publisher.Mono
 /**
  * The key-value Service Interface.
  *
+ * This interface is design for all external modules to use.
+ *
  * @author RJ
  */
 interface KeyValueService {
   /**
-   * Get value of the specific key.
+   * Retrieves a value by key.
    *
    * @param[key] the key
-   * @return the value. if the key is not exists, return Mono.empty()
+   * @return [Mono] emitting the the value if key exists or [Mono.empty] otherwise.
    */
-  fun getValue(key: String): Mono<String>
+  fun valueOf(key: String): Mono<String>
 
   /**
-   * Find all key-value pairs by its key.
+   * Find all key-value pairs by keys.
    *
    * @param[keys] the keys
-   * @return the key-value pairs store in a map or a empty map if none matches
+   * @return [Mono] emitting key-value pairs store in a map if at lease one key exists or [Mono.empty] otherwise.
    */
   fun find(vararg keys: String): Mono<Map<String, String>>
 
   /**
-   * Save or update key-value pairs.
+   * Create or update key-value pairs.
    *
-   * If the key-value pair exists, update its value. Otherwise create a new key-value pair.
+   * Update the value if key exists or create a new key-value pair otherwise .
    *
    * @param[keyValues] the key-value pairs to save or update
+   * @return [Mono] signaling when operation has completed
    */
   fun save(keyValues: Map<String, String>): Mono<Void>
 }
