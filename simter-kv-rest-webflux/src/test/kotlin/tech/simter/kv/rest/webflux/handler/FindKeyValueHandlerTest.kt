@@ -36,7 +36,7 @@ class FindKeyValueHandlerTest @Autowired constructor(
     // mock
     val key = UUID.randomUUID().toString()
     val value = "v"
-    `when`(service.getValue(key)).thenReturn(Mono.just(value))
+    `when`(service.valueOf(key)).thenReturn(Mono.just(value))
 
     // invoke
     client.get().uri("/$key")
@@ -47,14 +47,14 @@ class FindKeyValueHandlerTest @Autowired constructor(
       .jsonPath("$.$key").isEqualTo(value)
 
     // verify
-    verify(service).getValue(key)
+    verify(service).valueOf(key)
   }
 
   @Test
   fun findOneButNotFound() {
     // mock
     val key = UUID.randomUUID().toString()
-    `when`(service.getValue(key)).thenReturn(Mono.empty())
+    `when`(service.valueOf(key)).thenReturn(Mono.empty())
 
     // invoke
     client.get().uri("/$key")
@@ -62,7 +62,7 @@ class FindKeyValueHandlerTest @Autowired constructor(
       .expectStatus().isNoContent
 
     // verify
-    verify(service).getValue(key)
+    verify(service).valueOf(key)
   }
 
   @Test

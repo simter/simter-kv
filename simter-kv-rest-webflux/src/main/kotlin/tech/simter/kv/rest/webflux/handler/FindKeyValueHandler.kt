@@ -47,7 +47,7 @@ class FindKeyValueHandler @Autowired constructor(
   override fun handle(request: ServerRequest): Mono<ServerResponse> {
     val keys = request.pathVariable("key").split(",")
     return (
-      if (keys.size == 1) service.getValue(keys[0]).map { mapOf(keys[0] to it) } // {key: value}
+      if (keys.size == 1) service.valueOf(keys[0]).map { mapOf(keys[0] to it) } // {key: value}
       else service.find(*keys.toTypedArray())  // {key1: value1, ...}
       )
       .flatMap({

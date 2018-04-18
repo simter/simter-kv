@@ -1,16 +1,13 @@
 package tech.simter.kv.service
 
 import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.times
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import org.mockito.ArgumentMatchers.anyIterable
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
-import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.test.StepVerifier
 import tech.simter.kv.dao.KeyValueDao
@@ -26,120 +23,128 @@ class KeyValueServiceImplTest @Autowired constructor(
   @Test
   fun getValueSuccess() {
     // mock
-    val kv = KeyValue(UUID.randomUUID().toString(), "v")
-    val expected = Mono.just(kv)
-    `when`(dao.findById(kv.key)).thenReturn(expected)
+    val key = UUID.randomUUID().toString()
+    val value = UUID.randomUUID().toString()
+    val expected = Mono.just(value)
+    `when`(dao.valueOf(key)).thenReturn(expected)
 
     // invoke
-    val actual = service.getValue(kv.key)
+    val actual = service.valueOf(key)
 
     // verify
-    StepVerifier.create(actual).expectNext(kv.value).verifyComplete()
-    verify(dao).findById(kv.key)
+    StepVerifier.create(actual).expectNext(value).verifyComplete()
+    verify(dao).valueOf(key)
   }
 
   @Test
   fun getValueButKeyNotExists() {
     // mock
     val key = UUID.randomUUID().toString()
-    `when`(dao.findById(key)).thenReturn(Mono.empty())
+    `when`(dao.valueOf(key)).thenReturn(Mono.empty())
 
     // invoke
-    val actual = service.getValue(key)
+    val actual = service.valueOf(key)
 
     // verify
     StepVerifier.create(actual).expectNext().verifyComplete()
-    verify(dao).findById(key)
+    verify(dao).valueOf(key)
   }
 
   @Test
   fun findNone() {
+    // mock
+    `when`(dao.find(any())).thenReturn(Mono.empty())
+
     // invoke
     val actual = service.find()
 
     // verify
     StepVerifier.create(actual).expectNext().verifyComplete()
-    verify(dao, times(0)).findById(any())
-    verify(dao, times(0)).findAllById(any())
+    verify(dao).find(any())
   }
 
   @Test
   fun findOne() {
     // mock
-    val expected = KeyValue(UUID.randomUUID().toString(), "v")
-    `when`(dao.findById(expected.key)).thenReturn(Mono.just(expected))
+    val key = UUID.randomUUID().toString()
+    val value = UUID.randomUUID().toString()
+    val expected = mapOf(key to value)
+    `when`(dao.find(key)).thenReturn(Mono.just(expected))
 
     // invoke
-    val actual = service.find(expected.key)
+    val actual = service.find(key)
 
     // verify
     StepVerifier.create(actual)
       .consumeNextWith {
         assertEquals(1, it.size)
         val first = it.entries.first()
-        assertEquals(expected.key, first.key)
-        assertEquals(expected.value, first.value)
+        assertEquals(key, first.key)
+        assertEquals(value, first.value)
       }
       .verifyComplete()
-    verify(dao).findById(expected.key)
+    verify(dao).find(key)
   }
 
   @Test
   fun findMulti() {
     // mock
-    val expected = (1..3).map { KeyValue("k-$it", "v-$it") }
-    `when`(dao.findAllById(anyIterable())).thenReturn(Flux.fromIterable(expected))
+    val kvs = (1..3).map { KeyValue("k-$it", "v-$it") }.associate { it.key to it.value }
+    val expected = Mono.just(kvs)
+    `when`(dao.find(any())).thenReturn(expected)
 
     // invoke
-    val actual = service.find(*expected.map { it.key }.toTypedArray())
+    val actual = service.find(*kvs.keys.toTypedArray())
 
     // verify
     StepVerifier.create(actual)
       .consumeNextWith { actualMap ->
-        assertEquals(expected.size, actualMap.size)
-        expected.associate { it.key to it.value }.forEach { assertEquals(it.value, actualMap[it.key]) }
+        assertEquals(kvs.size, actualMap.size)
+        kvs.forEach { assertEquals(it.value, actualMap[it.key]) }
       }
       .verifyComplete()
-    verify(dao).findAllById(anyIterable())
+    verify(dao).find(any())
   }
 
   @Test
   fun saveNone() {
+    // mock
+    val none = mapOf<String, String>()
+    `when`(dao.save(none)).thenReturn(Mono.empty())
+
     // invoke
-    val actual = service.save(mapOf())
+    val actual = service.save(none)
 
     // verify
     StepVerifier.create(actual).expectNext().verifyComplete()
-    verify(dao, times(0)).save(any())
-    verify(dao, times(0)).saveAll(any())
+    verify(dao).save(none)
   }
 
   @Test
   fun saveOne() {
     // mock
     val kv = mapOf(UUID.randomUUID().toString() to "v")
-    val expected = Mono.just(kv).map { KeyValue(it.entries.first().key, it.entries.first().value) }
-    `when`(dao.save(any())).thenReturn(expected)
+    `when`(dao.save(kv)).thenReturn(Mono.empty())
 
     // invoke
     val actual = service.save(kv)
 
     // verify
     StepVerifier.create(actual).expectNext().verifyComplete()
-    verify(dao).save(any())
+    verify(dao).save(kv)
   }
 
   @Test
   fun saveMulti() {
     // mock
-    val kvs = Flux.fromIterable((1..3).map { KeyValue("k-$it", "v-$it") })
-    `when`(dao.saveAll(any())).thenReturn(kvs)
+    val kvs = (1..3).map { KeyValue("k-$it", "v-$it") }.associate { it.key to it.value }
+    `when`(dao.save(kvs)).thenReturn(Mono.empty())
 
     // invoke
-    val actual = service.save(kvs.collectMap({ it.key }, { it.value }).block()!!)
+    val actual = service.save(kvs)
 
     // verify
     StepVerifier.create(actual).expectNext().verifyComplete()
-    verify(dao).saveAll(any())
+    verify(dao).save(kvs)
   }
 }

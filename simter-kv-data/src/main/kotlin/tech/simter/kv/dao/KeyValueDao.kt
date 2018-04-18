@@ -1,47 +1,39 @@
 package tech.simter.kv.dao
 
-import org.springframework.data.repository.Repository
-import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import tech.simter.kv.po.KeyValue
+import tech.simter.kv.service.KeyValueService
 
 /**
- * The Key-Value Service Interface.
+ * The Key-Value Dao Interface.
+ *
+ * This interface should only be use by [KeyValueService]. It is design to public just for multiple Dao implements.
  *
  * @author RJ
  */
-interface KeyValueDao : Repository<KeyValue, String> {
+interface KeyValueDao {
   /**
-   *  Retrieves a [KeyValue] by its id.
+   * Retrieves a value by key.
    *
-   *  @param[id] the id for matching.
-   *  @return [Mono] emitting the [KeyValue] with the given key or [Mono.empty] if none found.
+   * @param[key] the key
+   * @return [Mono] emitting the the value if key exists or [Mono.empty] otherwise.
    */
-  fun findById(id: String): Mono<KeyValue>
+  fun valueOf(key: String): Mono<String>
 
   /**
-   * Find all key-value pairs by its key.
+   * Find all key-value pairs by keys.
    *
-   * @param[ids] the keys
-   * @return the key-value pairs
+   * @param[keys] the keys
+   * @return [Mono] emitting key-value pairs store in a map if at lease one key exists or [Mono.empty] otherwise.
    */
-  fun findAllById(ids: Iterable<String>): Flux<KeyValue>
+  fun find(vararg keys: String): Mono<Map<String, String>>
 
   /**
-   * Save a given [KeyValue].
+   * Create or update key-value pairs.
    *
-   * @param[entity] the [KeyValue] to save
-   * @return [Mono] emitting the saved [KeyValue]
+   * Update the value if key exists or create a new key-value pair otherwise .
+   *
+   * @param[keyValues] the key-value pairs to save or update
+   * @return [Mono] signaling when operation has completed
    */
-  fun save(entity: KeyValue): Mono<KeyValue>
-
-  /**
-   * Save or update key-value pairs.
-   *
-   * If the key-value pair exists, update its value. Otherwise create a new key-value pair.
-   *
-   * @param[kvs] the key-value pairs to save or update
-   * @return [Flux] emitting the saved [KeyValue] pairs
-   */
-  fun saveAll(kvs: Flux<KeyValue>): Flux<KeyValue>
+  fun save(keyValues: Map<String, String>): Mono<Void>
 }
