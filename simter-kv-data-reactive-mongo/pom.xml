@@ -7,9 +7,9 @@
     <version>${revision}</version>
     <relativePath>../simter-kv-parent</relativePath>
   </parent>
-  <artifactId>simter-kv-data</artifactId>
+  <artifactId>simter-kv-data-reactive-mongo</artifactId>
   <packaging>jar</packaging>
-  <description>Simter Key-Value Data</description>
+  <description>The Dao Implementation By Reactive MongoDB</description>
   <developers>
     <developer>
       <name>RJ.Hwang</name>
@@ -18,34 +18,12 @@
   </developers>
   <dependencies>
     <dependency>
-      <groupId>org.springframework.data</groupId>
-      <artifactId>spring-data-commons</artifactId>
+      <groupId>tech.simter</groupId>
+      <artifactId>simter-kv-data</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework.data</groupId>
-      <artifactId>spring-data-mongodb</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate.javax.persistence</groupId>
-      <artifactId>hibernate-jpa-2.1-api</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>io.projectreactor</groupId>
-      <artifactId>reactor-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-tx</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webflux</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
     </dependency>
   </dependencies>
   <profiles>
@@ -58,6 +36,11 @@
         <dependency>
           <groupId>io.projectreactor</groupId>
           <artifactId>reactor-test</artifactId>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>de.flapdoodle.embed</groupId>
+          <artifactId>de.flapdoodle.embed.mongo</artifactId>
           <scope>test</scope>
         </dependency>
       </dependencies>

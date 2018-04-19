@@ -1,8 +1,8 @@
 package tech.simter.kv.po
 
+import org.springframework.data.mongodb.core.mapping.Document
 import javax.persistence.Column
 import javax.persistence.Entity
-import javax.persistence.Id
 import javax.persistence.Table
 
 /**
@@ -11,9 +11,12 @@ import javax.persistence.Table
  * @author RJ
  */
 @Entity
-@Table(name = "ST_KV")
+@Table(name = "st_kv")
+@Document(collection="st_kv")
 data class KeyValue(
-  @Id @Column(length = 100)
+  @javax.persistence.Id
+  @org.springframework.data.annotation.Id
+  @Column(length = 100)
   val key: String,
   val value: String
 )
