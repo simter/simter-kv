@@ -8,10 +8,7 @@ import java.util.*
 import javax.json.Json
 
 /**
- * 实际环境的集成测试。
- *
- * see [WebClientIntegrationTests](https://github.com/spring-projects/spring-framework/blob/v5.0.5.RELEASE/spring-webflux/src/test/java/org/springframework/web/reactive/function/client/WebClientIntegrationTests.java)
- *
+ * Run test in the real server.
  * @author RJ
  */
 @Disabled

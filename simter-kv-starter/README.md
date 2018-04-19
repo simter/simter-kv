@@ -10,12 +10,14 @@
 
 ## Maven Profiles
 
-Environment | Profile | Persistence  | Remark
-------------|---------|--------------|--------
-Development |dev      | [HyperSQL]   | JPA
-Production  |prod     | [PostgreSQL] | JPA
+Environment | Profile            | Persistence        | Remark
+------------|--------------------|--------------------|--------
+Development |dev-reactive-mongo  | [Embedded MongoDB] | Reactive
+Development |dev-jpa-hsql        | [HyperSQL]         | JPA
+Production  |prod-reactive-mongo | [MongoDB]          | Reactive
+Production  |prod-jpa-postgres   | [PostgreSQL]       | JPA
 
-The default profile is `dev`. Run bellow command to start:
+The default profile is `dev-reactive-mongo`. Run bellow command to start:
 
 ```bash
 mvn spring-boot:run -P {profile-name}
@@ -43,7 +45,7 @@ mvn spring-boot:run -D port=8081
 ## Build Production
 
 ```bash
-mvn clean package -P prod
+mvn clean package -P prod-{xxx}
 ```
 
 ## Run Production
@@ -54,6 +56,14 @@ java -jar {package-name}.jar
 # or
 nohup java -jar {package-name}.jar > /dev/null &
 ```
+## Run Integration Test
 
+Run test in the real server.
+
+1. Start server. Such as `mvn spring-boot:run`
+2. Run [IntegrationTest.kt](https://github.com/simter/simter-kv/blob/master/simter-kv-starter/src/test/kotlin/tech/simter/kv/starter/IntegrationTest.kt)
+
+[Embedded MongoDB]: https://github.com/flapdoodle-oss/de.flapdoodle.embed.mongo#embedded-mongodb
+[MongoDB]: https://www.mongodb.com
 [HyperSQL]: http://hsqldb.org
 [PostgreSQL]: https://www.postgresql.org
