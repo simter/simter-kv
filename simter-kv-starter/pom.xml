@@ -13,6 +13,14 @@
   <packaging>jar</packaging>
   <description>Simter Key-Value Starter</description>
   <properties>
+    <db.platform>no-name</db.platform>
+    <db.init-mode>never</db.init-mode>
+    <db.ddl-auto>none</db.ddl-auto>
+    <db.host>localhost</db.host>
+    <db.port>~</db.port>
+    <db.name>test_kv</db.name>
+    <db.username>test</db.username>
+    <db.password>password</db.password>
   </properties>
   <dependencies>
     <dependency>
@@ -161,10 +169,49 @@
   </build>
   <profiles>
     <profile>
+      <id>dev-reactive-mongo</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <spring-active-profiles>dev,db-mongo-embed</spring-active-profiles>
+        <db.platform>mongo-embed</db.platform>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>tech.simter</groupId>
+          <artifactId>simter-kv-data-reactive-mongo</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>de.flapdoodle.embed</groupId>
+          <artifactId>de.flapdoodle.embed.mongo</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>prod-reactive-mongo</id>
+      <properties>
+        <kotlin.compiler.incremental>false</kotlin.compiler.incremental>
+        <spring-active-profiles>prod,db-mongo</spring-active-profiles>
+        <db.host>localhost</db.host>
+        <db.port>27017</db.port>
+        <db.name>st_kv</db.name>
+        <db.username>kv</db.username>
+        <db.password>password</db.password>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>tech.simter</groupId>
+          <artifactId>simter-kv-data-reactive-mongo</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
       <!-- development environment: spring-boot + webflux + hibernate-jpa + postgres) -->
       <id>dev-jpa-hsql</id>
       <activation>
-        <activeByDefault>true</activeByDefault>
+        <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
         <spring-active-profiles>dev,db-hsql</spring-active-profiles>

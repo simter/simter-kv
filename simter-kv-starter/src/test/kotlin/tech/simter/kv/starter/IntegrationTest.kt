@@ -75,11 +75,22 @@ class IntegrationTest {
   }
 
   private fun save(map: Map<String, String>) {
+    // invoke save
     webClient.post().uri(contextPath)
       .contentType(MediaType.APPLICATION_JSON_UTF8)
       .syncBody(map2JsonString(map))
       .exchange()
       .expectStatus().isNoContent
+
+    // verify saved
+    if (!map.isEmpty()) {
+      webClient.get().uri("$contextPath/" + map.keys.joinToString(","))
+        .exchange()
+        .expectStatus().isOk
+        .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+        .expectBody()
+        .json(map2JsonString(map))
+    }
   }
 
   private fun map2JsonString(map: Map<String, String>): String {
@@ -88,5 +99,39 @@ class IntegrationTest {
       map.forEach { json.add(it.key, it.value) }
       json.build().toString()
     }
+  }
+
+  @Test
+  fun deleteNotExistsKey() {
+    val key = UUID.randomUUID().toString()
+    webClient.delete().uri("$contextPath/$key").exchange().expectStatus().isNoContent
+  }
+
+  @Test
+  fun deleteOne() {
+    // prepare data
+    val key = UUID.randomUUID().toString()
+    val value = "v"
+    val map = mapOf(key to value)
+    save(map)
+
+    // invoke delete
+    webClient.delete().uri("$contextPath/$key").exchange().expectStatus().isNoContent
+
+    // verify deleted
+    webClient.get().uri("$contextPath/$key").exchange().expectStatus().isNoContent
+  }
+
+  @Test
+  fun deleteMulti() {
+    // prepare data
+    val map = (1..3).associate { "k-$it" to "v-$it" }
+    save(map)
+
+    // invoke delete
+    webClient.delete().uri("$contextPath/" + map.keys.joinToString(",")).exchange().expectStatus().isNoContent
+
+    // verify deleted
+    webClient.get().uri("$contextPath/" + map.keys.joinToString(",")).exchange().expectStatus().isNoContent
   }
 }
