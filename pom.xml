@@ -36,6 +36,7 @@
     <module>simter-kv-parent</module>
     <module>simter-kv-data</module>
     <module>simter-kv-data-jpa</module>
+    <module>simter-kv-data-reactive-mongo</module>
     <module>simter-kv-rest-webflux</module>
     <module>simter-kv-starter</module>
   </modules>
