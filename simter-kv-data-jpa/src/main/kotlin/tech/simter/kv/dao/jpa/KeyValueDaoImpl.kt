@@ -8,7 +8,6 @@ import tech.simter.kv.po.KeyValue
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
-
 /**
  * The JPA implementation of [KeyValueDao].
  *

@@ -26,6 +26,7 @@ class KeyValueDaoImplTest @Autowired constructor(
   fun valueOf() {
     // verify not exists
     StepVerifier.create(dao.valueOf(UUID.randomUUID().toString()))
+      .expectNextCount(0L)
       .verifyComplete()
 
     // prepare data
@@ -43,26 +44,26 @@ class KeyValueDaoImplTest @Autowired constructor(
   @Test
   fun find() {
     // 1. none key
-    StepVerifier.create(dao.find()).verifyComplete()
+    StepVerifier.create(dao.find()).expectNextCount(0L).verifyComplete()
 
     // 2. not found
-    StepVerifier.create(dao.find(UUID.randomUUID().toString())).verifyComplete()
+    StepVerifier.create(dao.find(UUID.randomUUID().toString())).expectNextCount(0L).verifyComplete()
 
     // 3. found
     // 3.1 prepare data
-    val kvs = (1..3).map { KeyValue("k-$it", "v-$it") }
-    kvs.forEach { em.persist(it) }
+    val pos = (1..3).map { KeyValue("k-$it", "v-$it") }
+    pos.forEach { em.persist(it) }
     em.flush()
     em.clear()
 
     // 3.2 invoke
-    val actual = dao.find(*kvs.map { it.key }.toTypedArray())
+    val actual = dao.find(*pos.map { it.key }.toTypedArray())
 
     // 3.3 verify
     StepVerifier.create(actual)
       .consumeNextWith { actualMap ->
-        assertEquals(kvs.size, actualMap.size)
-        kvs.forEach { assertEquals(it.value, actualMap[it.key]) }
+        assertEquals(pos.size, actualMap.size)
+        pos.forEach { assertEquals(it.value, actualMap[it.key]) }
       }
       .verifyComplete()
   }
@@ -71,7 +72,7 @@ class KeyValueDaoImplTest @Autowired constructor(
   fun saveNone() {
     val none = mapOf<String, String>()
     val actual = dao.save(none)
-    StepVerifier.create(actual).verifyComplete()
+    StepVerifier.create(actual).expectNextCount(0L).verifyComplete()
   }
 
   @Test
@@ -79,10 +80,10 @@ class KeyValueDaoImplTest @Autowired constructor(
     val po = KeyValue(UUID.randomUUID().toString(), "v")
     val actual = dao.save(mapOf(po.key to po.value))
 
-    // verify empty result
-    StepVerifier.create(actual).verifyComplete()
+    // verify result
+    StepVerifier.create(actual).expectNextCount(0L).verifyComplete()
 
-    // verify persistence
+    // verify saved
     assertThat(
       em.createQuery("select a from KeyValue a where key = :key", KeyValue::class.java)
         .setParameter("key", po.key).singleResult
@@ -90,14 +91,14 @@ class KeyValueDaoImplTest @Autowired constructor(
   }
 
   @Test
-  fun saveAll() {
+  fun saveMulti() {
     val pos = (1..3).map { KeyValue("k-$it", "v-$it") }
     val actual = dao.save(pos.associate { it.key to it.value })
 
-    // verify empty result
-    StepVerifier.create(actual).verifyComplete()
+    // verify result
+    StepVerifier.create(actual).expectNextCount(0L).verifyComplete()
 
-    // verify persistence
+    // verify saved
     pos.forEach {
       assertThat(
         em.createQuery("select a from KeyValue a where key = :key", KeyValue::class.java)
@@ -109,10 +110,10 @@ class KeyValueDaoImplTest @Autowired constructor(
   @Test
   fun delete() {
     // 1. none key
-    StepVerifier.create(dao.delete()).verifyComplete()
+    StepVerifier.create(dao.delete()).expectNextCount(0L).verifyComplete()
 
     // 2. delete not exists key
-    StepVerifier.create(dao.delete(UUID.randomUUID().toString())).verifyComplete()
+    StepVerifier.create(dao.delete(UUID.randomUUID().toString())).expectNextCount(0L).verifyComplete()
 
     // 3. delete exists key
     // 3.1 prepare data
@@ -125,7 +126,7 @@ class KeyValueDaoImplTest @Autowired constructor(
     val actual = dao.delete(*pos.map { it.key }.toTypedArray())
 
     // 3.3 verify empty result
-    StepVerifier.create(actual).verifyComplete()
+    StepVerifier.create(actual).expectNextCount(0L).verifyComplete()
 
     // 3.4 verify deleted
     assertEquals(0L,
