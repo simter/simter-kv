@@ -12,7 +12,7 @@
   <artifactId>simter-kv-build</artifactId>
   <version>${revision}</version>
   <packaging>pom</packaging>
-  <description>Simter Key-Value Build</description>
+  <description>Builder</description>
   <properties>
     <revision>0.1.0-SNAPSHOT</revision>
     <simter-kv.version>0.1.0-SNAPSHOT</simter-kv.version>
@@ -49,8 +49,8 @@
               <updatePomFile>true</updatePomFile>
               <flattenMode>oss</flattenMode>
               <pomElements>
-                <parent>keep</parent>
-                <modules>keep</modules>
+                <parent>resolve</parent>
+                <modules>remove</modules>
                 <properties>interpolate</properties>
               </pomElements>
             </configuration>

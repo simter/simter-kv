@@ -9,7 +9,7 @@
   </parent>
   <artifactId>simter-kv-data-reactive-mongo</artifactId>
   <packaging>jar</packaging>
-  <description>The Dao Implementation By Reactive MongoDB</description>
+  <description>Dao Implementation By Reactive MongoDB</description>
   <developers>
     <developer>
       <name>RJ.Hwang</name>

@@ -9,7 +9,7 @@
   </parent>
   <artifactId>simter-kv-parent</artifactId>
   <packaging>pom</packaging>
-  <description>Simter Key-Value Parent</description>
+  <description>Parent</description>
   <developers>
     <developer>
       <name>RJ.Hwang</name>
@@ -99,19 +99,19 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>${junit.jupiter.version}</version>
+      <version>${junit5.jupiter.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>${junit.jupiter.version}</version>
+      <version>${junit5.jupiter.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-runner</artifactId>
-      <version>${junit.platform.version}</version>
+      <version>${junit5.platform.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -201,12 +201,14 @@
               <updatePomFile>true</updatePomFile>
               <flattenMode>clean</flattenMode>
               <pomElements>
+                <parent>resolve</parent>
                 <name>keep</name>
                 <description>keep</description>
-                <parent>expand</parent>
-                <dependencyManagement>interpolate</dependencyManagement>
-                <dependencies>interpolate</dependencies>
+                <dependencyManagement>keep</dependencyManagement>
+                <dependencies>keep</dependencies>
+                <pluginManagement>keep</pluginManagement>
                 <developers>keep</developers>
+                <properties>interpolate</properties>
               </pomElements>
             </configuration>
           </execution>

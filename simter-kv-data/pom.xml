@@ -9,7 +9,7 @@
   </parent>
   <artifactId>simter-kv-data</artifactId>
   <packaging>jar</packaging>
-  <description>Simter Key-Value Data</description>
+  <description>Data API</description>
   <developers>
     <developer>
       <name>RJ.Hwang</name>

@@ -9,15 +9,13 @@
   </parent>
   <artifactId>simter-kv-dependencies</artifactId>
   <packaging>pom</packaging>
-  <description>Simter Key-Value Dependencies</description>
+  <description>Dependencies</description>
   <developers>
     <developer>
       <name>RJ.Hwang</name>
       <email>rongjihuang@gmail.com</email>
     </developer>
   </developers>
-  <properties>
-  </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -164,15 +162,14 @@
             </goals>
             <configuration>
               <updatePomFile>false</updatePomFile>
-              <outputDirectory>${project.build.directory}/effective-pom</outputDirectory>
-              <flattenedPomFilename>simter-kv-dependencies.xml</flattenedPomFilename>
+              <outputDirectory>${project.build.directory}</outputDirectory>
+              <flattenedPomFilename>flattened-pom.xml</flattenedPomFilename>
               <flattenMode>oss</flattenMode>
               <pomElements>
-                <dependencyManagement>resolve</dependencyManagement>
+                <dependencyManagement>interpolate</dependencyManagement>
                 <dependencies>interpolate</dependencies>
                 <pluginManagement>interpolate</pluginManagement>
-                <properties>remove</properties>
-                <repositories>remove</repositories>
+                <properties>interpolate</properties>
               </pomElements>
             </configuration>
           </execution>
@@ -189,13 +186,14 @@
               <updatePomFile>true</updatePomFile>
               <flattenMode>clean</flattenMode>
               <pomElements>
+                <parent>resolve</parent>
                 <name>keep</name>
                 <description>keep</description>
-                <dependencyManagement>resolve</dependencyManagement>
-                <dependencies>interpolate</dependencies>
-                <pluginManagement>interpolate</pluginManagement>
+                <dependencyManagement>keep</dependencyManagement>
+                <dependencies>keep</dependencies>
+                <pluginManagement>keep</pluginManagement>
                 <developers>keep</developers>
-                <properties>resolve</properties>
+                <properties>interpolate</properties>
               </pomElements>
             </configuration>
           </execution>

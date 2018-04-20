@@ -9,7 +9,7 @@
   </parent>
   <artifactId>simter-kv-data-jpa</artifactId>
   <packaging>jar</packaging>
-  <description>The Dao Implementation By JPA</description>
+  <description>Dao Implementation By JPA</description>
   <developers>
     <developer>
       <name>RJ.Hwang</name>
