@@ -61,7 +61,7 @@
       <dependency>
         <groupId>tech.simter</groupId>
         <artifactId>simter-kv-dependencies</artifactId>
-        <version>${revision}</version>
+        <version>${simter-kv.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
