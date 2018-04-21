@@ -11,7 +11,7 @@
   <artifactId>simter-kv-starter</artifactId>
   <version>${revision}</version>
   <packaging>jar</packaging>
-  <description>Starter</description>
+  <description>Microservice Starter</description>
   <properties>
     <db.platform>no-name</db.platform>
     <db.init-mode>never</db.init-mode>

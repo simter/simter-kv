@@ -50,6 +50,7 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+      <!-- simter base modules -->
       <dependency>
         <groupId>tech.simter</groupId>
         <artifactId>simter-dependencies</artifactId>
