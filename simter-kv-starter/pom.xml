@@ -116,55 +116,6 @@
           <useDefaultDelimiters>false</useDefaultDelimiters>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>flatten-maven-plugin</artifactId>
-        <inherited>false</inherited>
-        <executions>
-          <execution>
-            <id>flatten</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>flatten</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.directory}</outputDirectory>
-              <flattenedPomFilename>flattened-pom.xml</flattenedPomFilename>
-              <updatePomFile>true</updatePomFile>
-              <flattenMode>oss</flattenMode>
-              <pomElements>
-                <parent>expand</parent>
-              </pomElements>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>pl.project13.maven</groupId>
-        <artifactId>git-commit-id-plugin</artifactId>
-        <version>2.2.4</version>
-        <executions>
-          <execution>
-            <id>get-the-git-infos</id>
-            <phase>process-sources</phase>
-            <goals>
-              <goal>revision</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <verbose>false</verbose>
-          <runOnlyOnce>false</runOnlyOnce>
-          <failOnNoGitDirectory>false</failOnNoGitDirectory>
-          <dateFormat>yyyy-MM-dd'T'HH:mm:ssZ</dateFormat>
-          <generateGitPropertiesFile>true</generateGitPropertiesFile>
-          <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
   <profiles>
@@ -208,7 +159,7 @@
       </dependencies>
     </profile>
     <profile>
-      <!-- development environment: spring-boot + webflux + hibernate-jpa + postgres) -->
+      <!-- development environment: spring-boot + webflux + hibernate-jpa + hsql) -->
       <id>dev-jpa-hsql</id>
       <activation>
         <activeByDefault>false</activeByDefault>
@@ -265,7 +216,7 @@
         <db.ddl-auto>none</db.ddl-auto>
         <db.host>localhost</db.host>
         <db.port>5432</db.port>
-        <db.name>kv</db.name>
+        <db.name>st_kv</db.name>
         <db.username>kv</db.username>
         <db.password>password</db.password>
       </properties>

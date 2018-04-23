@@ -3,6 +3,7 @@
 ## Requirement
 
 - Maven 3.5.2+
+- Kotlin 1.2.31+
 - Java 8+
 - Spring Framework 5+
 - Spring Boot 2+
@@ -56,14 +57,16 @@ java -jar {package-name}.jar
 # or
 nohup java -jar {package-name}.jar > /dev/null &
 ```
+
 ## Run Integration Test
 
 Run test in the real server.
 
 1. Start server. Such as `mvn spring-boot:run`
-2. Run [IntegrationTest.kt](https://github.com/simter/simter-kv/blob/master/simter-kv-starter/src/test/kotlin/tech/simter/kv/starter/IntegrationTest.kt)
+2. Run [IntegrationTest.kt]
 
 [Embedded MongoDB]: https://github.com/flapdoodle-oss/de.flapdoodle.embed.mongo#embedded-mongodb
 [MongoDB]: https://www.mongodb.com
 [HyperSQL]: http://hsqldb.org
 [PostgreSQL]: https://www.postgresql.org
+[IntegrationTest.kt]: https://github.com/simter/simter-kv/blob/master/simter-kv-starter/src/test/kotlin/tech/simter/kv/starter/IntegrationTest.kt
