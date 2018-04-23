@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
-import org.springframework.test.web.reactive.server.WebTestClient
+import org.springframework.test.web.reactive.server.WebTestClient.bindToRouterFunction
 import org.springframework.web.reactive.config.EnableWebFlux
 import org.springframework.web.reactive.function.server.RouterFunctions.route
 import reactor.core.publisher.Mono
@@ -27,9 +27,7 @@ class FindKeyValueHandlerTest @Autowired constructor(
   private val service: KeyValueService,
   handler: FindKeyValueHandler
 ) {
-  private val client = WebTestClient.bindToRouterFunction(
-    route(REQUEST_PREDICATE, handler)
-  ).build()
+  private val client = bindToRouterFunction(route(REQUEST_PREDICATE, handler)).build()
 
   @Test
   fun findOne() {

@@ -12,7 +12,7 @@ private const val MODULE_PACKAGE = "tech.simter.kv.dao.jpa"
  *
  * @author RJ
  */
-@Configuration("tech.simter.kv.dao.jpa.ModuleConfiguration")
+@Configuration("$MODULE_PACKAGE.ModuleConfiguration")
 @ComponentScan(MODULE_PACKAGE)
 @EnableJpaRepositories(MODULE_PACKAGE)
 @EntityScan(basePackages = ["tech.simter.kv.po"])

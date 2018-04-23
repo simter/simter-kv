@@ -14,7 +14,7 @@ interface KeyValueService {
    * Retrieves a value by key.
    *
    * @param[key] the key
-   * @return [Mono] emitting the the value if key exists or [Mono.empty] otherwise.
+   * @return [Mono] emitting the the value if key exists or [Mono.empty] otherwise
    */
   fun valueOf(key: String): Mono<String>
 
@@ -22,7 +22,7 @@ interface KeyValueService {
    * Find all key-value pairs by keys.
    *
    * @param[keys] the keys
-   * @return [Mono] emitting key-value pairs store in a map if at lease one key exists or [Mono.empty] otherwise.
+   * @return [Mono] emitting key-value pairs store in a map if at lease one key exists or [Mono.empty] otherwise
    */
   fun find(vararg keys: String): Mono<Map<String, String>>
 

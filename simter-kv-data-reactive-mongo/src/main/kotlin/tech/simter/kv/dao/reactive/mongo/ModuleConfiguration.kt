@@ -17,7 +17,7 @@ private const val MODULE_PACKAGE = "tech.simter.kv.dao.reactive.mongo"
  *
  * @author RJ
  */
-@Configuration("tech.simter.kv.dao.reactive.mongo.ModuleConfiguration")
+@Configuration("$MODULE_PACKAGE.ModuleConfiguration")
 @EnableReactiveMongoRepositories(MODULE_PACKAGE)
 @ComponentScan(MODULE_PACKAGE)
 @EntityScan(basePackages = ["tech.simter.kv.po"])

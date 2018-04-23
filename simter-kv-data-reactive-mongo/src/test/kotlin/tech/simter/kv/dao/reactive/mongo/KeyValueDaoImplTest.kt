@@ -20,7 +20,7 @@ import java.util.*
  * See [SimpleReactiveMongoRepository] implementation.
  * @author RJ
  */
-@SpringJUnitConfig(classes = [ModuleConfiguration::class])
+@SpringJUnitConfig(ModuleConfiguration::class)
 @DataMongoTest
 class KeyValueDaoImplTest @Autowired constructor(
   private val operations: ReactiveMongoOperations,

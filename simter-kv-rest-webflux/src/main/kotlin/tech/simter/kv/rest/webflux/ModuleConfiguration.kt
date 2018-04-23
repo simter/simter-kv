@@ -3,6 +3,7 @@ package tech.simter.kv.rest.webflux
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
@@ -14,6 +15,8 @@ import tech.simter.kv.rest.webflux.handler.DeleteKeyValueHandler
 import tech.simter.kv.rest.webflux.handler.FindKeyValueHandler
 import tech.simter.kv.rest.webflux.handler.SaveKeyValueHandler
 
+private const val MODULE_PACKAGE = "tech.simter.kv.rest.webflux"
+
 /**
  * All configuration for this module.
  *
@@ -22,8 +25,8 @@ import tech.simter.kv.rest.webflux.handler.SaveKeyValueHandler
  *
  * @author RJ
  */
-@Configuration("tech.simter.kv.rest.webflux.ModuleConfiguration")
-@ComponentScan("tech.simter.kv.rest.webflux")
+@Configuration("$MODULE_PACKAGE.ModuleConfiguration")
+@ComponentScan(MODULE_PACKAGE)
 @EnableWebFlux
 class ModuleConfiguration @Autowired constructor(
   @Value("\${simter.rest.context-path.kv:/}") private val contextPath: String,
@@ -38,7 +41,8 @@ class ModuleConfiguration @Autowired constructor(
   }
 
   /** Register a `RouterFunction<ServerResponse>` with all routers for this module */
-  @Bean
+  @Bean("tech.simter.kv.rest.webflux.Routes")
+  @ConditionalOnMissingBean(name = ["tech.simter.kv.rest.webflux.Routes"])
   fun kvRoutes() = router {
     contextPath.nest {
       // GET /{key}

@@ -1,4 +1,4 @@
-package tech.simter.kv.starter
+package tech.simter.kv.starter.webflux
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -16,7 +16,7 @@ import org.springframework.web.reactive.function.server.router
  *
  * @author RJ
  */
-@Configuration("tech.simter.kv.starter.WebFluxConfiguration")
+@Configuration("tech.simter.kv.starter.webflux.WebFluxConfiguration")
 @EnableWebFlux
 class WebFluxConfiguration : WebFluxConfigurer {
   /**

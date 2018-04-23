@@ -17,8 +17,8 @@ Sn | Name                            | Parent                        | Remark
 2  | [simter-kv-dependencies]        | simter-kv-build        | Define global dependencyManagement
 3  | [simter-kv-parent]              | simter-kv-dependencies | All sub modules parent module, Define global dependencies and plugins
 4  | [simter-kv-data]                | simter-kv-parent | Define Service and Dao Interfaces
-5  | [simter-kv-data-jpa]            | simter-kv-parent | Dao Implementation By JPA
-6  | [simter-kv-data-reactive-mongo] | simter-kv-parent | Dao Implementation By Reactive MongoDB
+5  | [simter-kv-data-reactive-mongo] | simter-kv-parent | Dao Implementation By Reactive MongoDB
+6  | [simter-kv-data-jpa]            | simter-kv-parent | Dao Implementation By JPA
 7  | [simter-kv-rest-webflux]        | simter-kv-parent | Rest API By WebFlux
 8  | [simter-kv-starter]             | simter-kv-parent | Microservice Starter
 
