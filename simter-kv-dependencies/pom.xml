@@ -48,13 +48,9 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-      </plugin>
-      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>flatten-maven-plugin</artifactId>
-        <inherited>false</inherited>
+        <inherited>true</inherited>
         <executions>
           <execution>
             <!-- Flatten and simplify our own POM for install/deploy -->
@@ -64,9 +60,6 @@
               <goal>flatten</goal>
             </goals>
             <configuration>
-              <outputDirectory>${project.build.directory}</outputDirectory>
-              <flattenedPomFilename>flattened-pom.xml</flattenedPomFilename>
-              <updatePomFile>true</updatePomFile>
               <flattenMode>clean</flattenMode>
               <pomElements>
                 <parent>resolve</parent>
@@ -77,6 +70,7 @@
                 <pluginManagement>keep</pluginManagement>
                 <developers>keep</developers>
                 <properties>interpolate</properties>
+                <profiles>remove</profiles>
               </pomElements>
             </configuration>
           </execution>

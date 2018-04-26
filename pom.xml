@@ -27,18 +27,6 @@
     <module>simter-kv-starter</module>
   </modules>
   <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
-    <testResources>
-      <testResource>
-        <directory>src/test/resources</directory>
-        <filtering>true</filtering>
-      </testResource>
-    </testResources>
     <pluginManagement>
       <plugins>
         <!-- https://kotlinlang.org/docs/reference/compiler-plugins.html#using-in-maven -->
@@ -50,7 +38,7 @@
           <executions>
             <execution>
               <id>compile</id>
-              <phase>process-sources</phase>
+              <!--<phase>process-sources</phase>-->
               <goals>
                 <goal>compile</goal>
               </goals>
@@ -64,7 +52,7 @@
             </execution>
             <execution>
               <id>test-compile</id>
-              <phase>process-test-sources</phase>
+              <!--<phase>process-test-sources</phase>-->
               <goals>
                 <goal>test-compile</goal>
               </goals>
@@ -80,12 +68,10 @@
           <configuration>
             <jvmTarget>${java.version}</jvmTarget>
             <compilerPlugins>
-              <!-- for the Spring support -->
+              <!-- Spring support: https://kotlinlang.org/docs/reference/compiler-plugins.html#spring-support -->
               <plugin>spring</plugin>
-              <!-- for the JPA support -->
+              <!-- JPA support: https://kotlinlang.org/docs/reference/compiler-plugins.html#jpa-support -->
               <plugin>jpa</plugin>
-              <!-- for no-arg constructor support -->
-              <plugin>no-arg</plugin>
             </compilerPlugins>
           </configuration>
           <dependencies>
@@ -143,7 +129,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>flatten-maven-plugin</artifactId>
-        <inherited>false</inherited>
+        <inherited>true</inherited>
         <executions>
           <execution>
             <id>flatten</id>
