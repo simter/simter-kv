@@ -5,15 +5,15 @@ import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
-private const val MODULE_PACKAGE = "tech.simter.kv.dao.jpa"
+private const val MODULE = "tech.simter.kv"
 
 /**
  * All configuration for this module.
  *
  * @author RJ
  */
-@Configuration("$MODULE_PACKAGE.ModuleConfiguration")
-@ComponentScan(MODULE_PACKAGE)
-@EnableJpaRepositories(MODULE_PACKAGE)
-@EntityScan(basePackages = ["tech.simter.kv.po"])
+@Configuration("$MODULE.dao.jpa.ModuleConfiguration")
+@ComponentScan("$MODULE.dao.jpa")
+@EnableJpaRepositories("$MODULE.dao.jpa")
+@EntityScan("$MODULE.po")
 class ModuleConfiguration

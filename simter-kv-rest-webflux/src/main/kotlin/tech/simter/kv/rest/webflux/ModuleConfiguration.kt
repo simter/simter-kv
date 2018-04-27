@@ -15,7 +15,7 @@ import tech.simter.kv.rest.webflux.handler.DeleteKeyValueHandler
 import tech.simter.kv.rest.webflux.handler.FindKeyValueHandler
 import tech.simter.kv.rest.webflux.handler.SaveKeyValueHandler
 
-private const val MODULE_PACKAGE = "tech.simter.kv.rest.webflux"
+private const val MODULE = "tech.simter.kv.rest.webflux"
 
 /**
  * All configuration for this module.
@@ -25,8 +25,8 @@ private const val MODULE_PACKAGE = "tech.simter.kv.rest.webflux"
  *
  * @author RJ
  */
-@Configuration("$MODULE_PACKAGE.ModuleConfiguration")
-@ComponentScan(MODULE_PACKAGE)
+@Configuration("$MODULE.ModuleConfiguration")
+@ComponentScan(MODULE)
 @EnableWebFlux
 class ModuleConfiguration @Autowired constructor(
   @Value("\${simter.rest.context-path.kv:/}") private val contextPath: String,
@@ -41,8 +41,8 @@ class ModuleConfiguration @Autowired constructor(
   }
 
   /** Register a `RouterFunction<ServerResponse>` with all routers for this module */
-  @Bean("tech.simter.kv.rest.webflux.Routes")
-  @ConditionalOnMissingBean(name = ["tech.simter.kv.rest.webflux.Routes"])
+  @Bean("$MODULE.Routes")
+  @ConditionalOnMissingBean(name = ["$MODULE.Routes"])
   fun kvRoutes() = router {
     contextPath.nest {
       // GET /{key}
