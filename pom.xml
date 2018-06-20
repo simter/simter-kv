@@ -14,7 +14,7 @@
   <packaging>pom</packaging>
   <description>Builder</description>
   <properties>
-    <revision>0.1.0-SNAPSHOT</revision>
+    <revision>0.1.0</revision>
     <simter-kv.version>${revision}</simter-kv.version>
     <dokka.version>0.9.17</dokka.version>
   </properties>
