@@ -28,6 +28,8 @@
     <module>simter-kv-starter</module>
   </modules>
   <build>
+    <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+    <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
     <pluginManagement>
       <plugins>
         <!-- https://kotlinlang.org/docs/reference/compiler-plugins.html#using-in-maven -->
