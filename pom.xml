@@ -16,6 +16,7 @@
   <properties>
     <revision>0.1.0-SNAPSHOT</revision>
     <simter-kv.version>${revision}</simter-kv.version>
+    <dokka.version>0.9.17</dokka.version>
   </properties>
   <modules>
     <module>simter-kv-dependencies</module>
@@ -178,4 +179,44 @@
     <system>github</system>
     <url>https://github.com/simter/simter-kv/issues</url>
   </issueManagement>
+  <profiles>
+    <profile>
+      <id>bintray</id>
+      <distributionManagement>
+        <repository>
+          <id>bintray</id>
+          <url>https://api.bintray.com/maven/simter/maven/${project.groupId}:${project.artifactId}/;publish=1</url>
+        </repository>
+        <snapshotRepository>
+          <id>bintray</id>
+          <url>https://api.bintray.com/maven/simter/maven/${project.groupId}:${project.artifactId}/;publish=1</url>
+        </snapshotRepository>
+      </distributionManagement>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.jetbrains.dokka</groupId>
+            <artifactId>dokka-maven-plugin</artifactId>
+            <version>${dokka.version}</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>javadocJar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
