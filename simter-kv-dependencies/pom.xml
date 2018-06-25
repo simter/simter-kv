@@ -50,7 +50,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>flatten-maven-plugin</artifactId>
-        <inherited>true</inherited>
+        <inherited>false</inherited>
         <executions>
           <execution>
             <!-- Flatten and simplify our own POM for install/deploy -->

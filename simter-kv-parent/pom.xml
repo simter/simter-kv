@@ -3,9 +3,9 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>tech.simter</groupId>
-    <artifactId>simter-kv-dependencies</artifactId>
+    <artifactId>simter-kv-build</artifactId>
     <version>${revision}</version>
-    <relativePath>../simter-kv-dependencies</relativePath>
+    <relativePath>..</relativePath>
   </parent>
   <artifactId>simter-kv-parent</artifactId>
   <packaging>pom</packaging>
@@ -112,6 +112,37 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>flatten-maven-plugin</artifactId>
+        <inherited>true</inherited>
+        <executions>
+          <execution>
+            <!-- Tidy up all POMs before they are published -->
+            <id>flatten</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>flatten</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}</outputDirectory>
+              <flattenedPomFilename>flattened-pom.xml</flattenedPomFilename>
+              <updatePomFile>true</updatePomFile>
+              <flattenMode>clean</flattenMode>
+              <pomElements>
+                <parent>resolve</parent>
+                <properties>interpolate</properties>
+                <dependencyManagement>keep</dependencyManagement>
+                <dependencies>keep</dependencies>
+                <pluginManagement>keep</pluginManagement>
+                <name>resolve</name>
+                <description>resolve</description>
+                <profiles>remove</profiles>
+              </pomElements>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
