@@ -1,3 +1,4 @@
+module.version.simter-kv: @project.version@
 db:
   platform: @db.platform@
   init-mode: @db.init-mode@

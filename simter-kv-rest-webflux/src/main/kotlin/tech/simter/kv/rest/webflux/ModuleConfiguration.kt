@@ -27,7 +27,8 @@ private const val MODULE = "tech.simter.kv.rest.webflux"
 @Configuration("$MODULE.ModuleConfiguration")
 @ComponentScan(MODULE)
 class ModuleConfiguration @Autowired constructor(
-  @Value("\${simter.rest.context-path.kv:/}") private val contextPath: String,
+  @Value("\${module.rest-context-path.simter-kv:/kv}") private val contextPath: String,
+  @Value("\${module.version.simter-kv:UNKNOWN}") private val version: String,
   private val getValueHandler: FindKeyValueHandler,
   private val saveKeyValueHandler: SaveKeyValueHandler,
   private val deleteKeyValueHandler: DeleteKeyValueHandler
@@ -35,7 +36,8 @@ class ModuleConfiguration @Autowired constructor(
   private val logger = LoggerFactory.getLogger(ModuleConfiguration::class.java)
 
   init {
-    logger.warn("simter.rest.context-path.kv='{}'", contextPath)
+    logger.warn("module.version.simter-kv='{}'", version)
+    logger.warn("module.rest-context-path.simter-kv='{}'", contextPath)
   }
 
   /** Register a `RouterFunction<ServerResponse>` with all routers for this module */
@@ -48,7 +50,7 @@ class ModuleConfiguration @Autowired constructor(
       // DELETE /{key}
       DeleteKeyValueHandler.REQUEST_PREDICATE.invoke(deleteKeyValueHandler::handle)
       // GET /
-      GET("/", { ok().contentType(TEXT_PLAIN).syncBody("simter-kv module") })
+      GET("/", { ok().contentType(TEXT_PLAIN).syncBody("simter-kv-$version") })
       // POST /
       SaveKeyValueHandler.REQUEST_PREDICATE.invoke(saveKeyValueHandler::handle)
     }
