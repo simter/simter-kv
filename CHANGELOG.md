@@ -1,5 +1,9 @@
 # simter-kv changelog
 
+## 0.5.0 2019-01-10
+
+- Upgrade to simter platform 1.0.0
+
 ## 0.4.0 2018-12-03
 
 - Upgrade to simter platform 0.7.0 (with jpa-2.2)
