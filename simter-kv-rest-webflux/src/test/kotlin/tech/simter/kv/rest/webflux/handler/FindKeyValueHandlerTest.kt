@@ -1,10 +1,10 @@
 package tech.simter.kv.rest.webflux.handler
 
+import com.ninjasquad.springmockk.MockkBean
+import io.mockk.every
+import io.mockk.verify
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import org.springframework.test.web.reactive.server.WebTestClient.bindToRouterFunction
@@ -22,7 +22,7 @@ import javax.json.Json
  */
 @SpringJUnitConfig(FindKeyValueHandler::class)
 @EnableWebFlux
-@MockBean(KeyValueService::class)
+@MockkBean(KeyValueService::class)
 class FindKeyValueHandlerTest @Autowired constructor(
   private val service: KeyValueService,
   handler: FindKeyValueHandler
@@ -34,7 +34,7 @@ class FindKeyValueHandlerTest @Autowired constructor(
     // mock
     val key = UUID.randomUUID().toString()
     val value = "v"
-    `when`(service.valueOf(key)).thenReturn(Mono.just(value))
+    every { service.valueOf(key) } returns Mono.just(value)
 
     // invoke
     client.get().uri("/$key")
@@ -45,14 +45,14 @@ class FindKeyValueHandlerTest @Autowired constructor(
       .jsonPath("$.$key").isEqualTo(value)
 
     // verify
-    verify(service).valueOf(key)
+    verify(exactly = 1) { service.valueOf(key) }
   }
 
   @Test
   fun findOneButNotFound() {
     // mock
     val key = UUID.randomUUID().toString()
-    `when`(service.valueOf(key)).thenReturn(Mono.empty())
+    every { service.valueOf(key) } returns Mono.empty()
 
     // invoke
     client.get().uri("/$key")
@@ -60,7 +60,7 @@ class FindKeyValueHandlerTest @Autowired constructor(
       .expectStatus().isNoContent
 
     // verify
-    verify(service).valueOf(key)
+    verify(exactly = 1) { service.valueOf(key) }
   }
 
   @Test
@@ -69,7 +69,7 @@ class FindKeyValueHandlerTest @Autowired constructor(
     val kvList = (1..3).map { KeyValue("k-$it", "v-$it") }
     val expected = Mono.just(kvList.associate { it.key to it.value })
     val keyArray = kvList.map { it.key }.toTypedArray()
-    `when`(service.find(*keyArray)).thenReturn(expected)
+    every { service.find(*keyArray) } returns expected
 
     // invoke
     val expectedJson = Json.createObjectBuilder()
@@ -82,7 +82,7 @@ class FindKeyValueHandlerTest @Autowired constructor(
       .json(expectedJson.build().toString())
 
     // verify
-    verify(service).find(*keyArray)
+    verify(exactly = 1) { service.find(*keyArray) }
   }
 
   @Test
@@ -90,7 +90,7 @@ class FindKeyValueHandlerTest @Autowired constructor(
     // mock
     val keyList = (1..3).map { "k-$it" }
     val keyArray = keyList.toTypedArray()
-    `when`(service.find(*keyArray)).thenReturn(Mono.empty())
+    every { service.find(*keyArray) } returns Mono.empty()
 
     // invoke
     client.get().uri("/" + keyList.joinToString(","))
@@ -98,6 +98,6 @@ class FindKeyValueHandlerTest @Autowired constructor(
       .expectStatus().isNoContent
 
     // verify
-    verify(service).find(*keyArray)
+    verify(exactly = 1) { service.find(*keyArray) }
   }
 }

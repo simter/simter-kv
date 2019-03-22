@@ -1,10 +1,10 @@
 package tech.simter.kv.rest.webflux.handler
 
+import com.ninjasquad.springmockk.MockkBean
+import io.mockk.every
+import io.mockk.verify
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import org.springframework.test.web.reactive.server.WebTestClient.bindToRouterFunction
 import org.springframework.web.reactive.config.EnableWebFlux
@@ -19,7 +19,7 @@ import java.util.*
  */
 @SpringJUnitConfig(DeleteKeyValueHandler::class)
 @EnableWebFlux
-@MockBean(KeyValueService::class)
+@MockkBean(KeyValueService::class)
 class DeleteKeyValueHandlerTest @Autowired constructor(
   private val service: KeyValueService,
   handler: DeleteKeyValueHandler
@@ -30,13 +30,13 @@ class DeleteKeyValueHandlerTest @Autowired constructor(
   fun deleteOne() {
     // mock
     val key = UUID.randomUUID().toString()
-    `when`(service.delete(key)).thenReturn(Mono.empty())
+    every { service.delete(key) } returns Mono.empty()
 
     // invoke
     client.delete().uri("/$key").exchange().expectStatus().isNoContent
 
     // verify
-    verify(service).delete(key)
+    verify(exactly = 1) { service.delete(key) }
   }
 
   @Test
@@ -44,12 +44,12 @@ class DeleteKeyValueHandlerTest @Autowired constructor(
     // mock
     val keyList = (1..3).map { "k-$it" }
     val keyArray = keyList.toTypedArray()
-    `when`(service.delete(*keyArray)).thenReturn(Mono.empty())
+    every { service.delete(*keyArray) } returns Mono.empty()
 
     // invoke
     client.delete().uri("/${keyList.joinToString(",")}").exchange().expectStatus().isNoContent
 
     // verify
-    verify(service).delete(*keyArray)
+    verify(exactly = 1) { service.delete(*keyArray) }
   }
 }
