@@ -1,22 +1,27 @@
 package tech.simter.kv.service
 
-import com.nhaarman.mockito_kotlin.any
+import com.ninjasquad.springmockk.MockkBean
+import io.mockk.confirmVerified
+import io.mockk.every
+import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import reactor.core.publisher.Mono
-import reactor.test.StepVerifier
+import reactor.test.test
+import tech.simter.kv.Operation.DELETE
+import tech.simter.kv.Operation.READ
+import tech.simter.kv.Operation.SAVE
 import tech.simter.kv.dao.KeyValueDao
 import tech.simter.kv.po.KeyValue
+import tech.simter.reactive.security.ModuleAuthorizer
 import java.util.*
 
-@SpringJUnitConfig(KeyValueServiceImpl::class)
-@MockBean(KeyValueDao::class)
+@SpringJUnitConfig(ModuleConfiguration::class)
+@MockkBean(KeyValueDao::class, ModuleAuthorizer::class)
 class KeyValueServiceImplTest @Autowired constructor(
+  private val moduleAuthorizer: ModuleAuthorizer,
   private val dao: KeyValueDao,
   private val service: KeyValueService
 ) {
@@ -26,41 +31,38 @@ class KeyValueServiceImplTest @Autowired constructor(
     val key = UUID.randomUUID().toString()
     val value = UUID.randomUUID().toString()
     val expected = Mono.just(value)
-    `when`(dao.valueOf(key)).thenReturn(expected)
+    every { dao.valueOf(key) } returns expected
+    every { moduleAuthorizer.verifyHasPermission(READ) } returns Mono.empty()
 
-    // invoke
-    val actual = service.valueOf(key)
-
-    // verify
-    StepVerifier.create(actual).expectNext(value).verifyComplete()
-    verify(dao).valueOf(key)
+    // invoke and verify
+    service.valueOf(key).test().expectNext(value).verifyComplete()
+    verify(exactly = 1) {
+      moduleAuthorizer.verifyHasPermission(READ)
+      dao.valueOf(key)
+    }
   }
 
   @Test
   fun getValueButKeyNotExists() {
     // mock
     val key = UUID.randomUUID().toString()
-    `when`(dao.valueOf(key)).thenReturn(Mono.empty())
+    every { dao.valueOf(key) } returns Mono.empty()
+    every { moduleAuthorizer.verifyHasPermission(READ) } returns Mono.empty()
 
-    // invoke
-    val actual = service.valueOf(key)
-
-    // verify
-    StepVerifier.create(actual).expectNext().verifyComplete()
-    verify(dao).valueOf(key)
+    // invoke and verify
+    service.valueOf(key).test().expectNext().verifyComplete()
+    verify(exactly = 1) { dao.valueOf(key) }
   }
 
   @Test
   fun findNone() {
     // mock
-    `when`(dao.find(any())).thenReturn(Mono.empty())
+    every { dao.find(*anyVararg()) } returns Mono.empty()
+    every { moduleAuthorizer.verifyHasPermission(READ) } returns Mono.empty()
 
-    // invoke
-    val actual = service.find()
-
-    // verify
-    StepVerifier.create(actual).expectNext().verifyComplete()
-    verify(dao).find(any())
+    // invoke and verify
+    service.find().test().expectNext().verifyComplete()
+    verify(exactly = 1) { dao.find(*anyVararg()) }
   }
 
   @Test
@@ -69,21 +71,19 @@ class KeyValueServiceImplTest @Autowired constructor(
     val key = UUID.randomUUID().toString()
     val value = UUID.randomUUID().toString()
     val expected = mapOf(key to value)
-    `when`(dao.find(key)).thenReturn(Mono.just(expected))
+    every { dao.find(key) } returns Mono.just(expected)
+    every { moduleAuthorizer.verifyHasPermission(READ) } returns Mono.empty()
 
-    // invoke
-    val actual = service.find(key)
-
-    // verify
-    StepVerifier.create(actual)
+    // invoke and verify
+    service.find(key)
+      .test()
       .consumeNextWith {
         assertEquals(1, it.size)
         val first = it.entries.first()
         assertEquals(key, first.key)
         assertEquals(value, first.value)
-      }
-      .verifyComplete()
-    verify(dao).find(key)
+      }.verifyComplete()
+    verify(exactly = 1) { dao.find(key) }
   }
 
   @Test
@@ -91,75 +91,65 @@ class KeyValueServiceImplTest @Autowired constructor(
     // mock
     val kvs = (1..3).map { KeyValue("k-$it", "v-$it") }.associate { it.key to it.value }
     val expected = Mono.just(kvs)
-    `when`(dao.find(any())).thenReturn(expected)
+    every { dao.find(*anyVararg()) } returns expected
+    every { moduleAuthorizer.verifyHasPermission(READ) } returns Mono.empty()
 
-    // invoke
-    val actual = service.find(*kvs.keys.toTypedArray())
-
-    // verify
-    StepVerifier.create(actual)
+    // invoke and verify
+    service.find(*kvs.keys.toTypedArray())
+      .test()
       .consumeNextWith { actualMap ->
         assertEquals(kvs.size, actualMap.size)
         kvs.forEach { assertEquals(it.value, actualMap[it.key]) }
-      }
-      .verifyComplete()
-    verify(dao).find(any())
+      }.verifyComplete()
+    verify(exactly = 1) { dao.find(*anyVararg()) }
   }
 
   @Test
   fun saveNone() {
     // mock
     val none = mapOf<String, String>()
-    `when`(dao.save(none)).thenReturn(Mono.empty())
+    every { dao.save(none) } returns Mono.empty()
+    every { moduleAuthorizer.verifyHasPermission(SAVE) } returns Mono.empty()
 
-    // invoke
-    val actual = service.save(none)
-
-    // verify
-    StepVerifier.create(actual).expectNext().verifyComplete()
-    verify(dao).save(none)
+    // invoke and verify
+    service.save(none).test().expectNext().verifyComplete()
+    verify(exactly = 1) { dao.save(none) }
   }
 
   @Test
   fun saveOne() {
     // mock
     val kv = mapOf(UUID.randomUUID().toString() to "v")
-    `when`(dao.save(kv)).thenReturn(Mono.empty())
+    every { dao.save(kv) } returns Mono.empty()
+    every { moduleAuthorizer.verifyHasPermission(SAVE) } returns Mono.empty()
 
-    // invoke
-    val actual = service.save(kv)
-
-    // verify
-    StepVerifier.create(actual).expectNext().verifyComplete()
-    verify(dao).save(kv)
+    // invoke and verify
+    service.save(kv).test().expectNext().verifyComplete()
+    verify(exactly = 1) { dao.save(kv) }
   }
 
   @Test
   fun saveMulti() {
     // mock
     val kvs = (1..3).map { KeyValue("k-$it", "v-$it") }.associate { it.key to it.value }
-    `when`(dao.save(kvs)).thenReturn(Mono.empty())
+    every { dao.save(kvs) } returns Mono.empty()
+    every { moduleAuthorizer.verifyHasPermission(SAVE) } returns Mono.empty()
 
-    // invoke
-    val actual = service.save(kvs)
-
-    // verify
-    StepVerifier.create(actual).expectNext().verifyComplete()
-    verify(dao).save(kvs)
+    // invoke and verify
+    service.save(kvs).test().expectNext().verifyComplete()
+    verify(exactly = 1) { dao.save(kvs) }
   }
 
   @Test
   fun deleteOne() {
     // mock
     val key = UUID.randomUUID().toString()
-    `when`(dao.delete(key)).thenReturn(Mono.empty())
+    every { dao.delete(key) } returns Mono.empty()
+    every { moduleAuthorizer.verifyHasPermission(DELETE) } returns Mono.empty()
 
-    // invoke
-    val actual = service.delete(key)
-
-    // verify
-    StepVerifier.create(actual).expectNext().verifyComplete()
-    verify(dao).delete(key)
+    // invoke and verify
+    service.delete(key).test().expectNext().verifyComplete()
+    verify(exactly = 1) { dao.delete(key) }
   }
 
   @Test
@@ -167,13 +157,11 @@ class KeyValueServiceImplTest @Autowired constructor(
     // mock
     val keyList = (1..3).map { "k-$it" }
     val keyArray = keyList.toTypedArray()
-    `when`(dao.delete(*keyArray)).thenReturn(Mono.empty())
+    every { dao.delete(*keyArray) } returns Mono.empty()
+    every { moduleAuthorizer.verifyHasPermission(DELETE) } returns Mono.empty()
 
-    // invoke
-    val actual = service.delete(*keyArray)
-
-    // verify
-    StepVerifier.create(actual).expectNext().verifyComplete()
-    verify(dao).delete(*keyArray)
+    // invoke and verify
+    service.delete(*keyArray).test().expectNext().verifyComplete()
+    verify(exactly = 1) { dao.delete(*keyArray) }
   }
 }

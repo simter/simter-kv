@@ -1,12 +1,10 @@
 package tech.simter.kv.rest.webflux.handler
 
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.times
+import com.ninjasquad.springmockk.MockkBean
+import io.mockk.every
+import io.mockk.verify
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import org.springframework.test.web.reactive.server.WebTestClient.bindToRouterFunction
@@ -23,7 +21,7 @@ import javax.json.Json
  */
 @SpringJUnitConfig(SaveKeyValueHandler::class)
 @EnableWebFlux
-@MockBean(KeyValueService::class)
+@MockkBean(KeyValueService::class)
 class SaveKeyValueHandlerTest @Autowired constructor(
   private val service: KeyValueService,
   //moduleRouter: RouterFunction<ServerResponse>,
@@ -41,7 +39,7 @@ class SaveKeyValueHandlerTest @Autowired constructor(
       .expectStatus().isNoContent
 
     // verify
-    verify(service, times(0)).save(any())
+    verify(exactly = 0) { service.save(any()) }
   }
 
   @Test
@@ -50,7 +48,7 @@ class SaveKeyValueHandlerTest @Autowired constructor(
     val key = UUID.randomUUID().toString()
     val value = "v"
     val kv = mapOf(key to value)
-    `when`(service.save(kv)).thenReturn(Mono.empty())
+    every { service.save(kv) } returns Mono.empty()
 
     // invoke
     client.post().uri("/")
@@ -60,7 +58,7 @@ class SaveKeyValueHandlerTest @Autowired constructor(
       .expectStatus().isNoContent
 
     // verify
-    verify(service).save(kv)
+    verify(exactly = 1) { service.save(kv) }
   }
 
   @Test
@@ -69,7 +67,7 @@ class SaveKeyValueHandlerTest @Autowired constructor(
     val kvs = (1..3).associate { "k-$it" to "v-$it" }
     val kvJson = Json.createObjectBuilder()
     kvs.forEach { kvJson.add(it.key, it.value) }
-    `when`(service.save(any())).thenReturn(Mono.empty())
+    every { service.save(any()) } returns Mono.empty()
 
     // invoke
     client.post().uri("/")
@@ -79,6 +77,6 @@ class SaveKeyValueHandlerTest @Autowired constructor(
       .expectStatus().isNoContent
 
     // verify
-    verify(service).save(any())
+    verify(exactly = 1) { service.save(any()) }
   }
 }

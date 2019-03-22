@@ -1,0 +1,11 @@
+spring.main.banner-mode: 'off'
+module.authorization.simter-kv:
+  defaultPermission: "Deny"   # Allow, Deny
+  operations:                 # READ, SAVE, DELETE
+    READ:
+      roles: ["READER"]
+      strategy: "Or"          # And, Or
+    DELETE:
+      roles: ["DELETER", "MANAGER"]
+      strategy: "And"
+    SAVE.roles: "MANAGER"
