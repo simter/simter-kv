@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.SpringBootTest
 import reactor.core.publisher.Mono
 import reactor.test.test
+import tech.simter.kv.OPERATION_DELETE
+import tech.simter.kv.OPERATION_READ
+import tech.simter.kv.OPERATION_SAVE
+import tech.simter.kv.PACKAGE_NAME
 import tech.simter.kv.dao.KeyValueDao
 import tech.simter.reactive.security.ModuleAuthorizer
 import tech.simter.reactive.security.ReactiveSecurityService
@@ -26,7 +30,7 @@ import java.util.*
 class LoadModuleAuthorizerByYmlConfigTest @Autowired constructor(
   private val properties: ModuleAuthorizeProperties,
   private val securityService: ReactiveSecurityService,
-  @Qualifier("$MODULE_PACKAGE.ModuleAuthorizer") private val moduleAuthorizer: ModuleAuthorizer,
+  @Qualifier("$PACKAGE_NAME.service.ModuleAuthorizer") private val moduleAuthorizer: ModuleAuthorizer,
   private val dao: KeyValueDao,
   private val service: KeyValueService
 ) {
@@ -42,17 +46,17 @@ class LoadModuleAuthorizerByYmlConfigTest @Autowired constructor(
     assertNull(properties.operations["NONE"])
 
     // 3. delete
-    var operation = properties.operations.getValue("DELETE")
+    var operation = properties.operations.getValue(OPERATION_DELETE)
     assertEquals(LogicStrategy.And, operation.strategy)
     assertEquals(listOf("DELETER", "MANAGER"), operation.roles)
 
     // 4. save
-    operation = properties.operations.getValue("SAVE")
+    operation = properties.operations.getValue(OPERATION_SAVE)
     assertEquals(LogicStrategy.Or, operation.strategy)
     assertEquals(listOf("MANAGER"), operation.roles)
 
     // 5. read
-    operation = properties.operations.getValue("READ")
+    operation = properties.operations.getValue(OPERATION_READ)
     assertEquals(LogicStrategy.Or, operation.strategy)
     assertEquals(listOf("READER"), operation.roles)
 
