@@ -22,24 +22,27 @@ class DeleteMethodImplTest @Autowired constructor(
   val dao: KeyValueDao
 ) {
   @Test
-  fun delete() {
-    // 1. none key
-    dao.delete().test().expectNextCount(0L).verifyComplete()
+  fun `delete nothing`() {
+    dao.delete().test().verifyComplete()
+  }
 
-    // 2. delete not exists key
-    dao.delete(UUID.randomUUID().toString()).test().expectNextCount(0L).verifyComplete()
+  @Test
+  fun `delete not exists key`() {
+    dao.delete(UUID.randomUUID().toString()).test().verifyComplete()
+  }
 
-    // 3. delete exists key
-    // 3.1 prepare data
+  @Test
+  fun `delete exists key`() {
+    // prepare data
     val pos = (1..3).map { KeyValue("k-$it", "v-$it") }
     pos.forEach { em.persist(it) }
     em.flush()
     em.clear()
 
-    // 3.2 verify empty result
-    dao.delete(*pos.map { it.key }.toTypedArray()).test().expectNextCount(0L).verifyComplete()
+    // verify empty result
+    dao.delete(*pos.map { it.key }.toTypedArray()).test().verifyComplete()
 
-    // 3.4 verify deleted
+    // verify deleted
     assertEquals(0L,
       em.createQuery("select count(key) from KeyValue where key in (:keys)")
         .setParameter("keys", pos.map { it.key })

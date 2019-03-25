@@ -21,13 +21,16 @@ class ValueOfMethodImplTest @Autowired constructor(
   val dao: KeyValueDao
 ) {
   @Test
-  fun valueOf() {
+  fun `key not exists`() {
     // verify not exists
     dao.valueOf(UUID.randomUUID().toString())
       .test()
       .expectNextCount(0L)
       .verifyComplete()
+  }
 
+  @Test
+  fun `key exists`() {
     // prepare data
     val po = KeyValue(UUID.randomUUID().toString(), "v")
     em.persist(po)

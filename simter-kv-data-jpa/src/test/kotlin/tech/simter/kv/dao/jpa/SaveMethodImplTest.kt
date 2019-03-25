@@ -22,13 +22,13 @@ class SaveMethodImplTest @Autowired constructor(
   val dao: KeyValueDao
 ) {
   @Test
-  fun saveNone() {
+  fun `save nothing`() {
     val none = mapOf<String, String>()
     dao.save(none).test().expectNextCount(0L).verifyComplete()
   }
 
   @Test
-  fun saveOne() {
+  fun `save one`() {
     val po = KeyValue(UUID.randomUUID().toString(), "v")
     dao.save(mapOf(po.key to po.value)).test().expectNextCount(0L).verifyComplete()
 
@@ -40,7 +40,7 @@ class SaveMethodImplTest @Autowired constructor(
   }
 
   @Test
-  fun saveMulti() {
+  fun `save many`() {
     val pos = (1..3).map { KeyValue("k-$it", "v-$it") }
 
     // verify result

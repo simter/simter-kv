@@ -22,21 +22,24 @@ class FindMethodImplTest @Autowired constructor(
   val dao: KeyValueDao
 ) {
   @Test
-  fun find() {
-    // 1. none key
+  fun `find nothing`() {
     dao.find().test().expectNextCount(0L).verifyComplete()
+  }
 
-    // 2. not found
+  @Test
+  fun `find not exists key`() {
     dao.find(UUID.randomUUID().toString()).test().expectNextCount(0L).verifyComplete()
+  }
 
-    // 3. found
-    // 3.1 prepare data
+  @Test
+  fun `find exists key`() {
+    // prepare data
     val pos = (1..3).map { KeyValue("k-$it", "v-$it") }
     pos.forEach { em.persist(it) }
     em.flush()
     em.clear()
 
-    // 3.2 invoke and verify
+    // invoke and verify
     dao.find(*pos.map { it.key }.toTypedArray())
       .test()
       .consumeNextWith { actualMap ->
