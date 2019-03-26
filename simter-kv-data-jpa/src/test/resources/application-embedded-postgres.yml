@@ -1,0 +1,32 @@
+spring:
+  test.database.replace: none
+  datasource:
+    platform: postgres
+    sql-script-encoding: UTF-8
+    initialization-mode: @db.init-mode@ # embedded|always|never
+    # available when initialization-mode=embedded|always
+    schema:
+      # drop
+      - classpath:tech/simter/kv/sql/postgres/schema-drop.sql
+      # create
+      - classpath:tech/simter/kv/sql/postgres/schema-create.sql
+    data:
+      - classpath:tech/simter/kv/sql/postgres/data.sql
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false # true - log to console directly
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: @jpa.ddl-auto@ # none|create|create-drop|update|validate
+      #naming.implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl #ImplicitNamingStrategyComponentPathImpl
+simter:
+  embedded-database:
+    concat-sql-script: true # default false, true - save concatenate sql content to file target/{platform}.sql
+    disabled-datasource: false # default false, true - not auto instance and register a datasource
+    postgres:
+      # 9.5.16-1, 9.6.12-1, 10.7-1, 11.2-1
+      version: @postgres-embedded.version@
+      # default http://get.enterprisedb.com/postgresql/, can set to file:///C://Users//simter//download/
+      download-url: ~

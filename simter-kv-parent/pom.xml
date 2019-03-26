@@ -69,12 +69,6 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-
-      <dependency>
-        <groupId>de.flapdoodle.embed</groupId>
-        <artifactId>de.flapdoodle.embed.mongo</artifactId>
-        <version>${flapdoodle-embed-mongo.version}</version>
-      </dependency>
     </dependencies>
   </dependencyManagement>
   <dependencies>

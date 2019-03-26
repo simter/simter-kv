@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext
 /**
  * @author RJ
  */
-@SpringJUnitConfig(ModuleConfiguration::class)
+@SpringJUnitConfig(UnitTestConfiguration::class)
 @DataJpaTest
 class DeleteMethodImplTest @Autowired constructor(
   @PersistenceContext val em: EntityManager,
