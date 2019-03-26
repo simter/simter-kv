@@ -67,9 +67,26 @@
   </dependencies>
   <profiles>
     <profile>
-      <id>embedded-hsql</id>
+      <id>embedded-h2</id>
       <activation>
         <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <db.platform>embedded-h2</db.platform>
+        <db.init-mode>embedded</db.init-mode>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>com.h2database</groupId>
+          <artifactId>h2</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>embedded-hsql</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
         <db.platform>embedded-hsql</db.platform>
