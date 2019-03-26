@@ -48,12 +48,5 @@
       <artifactId>spring-boot</artifactId>
       <optional>true</optional>
     </dependency>
-
-    <!-- test -->
-    <dependency>
-      <groupId>io.projectreactor</groupId>
-      <artifactId>reactor-test</artifactId>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 </project>
