@@ -134,5 +134,27 @@
         </dependency>
       </dependencies>
     </profile>
+    <profile>
+      <id>embedded-mysql</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <db.platform>embedded-mysql</db.platform>
+        <db.init-mode>always</db.init-mode>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>com.wix</groupId>
+          <artifactId>wix-embedded-mysql</artifactId>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+    </profile>
   </profiles>
 </project>
