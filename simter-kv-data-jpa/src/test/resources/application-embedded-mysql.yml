@@ -18,6 +18,7 @@ spring:
       hibernate:
         show_sql: false # true - log to console directly
         dialect: org.hibernate.dialect.MySQLDialect # MySQL5Dialect, MySQLInnoDBDialect, MySQLMyISAMDialect
+        globally_quoted_identifiers: true
     hibernate:
       ddl-auto: @jpa.ddl-auto@ # none|create|create-drop|update|validate
       #naming.implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl #ImplicitNamingStrategyComponentPathImpl
