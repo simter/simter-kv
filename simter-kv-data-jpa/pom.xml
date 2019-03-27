@@ -96,6 +96,23 @@
       </dependencies>
     </profile>
     <profile>
+      <id>embedded-derby</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <db.platform>embedded-derby</db.platform>
+        <db.init-mode>embedded</db.init-mode>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.derby</groupId>
+          <artifactId>derby</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
       <id>embedded-postgres</id>
       <activation>
         <activeByDefault>false</activeByDefault>

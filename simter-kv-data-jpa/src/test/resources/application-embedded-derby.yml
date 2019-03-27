@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    platform: derby
+    continue-on-error: true
+    sql-script-encoding: UTF-8
+    initialization-mode: @db.init-mode@ # embedded|always|never
+    # available when initialization-mode=embedded|always
+    schema:
+      # drop
+      - classpath:tech/simter/kv/sql/derby/schema-drop.sql
+      # create
+      - classpath:tech/simter/kv/sql/derby/schema-create.sql
+    data:
+      - classpath:tech/simter/kv/sql/derby/data.sql
+    driver-class-name: org.apache.derby.jdbc.EmbeddedDriver
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false # true for log to console directly
+        dialect: org.hibernate.dialect.DerbyDialect
+        globally_quoted_identifiers: true
+    hibernate:
+      ddl-auto: @jpa.ddl-auto@ # none|create|create-drop|update|validate
+      #naming.implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl #ImplicitNamingStrategyComponentPathImpl
+simter:
+  embedded-database:
+    concat-sql-script: false # true - save concatenate sql content to file target/{platform}.sql
