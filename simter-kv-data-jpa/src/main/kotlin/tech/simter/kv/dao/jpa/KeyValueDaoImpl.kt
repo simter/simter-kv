@@ -3,10 +3,10 @@ package tech.simter.kv.dao.jpa
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import reactor.core.publisher.Mono
+import reactor.core.publisher.toMono
 import tech.simter.kv.dao.KeyValueDao
-import tech.simter.kv.po.KeyValue
-import javax.persistence.EntityManager
-import javax.persistence.PersistenceContext
+import tech.simter.reactive.jpa.ReactiveJpaWrapper
+
 
 /**
  * The JPA implementation of [KeyValueDao].
@@ -15,36 +15,27 @@ import javax.persistence.PersistenceContext
  */
 @Component
 class KeyValueDaoImpl @Autowired constructor(
-  @PersistenceContext private val em: EntityManager,
-  private val repository: KeyValueJpaRepository
+  private val blockDao: KeyValueBlockDao,
+  private val wrapper: ReactiveJpaWrapper
 ) : KeyValueDao {
   override fun valueOf(key: String): Mono<String> {
-    val po = repository.findById(key)
-    return if (po.isPresent) Mono.just(po.get().value) else Mono.empty()
+    return wrapper.fromCallable { blockDao.valueOf(key) }
+      .flatMap { if (it.isPresent) Mono.just(it.get()) else Mono.empty() }
   }
 
   override fun find(vararg keys: String): Mono<Map<String, String>> {
-    return if (keys.isEmpty()) Mono.empty<Map<String, String>>()
-    else {
-      val kvs = em.createQuery("select kv from KeyValue kv where key in (:keys)", KeyValue::class.java)
-        .setParameter("keys", keys.toList())
-        .resultList
-      return if (kvs.isEmpty()) Mono.empty() else Mono.just(kvs.associate { it.key to it.value })
-    }
+    return if (keys.isEmpty()) Mono.empty()
+    else wrapper.fromCallable { blockDao.find(*keys) }
+      .flatMap { if (it.isEmpty()) Mono.empty() else it.toMono() }
   }
 
   override fun save(keyValues: Map<String, String>): Mono<Void> {
-    repository.saveAll(keyValues.map { KeyValue(it.key, it.value) })
-    return Mono.empty()
+    return if (keyValues.isEmpty()) Mono.empty()
+    else wrapper.fromRunnable { blockDao.save(keyValues) }
   }
 
   override fun delete(vararg keys: String): Mono<Void> {
-    return if (keys.isEmpty()) Mono.empty<Void>()
-    else {
-      em.createQuery("delete from KeyValue where key in (:keys)")
-        .setParameter("keys", keys.toList())
-        .executeUpdate()
-      return Mono.empty()
-    }
+    return if (keys.isEmpty()) Mono.empty()
+    else wrapper.fromRunnable { blockDao.delete(*keys) }
   }
 }
