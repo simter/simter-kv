@@ -1,0 +1,25 @@
+spring:
+  test.database.replace: none
+  datasource:
+    url: jdbc:postgresql://${db.host}:${db.port:5432}/${db.name}
+    username: ${db.username}
+    password: ${db.password}
+    sql-script-encoding: UTF-8
+    initialization-mode: ${db.init-mode} # embedded|always|never
+    # available when initialization-mode=embedded|always
+    schema:
+      # drop
+      - classpath:tech/simter/kv/sql/postgres/schema-drop.sql
+      # create
+      - classpath:tech/simter/kv/sql/postgres/schema-create.sql
+    data:
+      - classpath:tech/simter/kv/sql/postgres/data.sql
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false # true - log to console directly
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: ${db.jpa-ddl-auto} # none|create|create-drop|update|validate
+      #naming.implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl #ImplicitNamingStrategyComponentPathImpl
