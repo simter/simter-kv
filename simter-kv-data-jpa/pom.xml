@@ -22,7 +22,7 @@
     <db.host>localhost</db.host>
     <db.port>~</db.port>
     <db.name>testdb</db.name>
-    <db.username>test</db.username>
+    <db.username>tester</db.username>
     <db.password>password</db.password>
     <db.jpa-ddl-auto>none</db.jpa-ddl-auto>
   </properties>
