@@ -24,6 +24,9 @@ logging:
     #org.hibernate.engine.spi.QueryParameters: TRACE      # TRACE for show jpql query parameter
     #org.hibernate.type.descriptor.converter.AttributeConverterSqlTypeDescriptorAdapter: DEBUG # DEBUG for value convert, such as 'Converted value on binding : Enabled -> 2'
 
+    #---- hibernate transaction ----#
+    #org.hibernate.engine.transaction: DEBUG # DEBUG for show transaction start/end
+
     #---- embed postgres ----#
     #de.flapdoodle.embed: DEBUG
     #ru.yandex.qatools.embed: DEBUG
