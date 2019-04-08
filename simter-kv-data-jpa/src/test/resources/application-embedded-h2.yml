@@ -3,7 +3,7 @@ spring:
     platform: h2
     continue-on-error: false
     sql-script-encoding: UTF-8
-    initialization-mode: @db.init-mode@ # embedded|always|never
+    initialization-mode: ${db.init-mode} # embedded|always|never
     # available when initialization-mode=embedded|always
     schema:
       # drop
@@ -19,7 +19,7 @@ spring:
         show_sql: false # true for log to console directly
         dialect: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: @jpa.ddl-auto@ # none|create|create-drop|update|validate
+      ddl-auto: ${db.jpa-ddl-auto} # none|create|create-drop|update|validate
       #naming.implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl #ImplicitNamingStrategyComponentPathImpl
 simter:
   embedded-database:

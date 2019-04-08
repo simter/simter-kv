@@ -1,6 +1,15 @@
+db:
+  platform: @db.platform@
+  init-mode: @db.init-mode@
+  host: @db.host@
+  port: @db.port@
+  name: @db.name@
+  username: @db.username@
+  password: @db.password@
+  jpa-ddl-auto: @db.jpa-ddl-auto@
 spring:
   main.banner-mode: 'off'
-  profiles.active: @db.platform@
+  profiles.active: ${db.platform}
 logging:
   file: target/test.log
   level:                               # one of TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF

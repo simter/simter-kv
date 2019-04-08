@@ -17,13 +17,14 @@
     </developer>
   </developers>
   <properties>
-    <jpa.ddl-auto>none</jpa.ddl-auto>
+    <db.platform>none</db.platform>
     <db.init-mode>never</db.init-mode>
     <db.host>localhost</db.host>
     <db.port>~</db.port>
     <db.name>testdb</db.name>
     <db.username>test</db.username>
     <db.password>password</db.password>
+    <db.jpa-ddl-auto>none</db.jpa-ddl-auto>
   </properties>
   <dependencies>
     <dependency>
