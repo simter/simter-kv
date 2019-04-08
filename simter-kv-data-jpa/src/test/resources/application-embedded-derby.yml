@@ -1,6 +1,5 @@
 spring:
   datasource:
-    platform: derby
     continue-on-error: true
     sql-script-encoding: UTF-8
     initialization-mode: ${db.init-mode} # embedded|always|never

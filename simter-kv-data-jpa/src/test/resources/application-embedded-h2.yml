@@ -1,6 +1,5 @@
 spring:
   datasource:
-    platform: h2
     continue-on-error: false
     sql-script-encoding: UTF-8
     initialization-mode: ${db.init-mode} # embedded|always|never

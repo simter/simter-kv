@@ -1,7 +1,6 @@
 spring:
   test.database.replace: none
   datasource:
-    platform: postgres
     sql-script-encoding: UTF-8
     initialization-mode: ${db.init-mode} # embedded|always|never
     # available when initialization-mode=embedded|always
