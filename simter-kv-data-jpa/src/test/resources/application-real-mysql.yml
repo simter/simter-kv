@@ -1,0 +1,26 @@
+spring:
+  test.database.replace: none
+  datasource:
+    url: jdbc:mysql://${db.host}:${db.port:3306}/${db.name}
+    username: ${db.username}
+    password: ${db.password}
+    sql-script-encoding: UTF-8
+    initialization-mode: ${db.init-mode} # embedded|always|never
+    # available when initialization-mode=embedded|always
+    schema:
+      # drop
+      - classpath:tech/simter/kv/sql/mysql/schema-drop.sql
+      # create
+      - classpath:tech/simter/kv/sql/mysql/schema-create.sql
+    data:
+      - classpath:tech/simter/kv/sql/mysql/data.sql
+    driver-class-name: "com.mysql.cj.jdbc.Driver"
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false # true - log to console directly
+        dialect: org.hibernate.dialect.MySQLDialect # MySQL5Dialect, MySQLInnoDBDialect, MySQLMyISAMDialect
+        globally_quoted_identifiers: true
+    hibernate:
+      ddl-auto: ${db.jpa-ddl-auto} # none|create|create-drop|update|validate
+      #naming.implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl #ImplicitNamingStrategyComponentPathImpl
