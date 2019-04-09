@@ -47,7 +47,7 @@ class KeyValueDaoImplTest @Autowired constructor(
     operations.insert(po).test().expectNextCount(1).verifyComplete()
 
     // verify exists
-    dao.valueOf(po.key).test().expectNext(po.value).verifyComplete()
+    dao.valueOf(po.k).test().expectNext(po.v).verifyComplete()
   }
 
   @Test
@@ -64,11 +64,11 @@ class KeyValueDaoImplTest @Autowired constructor(
     operations.insertAll(pos).test().expectNextCount(pos.size.toLong()).verifyComplete()
 
     // 3.2 invoke and verify
-    dao.find(*pos.map { it.key }.toTypedArray())
+    dao.find(*pos.map { it.k }.toTypedArray())
       .test()
       .consumeNextWith { actualMap ->
         assertEquals(pos.size, actualMap.size)
-        pos.forEach { assertEquals(it.value, actualMap[it.key]) }
+        pos.forEach { assertEquals(it.v, actualMap[it.k]) }
       }.verifyComplete()
   }
 
@@ -83,10 +83,10 @@ class KeyValueDaoImplTest @Autowired constructor(
     val po = KeyValue(UUID.randomUUID().toString(), "v")
 
     // verify result
-    dao.save(mapOf(po.key to po.value)).test().expectNextCount(0L).verifyComplete()
+    dao.save(mapOf(po.k to po.v)).test().expectNextCount(0L).verifyComplete()
 
     // verify saved
-    operations.findById(po.key, KeyValue::class.java).test().expectNext(po).verifyComplete()
+    operations.findById(po.k, KeyValue::class.java).test().expectNext(po).verifyComplete()
   }
 
   @Test
@@ -94,11 +94,11 @@ class KeyValueDaoImplTest @Autowired constructor(
     val pos = (1..3).map { KeyValue("k-$it", "v-$it") }
 
     // verify result
-    dao.save(pos.associate { it.key to it.value }).test().expectNextCount(0L).verifyComplete()
+    dao.save(pos.associate { it.k to it.v }).test().expectNextCount(0L).verifyComplete()
 
     // verify saved
     pos.forEach {
-      operations.findById(it.key, KeyValue::class.java)
+      operations.findById(it.k, KeyValue::class.java)
         .test()
         .expectNext(it)
         .verifyComplete()
@@ -119,10 +119,10 @@ class KeyValueDaoImplTest @Autowired constructor(
     operations.insertAll(pos).test().expectNextCount(pos.size.toLong()).verifyComplete()
 
     // 3.2 invoke and verify result
-    dao.delete(*pos.map { it.key }.toTypedArray()).test().expectNextCount(0L).verifyComplete()
+    dao.delete(*pos.map { it.k }.toTypedArray()).test().expectNextCount(0L).verifyComplete()
 
     // 3.3 verify deleted
-    operations.count(query(where("key").`in`(pos.map { it.key })), KeyValue::class.java)
+    operations.count(query(where("k").`in`(pos.map { it.k })), KeyValue::class.java)
       .test()
       .expectNext(0L)
       .verifyComplete()

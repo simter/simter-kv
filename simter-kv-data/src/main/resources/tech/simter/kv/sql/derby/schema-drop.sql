@@ -2,4 +2,4 @@
  * Drop table script.
  * @author RJ
  */
-drop table "st_kv";
+drop table st_kv;

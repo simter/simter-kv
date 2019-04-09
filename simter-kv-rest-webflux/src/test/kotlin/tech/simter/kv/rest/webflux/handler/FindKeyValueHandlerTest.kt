@@ -67,13 +67,13 @@ class FindKeyValueHandlerTest @Autowired constructor(
   fun findMulti() {
     // mock
     val kvList = (1..3).map { KeyValue("k-$it", "v-$it") }
-    val expected = Mono.just(kvList.associate { it.key to it.value })
-    val keyArray = kvList.map { it.key }.toTypedArray()
+    val expected = Mono.just(kvList.associate { it.k to it.v })
+    val keyArray = kvList.map { it.k }.toTypedArray()
     every { service.find(*keyArray) } returns expected
 
     // invoke
     val expectedJson = Json.createObjectBuilder()
-    kvList.forEach { expectedJson.add(it.key, it.value) }
+    kvList.forEach { expectedJson.add(it.k, it.v) }
     client.get().uri("/" + keyArray.joinToString(","))
       .exchange()
       .expectStatus().isOk

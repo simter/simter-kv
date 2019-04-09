@@ -2,7 +2,7 @@
  * Create table script.
  * @author RJ
  */
-create table "st_kv" (
-  "key"   varchar(100) primary key,
-  "value" long varchar  not null
+create table st_kv (
+  k varchar(100) primary key,
+  v long varchar  not null
 );

@@ -2,4 +2,4 @@
  * Drop table script.
  * @author RJ
  */
-drop table if exists `st_kv`;
+drop table if exists st_kv;

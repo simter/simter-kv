@@ -31,9 +31,9 @@ class ValueOfMethodImplTest @Autowired constructor(
   fun `key exists`() {
     val po = KeyValue(UUID.randomUUID().toString(), "v")
     rem.persist(po)              // prepare data
-      .then(dao.valueOf(po.key)) // invoke
+      .then(dao.valueOf(po.k)) // invoke
       .test()
-      .expectNext(po.value)      // verify
+      .expectNext(po.v)      // verify
       .verifyComplete()
   }
 }

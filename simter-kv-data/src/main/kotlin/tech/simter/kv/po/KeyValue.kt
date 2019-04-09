@@ -18,6 +18,6 @@ data class KeyValue(
   @javax.persistence.Id
   @org.springframework.data.annotation.Id
   @Column(length = 100)
-  val key: String,
-  val value: String
+  val k: String,
+  val v: String
 )
