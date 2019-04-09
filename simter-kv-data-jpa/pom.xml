@@ -17,13 +17,14 @@
     </developer>
   </developers>
   <properties>
-    <jpa.ddl-auto>none</jpa.ddl-auto>
+    <db.platform>none</db.platform>
     <db.init-mode>never</db.init-mode>
     <db.host>localhost</db.host>
     <db.port>~</db.port>
     <db.name>testdb</db.name>
-    <db.username>test</db.username>
+    <db.username>tester</db.username>
     <db.password>password</db.password>
+    <db.jpa-ddl-auto>none</db.jpa-ddl-auto>
   </properties>
   <dependencies>
     <dependency>
@@ -61,11 +62,6 @@
     <dependency>
       <groupId>org.hibernate.validator</groupId>
       <artifactId>hibernate-validator</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>tech.simter</groupId>
-      <artifactId>simter-embedded-database-ext</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -137,6 +133,11 @@
           <scope>runtime</scope>
         </dependency>
         <dependency>
+          <groupId>tech.simter</groupId>
+          <artifactId>simter-embedded-database-ext</artifactId>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
           <groupId>ru.yandex.qatools.embed</groupId>
           <artifactId>postgresql-embedded</artifactId>
           <scope>test</scope>
@@ -159,9 +160,60 @@
           <scope>runtime</scope>
         </dependency>
         <dependency>
+          <groupId>tech.simter</groupId>
+          <artifactId>simter-embedded-database-ext</artifactId>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
           <groupId>com.wix</groupId>
           <artifactId>wix-embedded-mysql</artifactId>
           <scope>test</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>real-postgres</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <db.platform>real-postgres</db.platform>
+        <db.init-mode>always</db.init-mode>
+        <db.port>5432</db.port>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.postgresql</groupId>
+          <artifactId>postgresql</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>com.zaxxer</groupId>
+          <artifactId>HikariCP</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>real-mysql</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <db.platform>real-mysql</db.platform>
+        <db.init-mode>always</db.init-mode>
+        <db.port>3306</db.port>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>com.zaxxer</groupId>
+          <artifactId>HikariCP</artifactId>
+          <scope>runtime</scope>
         </dependency>
       </dependencies>
     </profile>

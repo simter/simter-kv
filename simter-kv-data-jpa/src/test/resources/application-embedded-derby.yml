@@ -1,9 +1,8 @@
 spring:
   datasource:
-    platform: derby
     continue-on-error: true
     sql-script-encoding: UTF-8
-    initialization-mode: @db.init-mode@ # embedded|always|never
+    initialization-mode: ${db.init-mode} # embedded|always|never
     # available when initialization-mode=embedded|always
     schema:
       # drop
@@ -20,7 +19,7 @@ spring:
         dialect: org.hibernate.dialect.DerbyDialect
         globally_quoted_identifiers: true
     hibernate:
-      ddl-auto: @jpa.ddl-auto@ # none|create|create-drop|update|validate
+      ddl-auto: ${db.jpa-ddl-auto} # none|create|create-drop|update|validate
       #naming.implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl #ImplicitNamingStrategyComponentPathImpl
 simter:
   embedded-database:
