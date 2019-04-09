@@ -25,8 +25,14 @@
     <db.username>tester</db.username>
     <db.password>password</db.password>
     <db.jpa-ddl-auto>none</db.jpa-ddl-auto>
+    <db.jpa-provider>none</db.jpa-provider>
+    <db.jpa-global-quote>false</db.jpa-global-quote>
   </properties>
   <dependencies>
+    <dependency>
+      <groupId>javax.persistence</groupId>
+      <artifactId>javax.persistence-api</artifactId>
+    </dependency>
     <dependency>
       <groupId>tech.simter</groupId>
       <artifactId>simter-kv-data</artifactId>
@@ -36,12 +42,12 @@
       <artifactId>spring-data-jpa</artifactId>
     </dependency>
     <dependency>
-      <groupId>javax.persistence</groupId>
-      <artifactId>javax.persistence-api</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-autoconfigure</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>tech.simter</groupId>
+      <artifactId>simter-jpa-ext</artifactId>
     </dependency>
     <dependency>
       <groupId>tech.simter.reactive</groupId>
@@ -52,20 +58,44 @@
       <artifactId>simter-reactive-test</artifactId>
       <scope>test</scope>
     </dependency>
-
-    <!-- test -->
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-entitymanager</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate.validator</groupId>
-      <artifactId>hibernate-validator</artifactId>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
   <profiles>
+    <profile>
+      <id>jpa-hibernate</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <db.jpa-provider>jpa-hibernate</db.jpa-provider>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-entitymanager</artifactId>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.hibernate.validator</groupId>
+          <artifactId>hibernate-validator</artifactId>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>jpa-eclipselink</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <db.jpa-provider>jpa-eclipselink</db.jpa-provider>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.eclipse.persistence</groupId>
+          <artifactId>org.eclipse.persistence.jpa</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
     <profile>
       <id>embedded-h2</id>
       <activation>
