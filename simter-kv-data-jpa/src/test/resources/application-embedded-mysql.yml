@@ -2,7 +2,7 @@ spring:
   test.database.replace: none
   datasource:
     sql-script-encoding: UTF-8
-    initialization-mode: ${db.init-mode} # embedded|always|never
+    initialization-mode: @db.init-mode@ # embedded|always|never
     # available when initialization-mode=embedded|always
     schema:
       # drop
@@ -12,15 +12,6 @@ spring:
     data:
       - classpath:tech/simter/kv/sql/mysql/data.sql
     driver-class-name: "com.mysql.cj.jdbc.Driver"
-  jpa:
-    properties:
-      hibernate:
-        show_sql: false # true - log to console directly
-        dialect: org.hibernate.dialect.MySQLDialect # MySQL5Dialect, MySQLInnoDBDialect, MySQLMyISAMDialect
-        globally_quoted_identifiers: true
-    hibernate:
-      ddl-auto: ${db.jpa-ddl-auto} # none|create|create-drop|update|validate
-      #naming.implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl #ImplicitNamingStrategyComponentPathImpl
 simter:
   embedded-database:
     concat-sql-script: true # default false, true - save concatenate sql content to file target/{platform}.sql
