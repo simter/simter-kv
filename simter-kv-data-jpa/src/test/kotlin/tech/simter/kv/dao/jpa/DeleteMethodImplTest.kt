@@ -40,7 +40,7 @@ class DeleteMethodImplTest @Autowired constructor(
     dao.delete(*pos.map { it.k }.toTypedArray()).test().verifyComplete()
 
     // verify deleted
-    rem.createQuery("select count(k) from KeyValue where k in (:keys)", Long::class.javaObjectType)
+    rem.createQuery("select count(kv) from KeyValue kv where kv.k in :keys", Long::class.javaObjectType)
       .setParameter("keys", pos.map { it.k })
       .singleResult
       .test()
