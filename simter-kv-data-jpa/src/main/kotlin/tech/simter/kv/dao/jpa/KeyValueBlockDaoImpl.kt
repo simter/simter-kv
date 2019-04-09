@@ -23,7 +23,7 @@ internal class KeyValueBlockDaoImpl @Autowired constructor(
   override fun valueOf(key: String): Optional<String> {
     return try {
       Optional.of(
-        em.createQuery("select value from KeyValue where key = :key", String::class.java)
+        em.createQuery("select kv.v from KeyValue kv where kv.k = :key", String::class.java)
           .setParameter("key", key)
           .singleResult
       )
@@ -36,10 +36,10 @@ internal class KeyValueBlockDaoImpl @Autowired constructor(
   override fun find(vararg keys: String): Map<String, String> {
     return if (keys.isEmpty()) emptyMap()
     else {
-      return em.createQuery("select kv from KeyValue kv where key in (:keys)", KeyValue::class.java)
+      return em.createQuery("select kv from KeyValue kv where kv.k in :keys", KeyValue::class.java)
         .setParameter("keys", keys.toList())
         .resultList
-        .associate { it.key to it.value }
+        .associate { it.k to it.v }
     }
   }
 
@@ -51,7 +51,7 @@ internal class KeyValueBlockDaoImpl @Autowired constructor(
   @Transactional(readOnly = false)
   override fun delete(vararg keys: String) {
     if (keys.isNotEmpty()) {
-      em.createQuery("delete from KeyValue where key in (:keys)")
+      em.createQuery("delete from KeyValue kv where kv.k in :keys")
         .setParameter("keys", keys.toList())
         .executeUpdate()
     }

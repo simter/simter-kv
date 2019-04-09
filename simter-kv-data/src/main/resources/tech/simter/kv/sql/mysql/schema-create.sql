@@ -2,8 +2,8 @@
  * Create table script.
  * @author RJ
  */
-create table `st_kv` (
-  `key`   varchar(100) not null comment 'Key',
-  `value` text not null comment 'Value',
-  primary key (`key`)
+create table st_kv (
+  k varchar(100) not null comment 'Key',
+  v text not null comment 'Value',
+  primary key (k)
 ) comment = 'Key-Value Pair';

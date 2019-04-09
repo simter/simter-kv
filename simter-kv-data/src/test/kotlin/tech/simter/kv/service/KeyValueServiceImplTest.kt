@@ -88,7 +88,7 @@ class KeyValueServiceImplTest @Autowired constructor(
   @Test
   fun findMulti() {
     // mock
-    val kvs = (1..3).map { KeyValue("k-$it", "v-$it") }.associate { it.key to it.value }
+    val kvs = (1..3).map { KeyValue("k-$it", "v-$it") }.associate { it.k to it.v }
     val expected = Mono.just(kvs)
     every { dao.find(*anyVararg()) } returns expected
     every { moduleAuthorizer.verifyHasPermission(OPERATION_READ) } returns Mono.empty()
@@ -130,7 +130,7 @@ class KeyValueServiceImplTest @Autowired constructor(
   @Test
   fun saveMulti() {
     // mock
-    val kvs = (1..3).map { KeyValue("k-$it", "v-$it") }.associate { it.key to it.value }
+    val kvs = (1..3).map { KeyValue("k-$it", "v-$it") }.associate { it.k to it.v }
     every { dao.save(kvs) } returns Mono.empty()
     every { moduleAuthorizer.verifyHasPermission(OPERATION_SAVE) } returns Mono.empty()
 

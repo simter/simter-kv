@@ -16,13 +16,13 @@ class KeyValueDaoImpl @Autowired constructor(
   private val repository: KeyValueReactiveRepository
 ) : KeyValueDao {
   override fun valueOf(key: String): Mono<String> {
-    return repository.findById(key).map { it.value }
+    return repository.findById(key).map { it.v }
   }
 
   override fun find(vararg keys: String): Mono<Map<String, String>> {
     return if (keys.isEmpty()) Mono.empty()
     else repository.findAllById(keys.asIterable())
-      .collectMap({ it.key }, { it.value })
+      .collectMap({ it.k }, { it.v })
       .flatMap { if (it.isEmpty()) Mono.empty() else Mono.just(it) } // switch empty map to Mono.empty()
   }
 

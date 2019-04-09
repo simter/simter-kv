@@ -29,11 +29,11 @@ class SaveMethodImplTest @Autowired constructor(
   fun `save one`() {
     // do save
     val po = KeyValue(UUID.randomUUID().toString(), "v")
-    dao.save(mapOf(po.key to po.value)).test().verifyComplete()
+    dao.save(mapOf(po.k to po.v)).test().verifyComplete()
 
     // verify saved
-    rem.createQuery("select a from KeyValue a where key = :key", KeyValue::class.java)
-      .setParameter("key", po.key)
+    rem.createQuery("select kv from KeyValue kv where kv.k = :key", KeyValue::class.java)
+      .setParameter("key", po.k)
       .singleResult
       .test()
       .expectNext(po)
@@ -43,14 +43,14 @@ class SaveMethodImplTest @Autowired constructor(
   @Test
   fun `save many`() {
     // do save
-    val random = UUID.randomUUID().toString();
+    val random = UUID.randomUUID().toString()
     val pos = (1..3).map { KeyValue("$random-$it", "$random-$it") }
-    dao.save(pos.associate { it.key to it.value }).test().expectNextCount(0L).verifyComplete()
+    dao.save(pos.associate { it.k to it.v }).test().expectNextCount(0L).verifyComplete()
 
     // verify saved
     pos.forEach {
-      rem.createQuery("select a from KeyValue a where key = :key", KeyValue::class.java)
-        .setParameter("key", it.key)
+      rem.createQuery("select kv from KeyValue kv where kv.k = :key", KeyValue::class.java)
+        .setParameter("key", it.k)
         .singleResult
         .test()
         .expectNext(it)

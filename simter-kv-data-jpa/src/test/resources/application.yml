@@ -1,22 +1,15 @@
-db:
-  platform: @db.platform@
-  init-mode: @db.init-mode@
-  host: @db.host@
-  port: @db.port@
-  name: @db.name@
-  username: @db.username@
-  password: @db.password@
-  jpa-ddl-auto: @db.jpa-ddl-auto@
 spring:
   main.banner-mode: 'off'
-  profiles.active: ${db.platform}
+  profiles.active:
+    - @db.platform@
+    - @db.jpa-provider@
 logging:
   file: target/test.log
   level:                               # one of TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF
     root: ERROR
 
     #---- simter ----#
-    #tech.simter.kv.dao.jpa: INFO
+    tech.simter.kv.dao.jpa: INFO
     tech.simter.embeddeddatabase: INFO # INFO - Starting embedded database: url=..., DEBUG - Load script
 
     #---- spring ----#
@@ -35,6 +28,10 @@ logging:
 
     #---- hibernate transaction ----#
     #org.hibernate.engine.transaction: DEBUG # DEBUG for show transaction start/end
+
+    #---- EclipseLink ----#
+    #org.eclipse.persistence: DEBUG
+    #org.eclipse.persistence.jpa: TRACE
 
     #---- embed postgres ----#
     #de.flapdoodle.embed: DEBUG

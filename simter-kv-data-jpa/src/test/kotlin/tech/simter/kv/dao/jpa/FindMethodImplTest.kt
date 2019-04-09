@@ -37,12 +37,12 @@ class FindMethodImplTest @Autowired constructor(
       // prepare data
       .persist(*pos.toTypedArray())
       // invoke
-      .then(dao.find(*pos.map { it.key }.toTypedArray()))
+      .then(dao.find(*pos.map { it.k }.toTypedArray()))
       .test()
       // verify
       .consumeNextWith { actualMap ->
         assertEquals(pos.size, actualMap.size)
-        pos.forEach { assertEquals(it.value, actualMap[it.key]) }
+        pos.forEach { assertEquals(it.v, actualMap[it.k]) }
       }.verifyComplete()
   }
 }

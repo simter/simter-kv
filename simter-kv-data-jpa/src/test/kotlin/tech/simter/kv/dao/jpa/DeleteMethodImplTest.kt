@@ -37,11 +37,11 @@ class DeleteMethodImplTest @Autowired constructor(
     rem.persist(*pos.toTypedArray()).test().verifyComplete()
 
     // do delete
-    dao.delete(*pos.map { it.key }.toTypedArray()).test().verifyComplete()
+    dao.delete(*pos.map { it.k }.toTypedArray()).test().verifyComplete()
 
     // verify deleted
-    rem.createQuery("select count(key) from KeyValue where key in (:keys)", Long::class.javaObjectType)
-      .setParameter("keys", pos.map { it.key })
+    rem.createQuery("select count(kv) from KeyValue kv where kv.k in :keys", Long::class.javaObjectType)
+      .setParameter("keys", pos.map { it.k })
       .singleResult
       .test()
       .expectNext(0L)

@@ -1,0 +1,11 @@
+spring:
+  jpa:
+    #show-sql: true # true for log to console directly
+    #generate-ddl: true # true for initialize the schema on startup
+    properties:
+      hibernate.show_sql: false # true|*false, true for log to console directly
+      hibernate.hbm2ddl.auto: @db.jpa-ddl-auto@ # *none|create|create-drop|update|validate
+      hibernate.globally_quoted_identifiers: @db.jpa-global-quote@ # true|*false
+    #hibernate:
+      #ddl-auto: @db.jpa-ddl-auto@ # none|create|create-drop|update|validate
+      #naming.implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl #ImplicitNamingStrategyComponentPathImpl
