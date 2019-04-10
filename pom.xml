@@ -15,8 +15,8 @@
   <description>Builder</description>
   <properties>
     <revision>0.7-SNAPSHOT</revision>
-    <simter-dependencies.version>1.2-SNAPSHOT</simter-dependencies.version>
     <simter-kv.version>${revision}</simter-kv.version>
+    <simter-dependencies.version>1.2-SNAPSHOT</simter-dependencies.version>
   </properties>
   <modules>
     <module>simter-kv-dependencies</module>
