@@ -1,13 +1,10 @@
 #### Development Environment ####
-spring:
-  main:
-    banner-mode: 'off'
+spring.main.banner-mode: 'off'
 logging:
-  file: target/app.log
-  level: # one of TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF
-    root: WARN
-
-    #---- simter ----#
+  file: target/test.log
+  level: # TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF
+    root: ERROR
+    tech.simter.kv: WARN
     tech.simter.kv.starter: INFO
 
     #---- spring ----#

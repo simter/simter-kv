@@ -9,3 +9,8 @@ module.authorization.simter-kv:
       roles: ["DELETER", "MANAGER"]
       strategy: "And"
     SAVE.roles: "MANAGER"
+logging:
+  file: target/test.log
+  level: # TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF
+    root: ERROR
+    tech.simter.kv: WARN

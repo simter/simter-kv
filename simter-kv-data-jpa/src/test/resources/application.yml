@@ -5,11 +5,9 @@ spring:
     - jpa-@db.jpa-implementation@
 logging:
   file: target/test.log
-  level:                               # one of TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF
+  level: # TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF
     root: ERROR
-
-    #---- simter ----#
-    tech.simter.kv.dao.jpa: INFO
+    tech.simter.kv: WARN
     tech.simter.embeddeddatabase: INFO # INFO - Starting embedded database: url=..., DEBUG - Load script
 
     #---- spring ----#
