@@ -18,15 +18,18 @@
   </developers>
   <properties>
     <db.platform>none</db.platform>
-    <db.init-mode>never</db.init-mode>
     <db.host>localhost</db.host>
     <db.port>~</db.port>
     <db.name>testdb</db.name>
     <db.username>tester</db.username>
     <db.password>password</db.password>
+    <db.url>~</db.url>
+    <db.driver-class>~</db.driver-class>
+    <db.init-mode>never</db.init-mode>
     <db.jpa-ddl-auto>none</db.jpa-ddl-auto>
-    <db.jpa-provider>none</db.jpa-provider>
-    <db.jpa-global-quote>false</db.jpa-global-quote>
+    <db.jpa-implementation>none</db.jpa-implementation>
+    <db.jpa-quote-sql>false</db.jpa-quote-sql>
+    <db.continue-on-error>false</db.continue-on-error>
   </properties>
   <dependencies>
     <dependency>
@@ -60,13 +63,14 @@
     </dependency>
   </dependencies>
   <profiles>
+    <!-- jpa implementation -->
     <profile>
       <id>jpa-hibernate</id>
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <db.jpa-provider>jpa-hibernate</db.jpa-provider>
+        <db.jpa-implementation>hibernate</db.jpa-implementation>
       </properties>
       <dependencies>
         <dependency>
@@ -87,29 +91,32 @@
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <db.jpa-provider>jpa-eclipselink</db.jpa-provider>
+        <db.jpa-implementation>eclipselink</db.jpa-implementation>
       </properties>
       <dependencies>
         <dependency>
           <groupId>org.eclipse.persistence</groupId>
           <artifactId>org.eclipse.persistence.jpa</artifactId>
+          <scope>test</scope>
         </dependency>
       </dependencies>
     </profile>
+
+    <!-- database -->
     <profile>
       <id>embedded-h2</id>
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <db.platform>embedded-h2</db.platform>
+        <db.platform>h2</db.platform>
         <db.init-mode>embedded</db.init-mode>
       </properties>
       <dependencies>
         <dependency>
           <groupId>com.h2database</groupId>
           <artifactId>h2</artifactId>
-          <scope>runtime</scope>
+          <scope>test</scope>
         </dependency>
       </dependencies>
     </profile>
@@ -119,14 +126,14 @@
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <db.platform>embedded-hsql</db.platform>
+        <db.platform>hsql</db.platform>
         <db.init-mode>embedded</db.init-mode>
       </properties>
       <dependencies>
         <dependency>
           <groupId>org.hsqldb</groupId>
           <artifactId>hsqldb</artifactId>
-          <scope>runtime</scope>
+          <scope>test</scope>
         </dependency>
       </dependencies>
     </profile>
@@ -136,14 +143,15 @@
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <db.platform>embedded-derby</db.platform>
+        <db.platform>derby</db.platform>
         <db.init-mode>embedded</db.init-mode>
+        <db.continue-on-error>true</db.continue-on-error>
       </properties>
       <dependencies>
         <dependency>
           <groupId>org.apache.derby</groupId>
           <artifactId>derby</artifactId>
-          <scope>runtime</scope>
+          <scope>test</scope>
         </dependency>
       </dependencies>
     </profile>
@@ -153,14 +161,14 @@
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <db.platform>embedded-postgres</db.platform>
+        <db.platform>postgres</db.platform>
         <db.init-mode>always</db.init-mode>
       </properties>
       <dependencies>
         <dependency>
           <groupId>org.postgresql</groupId>
           <artifactId>postgresql</artifactId>
-          <scope>runtime</scope>
+          <scope>test</scope>
         </dependency>
         <dependency>
           <groupId>tech.simter</groupId>
@@ -180,14 +188,14 @@
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <db.platform>embedded-mysql</db.platform>
+        <db.platform>mysql</db.platform>
         <db.init-mode>always</db.init-mode>
       </properties>
       <dependencies>
         <dependency>
           <groupId>mysql</groupId>
           <artifactId>mysql-connector-java</artifactId>
-          <scope>runtime</scope>
+          <scope>test</scope>
         </dependency>
         <dependency>
           <groupId>tech.simter</groupId>
@@ -202,48 +210,52 @@
       </dependencies>
     </profile>
     <profile>
-      <id>real-postgres</id>
+      <id>postgres</id>
       <activation>
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <db.platform>real-postgres</db.platform>
-        <db.init-mode>always</db.init-mode>
+        <db.platform>postgres</db.platform>
         <db.port>5432</db.port>
+        <db.url><![CDATA[jdbc:postgresql://${db.host}:${db.port}/${db.name}]]> </db.url>
+        <db.driver-class>org.postgresql.Driver</db.driver-class>
+        <db.init-mode>always</db.init-mode>
       </properties>
       <dependencies>
         <dependency>
           <groupId>org.postgresql</groupId>
           <artifactId>postgresql</artifactId>
-          <scope>runtime</scope>
+          <scope>test</scope>
         </dependency>
         <dependency>
           <groupId>com.zaxxer</groupId>
           <artifactId>HikariCP</artifactId>
-          <scope>runtime</scope>
+          <scope>test</scope>
         </dependency>
       </dependencies>
     </profile>
     <profile>
-      <id>real-mysql</id>
+      <id>mysql</id>
       <activation>
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <db.platform>real-mysql</db.platform>
-        <db.init-mode>always</db.init-mode>
+        <db.platform>mysql</db.platform>
         <db.port>3306</db.port>
+        <db.url><![CDATA[jdbc:mysql://${db.host}:${db.port}/${db.name}]]></db.url>
+        <db.driver-class>com.mysql.cj.jdbc.Driver</db.driver-class>
+        <db.init-mode>always</db.init-mode>
       </properties>
       <dependencies>
         <dependency>
           <groupId>mysql</groupId>
           <artifactId>mysql-connector-java</artifactId>
-          <scope>runtime</scope>
+          <scope>test</scope>
         </dependency>
         <dependency>
           <groupId>com.zaxxer</groupId>
           <artifactId>HikariCP</artifactId>
-          <scope>runtime</scope>
+          <scope>test</scope>
         </dependency>
       </dependencies>
     </profile>

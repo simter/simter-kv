@@ -1,8 +1,8 @@
 spring:
   main.banner-mode: 'off'
   profiles.active:
-    - @db.platform@
-    - @db.jpa-provider@
+    - database
+    - jpa-@db.jpa-implementation@
 logging:
   file: target/test.log
   level:                               # one of TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF
@@ -16,22 +16,6 @@ logging:
     #org.springframework: WARN
     org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactory: INFO # INFO - Starting embedded database: url='jdbc:h2:mem:...', username='sa'
     #org.springframework.jdbc.datasource.init.ScriptUtils: DEBUG # DEBUG - show executing SQL script file and result
-
-    #---- hibernate sql ----#
-    #org.hibernate.SQL: DEBUG                             # DEBUG for log by logger
-    #org.hibernate.type.descriptor.sql.BasicBinder: TRACE # TRACE for show sql param value, such as 'binding parameter [N] as [SQL-TYPE] - [VALUE]'
-
-    #---- hibernate jpql ----#
-    #org.hibernate.engine.query.spi.HQLQueryPlan: TRACE   # TRACE for show jpql
-    #org.hibernate.engine.spi.QueryParameters: TRACE      # TRACE for show jpql query parameter
-    #org.hibernate.type.descriptor.converter.AttributeConverterSqlTypeDescriptorAdapter: DEBUG # DEBUG for value convert, such as 'Converted value on binding : Enabled -> 2'
-
-    #---- hibernate transaction ----#
-    #org.hibernate.engine.transaction: DEBUG # DEBUG for show transaction start/end
-
-    #---- EclipseLink ----#
-    #org.eclipse.persistence: DEBUG
-    #org.eclipse.persistence.jpa: TRACE
 
     #---- embed postgres ----#
     #de.flapdoodle.embed: DEBUG
