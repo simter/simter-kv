@@ -70,11 +70,18 @@ Use `-P {profile-name}` to override default. Such as:
 mvn test -P {profile-name}
 ```
 
+> `embedded-postgres` and `embedded-mysql` depend on module [simter-embedded-database-ext].
+
 ## YML Files:
 
-| SN | Name                            | Remark             |
-|----|---------------------------------|--------------------|
-|  1 | application.yml                 |                    |
-|  2 | application-database.yml        | Database Config    |
-|  3 | application-jpa-hibernate.yml   | Hibernate Config   |
-|  4 | application-jpa-eclipselink.yml | EclipseLink Config |
+| SN | Name                            | Remark               |
+|----|---------------------------------|----------------------|
+|  1 | application.yml                 |                      |
+|  2 | application-database.yml        | Database Config      |
+|  3 | application-jpa-hibernate.yml   | [Hibernate] Config   |
+|  4 | application-jpa-eclipselink.yml | [EclipseLink] Config |
+
+
+[simter-embedded-database-ext]: https://github.com/simter/simter-embedded-database-ext
+[Hibernate]: https://hibernate.org
+[EclipseLink]: https://www.eclipse.org/eclipselink
