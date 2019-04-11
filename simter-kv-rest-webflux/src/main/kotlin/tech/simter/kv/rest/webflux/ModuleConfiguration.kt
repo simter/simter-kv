@@ -39,8 +39,8 @@ class ModuleConfiguration @Autowired constructor(
   }
 
   /** Register a `RouterFunction<ServerResponse>` with all routers for this module */
-  @Bean("$PACKAGE.Routes")
-  @ConditionalOnMissingBean(name = ["$PACKAGE.Routes"])
+  @Bean("$PACKAGE.rest.webflux.Routes")
+  @ConditionalOnMissingBean(name = ["$PACKAGE.rest.webflux.Routes"])
   fun kvRoutes() = router {
     contextPath.nest {
       // GET /{key}
