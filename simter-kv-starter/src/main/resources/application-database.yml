@@ -45,16 +45,16 @@ logging.level:
 
   #---- spring ----#
   org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactory: INFO # INFO - Starting embedded database: url='jdbc:h2:mem:...', username='sa'
-  org.springframework.jdbc.datasource.init.ScriptUtils: DEBUG # DEBUG - show executing SQL script file and result
+  #org.springframework.jdbc.datasource.init.ScriptUtils: DEBUG # DEBUG - show executing SQL script file and result
 
   #---- mongo ----#
   #org.springframework.data.mongodb.core.ReactiveMongoTemplate: DEBUG # DEBUG to show query
 
   #---- embedded mongodb ----#
-  org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongo: INFO # INFO - show initial and connection
+  #org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongo: INFO # INFO - show initial and connection
 
   #---- flapdoodle ----#
-  de.flapdoodle.process.runtime.ProcessControl: DEBUG # DEBUG - Detected pid: 3252
+  #de.flapdoodle.process.runtime.ProcessControl: DEBUG # DEBUG - Detected pid: 3252
 
   #---- embed postgres ----#
   #ru.yandex.qatools.embed.postgresql.PostgresProcess: INFO # INFO - trying to stop postgresql
