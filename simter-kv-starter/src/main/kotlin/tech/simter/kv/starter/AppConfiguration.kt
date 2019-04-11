@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.MediaType.TEXT_HTML
 import org.springframework.web.reactive.config.CorsRegistry
 import org.springframework.web.reactive.config.DelegatingWebFluxConfiguration
 import org.springframework.web.reactive.config.EnableWebFlux
 import org.springframework.web.reactive.config.WebFluxConfigurer
 import org.springframework.web.reactive.function.server.router
 import tech.simter.kv.PACKAGE
+import tech.simter.reactive.web.Utils.TEXT_HTML_UTF8
 import java.time.OffsetDateTime
 
 /**
@@ -64,6 +64,6 @@ class AppConfiguration @Autowired constructor(
    */
   @Bean
   fun rootRoutes() = router {
-    "/".nest { GET("/") { ok().contentType(TEXT_HTML).syncBody(rootPage) } }
+    "/".nest { GET("/") { ok().contentType(TEXT_HTML_UTF8).syncBody(rootPage) } }
   }
 }

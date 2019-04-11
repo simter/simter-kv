@@ -7,12 +7,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.MediaType.TEXT_PLAIN
 import org.springframework.web.reactive.function.server.router
 import tech.simter.kv.PACKAGE
 import tech.simter.kv.rest.webflux.handler.DeleteKeyValueHandler
 import tech.simter.kv.rest.webflux.handler.FindKeyValueHandler
 import tech.simter.kv.rest.webflux.handler.SaveKeyValueHandler
+import tech.simter.reactive.web.Utils.TEXT_PLAIN_UTF8
 
 /**
  * All configuration for this module.
@@ -48,7 +48,7 @@ class ModuleConfiguration @Autowired constructor(
       // DELETE /{key}
       DeleteKeyValueHandler.REQUEST_PREDICATE.invoke(deleteKeyValueHandler::handle)
       // GET /
-      GET("/") { ok().contentType(TEXT_PLAIN).syncBody("simter-kv-$version") }
+      GET("/") { ok().contentType(TEXT_PLAIN_UTF8).syncBody("simter-kv-$version") }
       // POST /
       SaveKeyValueHandler.REQUEST_PREDICATE.invoke(saveKeyValueHandler::handle)
     }
