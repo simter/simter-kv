@@ -9,7 +9,6 @@ import org.springframework.web.reactive.config.CorsRegistry
 import org.springframework.web.reactive.config.DelegatingWebFluxConfiguration
 import org.springframework.web.reactive.config.EnableWebFlux
 import org.springframework.web.reactive.config.WebFluxConfigurer
-import org.springframework.web.reactive.function.server.ServerResponse.ok
 import org.springframework.web.reactive.function.server.router
 import java.time.OffsetDateTime
 
@@ -64,6 +63,6 @@ class AppConfiguration @Autowired constructor(
    */
   @Bean
   fun rootRoutes() = router {
-    "/".nest { GET("/", { ok().contentType(TEXT_HTML).syncBody(rootPage) }) }
+    "/".nest { GET("/") { ok().contentType(TEXT_HTML).syncBody(rootPage) } }
   }
 }
