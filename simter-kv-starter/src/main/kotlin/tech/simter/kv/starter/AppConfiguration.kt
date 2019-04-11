@@ -10,6 +10,7 @@ import org.springframework.web.reactive.config.DelegatingWebFluxConfiguration
 import org.springframework.web.reactive.config.EnableWebFlux
 import org.springframework.web.reactive.config.WebFluxConfigurer
 import org.springframework.web.reactive.function.server.router
+import tech.simter.kv.PACKAGE
 import java.time.OffsetDateTime
 
 /**
@@ -19,7 +20,7 @@ import java.time.OffsetDateTime
  *
  * @author RJ
  */
-@Configuration("tech.simter.kv.starter.AppConfiguration")
+@Configuration("$PACKAGE.starter.AppConfiguration")
 @EnableWebFlux
 class AppConfiguration @Autowired constructor(
   @Value("\${module.version.simter-kv:UNKNOWN}") private val version: String

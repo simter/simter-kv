@@ -9,11 +9,10 @@ import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.MediaType.TEXT_PLAIN
 import org.springframework.web.reactive.function.server.router
+import tech.simter.kv.PACKAGE
 import tech.simter.kv.rest.webflux.handler.DeleteKeyValueHandler
 import tech.simter.kv.rest.webflux.handler.FindKeyValueHandler
 import tech.simter.kv.rest.webflux.handler.SaveKeyValueHandler
-
-private const val MODULE = "tech.simter.kv.rest.webflux"
 
 /**
  * All configuration for this module.
@@ -23,8 +22,8 @@ private const val MODULE = "tech.simter.kv.rest.webflux"
  *
  * @author RJ
  */
-@Configuration("$MODULE.ModuleConfiguration")
-@ComponentScan(MODULE)
+@Configuration("$PACKAGE.rest.webflux.ModuleConfiguration")
+@ComponentScan("$PACKAGE.rest.webflux")
 class ModuleConfiguration @Autowired constructor(
   @Value("\${module.rest-context-path.simter-kv:/kv}") private val contextPath: String,
   @Value("\${module.version.simter-kv:UNKNOWN}") private val version: String,
@@ -40,8 +39,8 @@ class ModuleConfiguration @Autowired constructor(
   }
 
   /** Register a `RouterFunction<ServerResponse>` with all routers for this module */
-  @Bean("$MODULE.Routes")
-  @ConditionalOnMissingBean(name = ["$MODULE.Routes"])
+  @Bean("$PACKAGE.Routes")
+  @ConditionalOnMissingBean(name = ["$PACKAGE.Routes"])
   fun kvRoutes() = router {
     contextPath.nest {
       // GET /{key}
