@@ -13,7 +13,7 @@ import reactor.test.test
 import tech.simter.kv.OPERATION_DELETE
 import tech.simter.kv.OPERATION_READ
 import tech.simter.kv.OPERATION_SAVE
-import tech.simter.kv.PACKAGE_NAME
+import tech.simter.kv.PACKAGE
 import tech.simter.kv.dao.KeyValueDao
 import tech.simter.reactive.security.ModuleAuthorizer
 import tech.simter.reactive.security.ReactiveSecurityService
@@ -30,7 +30,7 @@ import java.util.*
 class LoadModuleAuthorizerByYmlConfigTest @Autowired constructor(
   private val properties: ModuleAuthorizeProperties,
   private val securityService: ReactiveSecurityService,
-  @Qualifier("$PACKAGE_NAME.service.ModuleAuthorizer") private val moduleAuthorizer: ModuleAuthorizer,
+  @Qualifier("$PACKAGE.service.ModuleAuthorizer") private val moduleAuthorizer: ModuleAuthorizer,
   private val dao: KeyValueDao,
   private val service: KeyValueService
 ) {

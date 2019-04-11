@@ -1,7 +1,7 @@
 package tech.simter.kv
 
 /** The module's package name */
-const val PACKAGE_NAME = "tech.simter.kv"
+const val PACKAGE = "tech.simter.kv"
 
 /** Entities table name */
 const val TABLE_KV = "st_kv"

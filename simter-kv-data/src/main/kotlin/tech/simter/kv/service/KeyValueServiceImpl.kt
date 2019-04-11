@@ -7,13 +7,13 @@ import reactor.core.publisher.Mono
 import tech.simter.kv.OPERATION_DELETE
 import tech.simter.kv.OPERATION_READ
 import tech.simter.kv.OPERATION_SAVE
-import tech.simter.kv.PACKAGE_NAME
+import tech.simter.kv.PACKAGE
 import tech.simter.kv.dao.KeyValueDao
 import tech.simter.reactive.security.ModuleAuthorizer
 
 @Component
 class KeyValueServiceImpl @Autowired constructor(
-  @Qualifier("$PACKAGE_NAME.service.ModuleAuthorizer")
+  @Qualifier("$PACKAGE.service.ModuleAuthorizer")
   private val moduleAuthorizer: ModuleAuthorizer,
   private val dao: KeyValueDao
 ) : KeyValueService {
