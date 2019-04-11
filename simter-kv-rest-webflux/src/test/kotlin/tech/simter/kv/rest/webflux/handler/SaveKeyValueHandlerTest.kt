@@ -24,7 +24,6 @@ import javax.json.Json
 @MockkBean(KeyValueService::class)
 class SaveKeyValueHandlerTest @Autowired constructor(
   private val service: KeyValueService,
-  //moduleRouter: RouterFunction<ServerResponse>,
   handler: SaveKeyValueHandler
 ) {
   private val client = bindToRouterFunction(route(REQUEST_PREDICATE, handler)).build()

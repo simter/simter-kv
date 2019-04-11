@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.MediaType.TEXT_PLAIN
-import org.springframework.web.reactive.function.server.ServerResponse.ok
 import org.springframework.web.reactive.function.server.router
 import tech.simter.kv.rest.webflux.handler.DeleteKeyValueHandler
 import tech.simter.kv.rest.webflux.handler.FindKeyValueHandler
@@ -20,7 +19,7 @@ private const val MODULE = "tech.simter.kv.rest.webflux"
  * All configuration for this module.
  *
  * Register a `RouterFunction<ServerResponse>` with all routers for this module.
- * The default context-path of this router is '/'. And can be config by property `simter.rest.context-path.kv`.
+ * The default context-path of this router is '/kv'. And can be config by property `module.rest-context-path.simter-kv`.
  *
  * @author RJ
  */
@@ -50,7 +49,7 @@ class ModuleConfiguration @Autowired constructor(
       // DELETE /{key}
       DeleteKeyValueHandler.REQUEST_PREDICATE.invoke(deleteKeyValueHandler::handle)
       // GET /
-      GET("/", { ok().contentType(TEXT_PLAIN).syncBody("simter-kv-$version") })
+      GET("/") { ok().contentType(TEXT_PLAIN).syncBody("simter-kv-$version") }
       // POST /
       SaveKeyValueHandler.REQUEST_PREDICATE.invoke(saveKeyValueHandler::handle)
     }
