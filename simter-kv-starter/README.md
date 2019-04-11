@@ -9,6 +9,10 @@
 - Spring Boot 2.1+
 - Reactor 3.2+
 
+## Supported Rest API
+
+See [rest-api.md](../docs/rest-api.md).
+
 ## Maven Profiles
 
 | SN  | Name                            | Default | Remark 
