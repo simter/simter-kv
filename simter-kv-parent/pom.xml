@@ -2,8 +2,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>tech.simter</groupId>
-    <artifactId>simter-kv-build</artifactId>
+    <groupId>tech.simter.kv</groupId>
+    <artifactId>simter-kv</artifactId>
     <version>${revision}</version>
     <relativePath>..</relativePath>
   </parent>
@@ -20,7 +20,7 @@
     <dependencies>
       <!-- simter-kv -->
       <dependency>
-        <groupId>tech.simter</groupId>
+        <groupId>tech.simter.kv</groupId>
         <artifactId>simter-kv-dependencies</artifactId>
         <version>${simter-kv.version}</version>
         <type>pom</type>

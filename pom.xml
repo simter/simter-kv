@@ -9,7 +9,8 @@
     <!-- lookup parent from repository -->
     <relativePath/>
   </parent>
-  <artifactId>simter-kv-build</artifactId>
+  <groupId>tech.simter.kv</groupId>
+  <artifactId>simter-kv</artifactId>
   <version>${revision}</version>
   <packaging>pom</packaging>
   <description>Builder</description>

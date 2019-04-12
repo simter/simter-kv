@@ -2,8 +2,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>tech.simter</groupId>
-    <artifactId>simter-kv-build</artifactId>
+    <groupId>tech.simter.kv</groupId>
+    <artifactId>simter-kv</artifactId>
     <version>${revision}</version>
     <relativePath>..</relativePath>
   </parent>
@@ -19,27 +19,27 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>tech.simter</groupId>
+        <groupId>tech.simter.kv</groupId>
         <artifactId>simter-kv-data</artifactId>
         <version>${simter-kv.version}</version>
       </dependency>
       <dependency>
-        <groupId>tech.simter</groupId>
+        <groupId>tech.simter.kv</groupId>
         <artifactId>simter-kv-data-jpa</artifactId>
         <version>${simter-kv.version}</version>
       </dependency>
       <dependency>
-        <groupId>tech.simter</groupId>
+        <groupId>tech.simter.kv</groupId>
         <artifactId>simter-kv-data-reactive-mongo</artifactId>
         <version>${simter-kv.version}</version>
       </dependency>
       <dependency>
-        <groupId>tech.simter</groupId>
+        <groupId>tech.simter.kv</groupId>
         <artifactId>simter-kv-rest-webflux</artifactId>
         <version>${simter-kv.version}</version>
       </dependency>
       <dependency>
-        <groupId>tech.simter</groupId>
+        <groupId>tech.simter.kv</groupId>
         <artifactId>simter-kv-starter</artifactId>
         <version>${simter-kv.version}</version>
       </dependency>

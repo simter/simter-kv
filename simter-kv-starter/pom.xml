@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>tech.simter</groupId>
+    <groupId>tech.simter.kv</groupId>
     <artifactId>simter-kv-parent</artifactId>
     <version>${revision}</version>
     <relativePath>../simter-kv-parent</relativePath>
@@ -33,11 +33,11 @@
   </properties>
   <dependencies>
     <dependency>
-      <groupId>tech.simter</groupId>
+      <groupId>tech.simter.kv</groupId>
       <artifactId>simter-kv-data</artifactId>
     </dependency>
     <dependency>
-      <groupId>tech.simter</groupId>
+      <groupId>tech.simter.kv</groupId>
       <artifactId>simter-kv-rest-webflux</artifactId>
     </dependency>
     <dependency>
@@ -135,7 +135,7 @@
       </properties>
       <dependencies>
         <dependency>
-          <groupId>tech.simter</groupId>
+          <groupId>tech.simter.kv</groupId>
           <artifactId>simter-kv-data-reactive-mongo</artifactId>
           <scope>runtime</scope>
         </dependency>
@@ -160,7 +160,7 @@
       </properties>
       <dependencies>
         <dependency>
-          <groupId>tech.simter</groupId>
+          <groupId>tech.simter.kv</groupId>
           <artifactId>simter-kv-data-reactive-mongo</artifactId>
           <scope>runtime</scope>
         </dependency>
@@ -177,7 +177,7 @@
       </properties>
       <dependencies>
         <dependency>
-          <groupId>tech.simter</groupId>
+          <groupId>tech.simter.kv</groupId>
           <artifactId>simter-kv-data-jpa</artifactId>
           <scope>runtime</scope>
         </dependency>
@@ -218,7 +218,7 @@
       </properties>
       <dependencies>
         <dependency>
-          <groupId>tech.simter</groupId>
+          <groupId>tech.simter.kv</groupId>
           <artifactId>simter-kv-data-jpa</artifactId>
           <scope>runtime</scope>
         </dependency>
@@ -274,7 +274,7 @@
       </properties>
       <dependencies>
         <dependency>
-          <groupId>tech.simter</groupId>
+          <groupId>tech.simter.kv</groupId>
           <artifactId>simter-kv-data-jpa</artifactId>
           <scope>runtime</scope>
         </dependency>
@@ -315,7 +315,7 @@
       </properties>
       <dependencies>
         <dependency>
-          <groupId>tech.simter</groupId>
+          <groupId>tech.simter.kv</groupId>
           <artifactId>simter-kv-data-jpa</artifactId>
           <scope>runtime</scope>
         </dependency>
@@ -371,7 +371,7 @@
       </properties>
       <dependencies>
         <dependency>
-          <groupId>tech.simter</groupId>
+          <groupId>tech.simter.kv</groupId>
           <artifactId>simter-kv-data-jpa</artifactId>
           <scope>runtime</scope>
         </dependency>
