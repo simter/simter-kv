@@ -21,7 +21,7 @@
       <!-- simter-kv -->
       <dependency>
         <groupId>tech.simter.kv</groupId>
-        <artifactId>simter-kv-dependencies</artifactId>
+        <artifactId>simter-kv-bom</artifactId>
         <version>${simter-kv.version}</version>
         <type>pom</type>
         <scope>import</scope>
