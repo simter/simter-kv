@@ -20,7 +20,7 @@
     <simter-dependencies.version>1.2.0-M3</simter-dependencies.version>
   </properties>
   <modules>
-    <module>simter-kv-dependencies</module>
+    <module>simter-kv-bom</module>
     <module>simter-kv-parent</module>
     <module>simter-kv-data</module>
     <module>simter-kv-data-jpa</module>

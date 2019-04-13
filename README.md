@@ -13,9 +13,9 @@
 
 | Sn | Name                          | Type | Parent                 | Remark
 |----|-------------------------------|------|------------------------|--------
-| 1  | [simter-kv-build]             | pom  | [simter-build]         | Build these modules and define global properties and pluginManagement
-| 2  | simter-kv-dependencies        | pom  | simter-kv-build        | Bom of these modules
-| 3  | simter-kv-parent              | pom  | simter-kv-dependencies | Define global dependencies and plugins
+| 1  | [simter-kv]                   | pom  | [simter-build]         | Build these modules and define global properties and pluginManagement
+| 2  | simter-kv-bom                 | pom  | simter-kv              | Bom of these modules
+| 3  | simter-kv-parent              | pom  | simter-kv              | Define global dependencies and plugins
 | 4  | simter-kv-data                | jar  | simter-kv-parent       | Service and Dao Interfaces
 | 5  | simter-kv-data-reactive-mongo | jar  | simter-kv-parent       | Dao Implementation By Reactive MongoDB
 | 6  | simter-kv-data-jpa            | jar  | simter-kv-parent       | Dao Implementation By JPA
@@ -24,4 +24,4 @@
 
 
 [simter-build]: https://github.com/simter/simter-build/tree/master
-[simter-kv-build]: https://github.com/simter/simter-kv
+[simter-kv]: https://github.com/simter/simter-kv
