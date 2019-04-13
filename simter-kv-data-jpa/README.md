@@ -36,12 +36,12 @@ mvn test -P jpa-hibernate,postgres \
 
 ## Maven Properties
 
-| SN | Property Name | Default Value | Remark                    |
-|----|---------------|---------------|---------------------------|
-|  1 | db.host       | localhost     | Database host             |
-|  2 | db.name       | testdb        | Database name             |
-|  3 | db.username   | tester        | Database connect username |
-|  4 | db.password   | password      | Database connect password |
+| Property Name | Default Value | Remark                    |
+|---------------|---------------|---------------------------|
+| db.host       | localhost     | Database host             |
+| db.name       | testdb        | Database name             |
+| db.username   | tester        | Database connect username |
+| db.password   | password      | Database connect password |
 
 Use `-D {property-name}={property-value}` to override default value. Such as:
 
@@ -51,17 +51,17 @@ mvn test -D db.name=testdb
 
 ## Maven Profiles:
 
-| SN | Name              | Type               | Default |
-|----|-------------------|--------------------|---------|
-|  1 | jpa-hibernate     | JPA Implementation | true    |
-|  2 | jpa-eclipselink   | JPA Implementation |         |
-|  3 | embedded-h2       | Embedded Database  | true    |
-|  4 | embedded-hsql     | Embedded Database  |         |
-|  5 | embedded-derby    | Embedded Database  |         |
-|  6 | embedded-postgres | Embedded Database  |         |
-|  7 | embedded-mysql    | Embedded Database  |         |
-|  8 | postgres          | Host Database      |         |
-|  9 | mysql             | Host Database      |         |
+| SN | Name              | Type               | Default | Supported |
+|----|-------------------|--------------------|---------|-----------|
+|  1 | jpa-hibernate     | JPA Implementation | true    | √         |
+|  2 | jpa-eclipselink   | JPA Implementation |         | √         |
+|  3 | embedded-h2       | Embedded Database  | true    | √         |
+|  4 | embedded-hsql     | Embedded Database  |         | √         |
+|  5 | embedded-derby    | Embedded Database  |         | √         |
+|  6 | embedded-postgres | Embedded Database  |         | √         |
+|  7 | embedded-mysql    | Embedded Database  |         | √         |
+|  8 | postgres          | Host Database      |         | √         |
+|  9 | mysql             | Host Database      |         | √         |
 
 The default profile is `jpa-hibernate` and `embedded-h2`.
 Use `-P {profile-name}` to override default. Such as:
