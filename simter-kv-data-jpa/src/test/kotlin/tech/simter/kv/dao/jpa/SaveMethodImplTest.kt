@@ -5,10 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import reactor.test.test
 import tech.simter.kv.dao.KeyValueDao
+import tech.simter.kv.dao.jpa.TestHelper.randomKeyValue
+import tech.simter.kv.dao.jpa.TestHelper.randomString
 import tech.simter.kv.po.KeyValue
 import tech.simter.reactive.jpa.ReactiveEntityManager
 import tech.simter.reactive.test.jpa.ReactiveDataJpaTest
-import java.util.*
 
 /**
  * @author RJ
@@ -22,13 +23,13 @@ class SaveMethodImplTest @Autowired constructor(
   @Test
   fun `save nothing`() {
     val none = mapOf<String, String>()
-    dao.save(none).test().expectNextCount(0L).verifyComplete()
+    dao.save(none).test().verifyComplete()
   }
 
   @Test
   fun `save one`() {
     // do save
-    val po = KeyValue(UUID.randomUUID().toString(), "v")
+    val po = randomKeyValue()
     dao.save(mapOf(po.k to po.v)).test().verifyComplete()
 
     // verify saved
@@ -43,9 +44,9 @@ class SaveMethodImplTest @Autowired constructor(
   @Test
   fun `save many`() {
     // do save
-    val random = UUID.randomUUID().toString()
+    val random = randomString()
     val pos = (1..3).map { KeyValue("$random-$it", "$random-$it") }
-    dao.save(pos.associate { it.k to it.v }).test().expectNextCount(0L).verifyComplete()
+    dao.save(pos.associate { it.k to it.v }).test().verifyComplete()
 
     // verify saved
     pos.forEach {

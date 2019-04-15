@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import reactor.test.test
 import tech.simter.kv.dao.KeyValueDao
+import tech.simter.kv.dao.jpa.TestHelper.randomString
 import tech.simter.kv.po.KeyValue
 import tech.simter.reactive.jpa.ReactiveEntityManager
 import tech.simter.reactive.test.jpa.ReactiveDataJpaTest
-import java.util.*
 
 /**
  * @author RJ
@@ -26,13 +26,13 @@ class DeleteMethodImplTest @Autowired constructor(
 
   @Test
   fun `delete not exists key`() {
-    dao.delete(UUID.randomUUID().toString()).test().verifyComplete()
+    dao.delete(randomString()).test().verifyComplete()
   }
 
   @Test
   fun `delete exists key`() {
     // prepare data
-    val random = UUID.randomUUID().toString();
+    val random = randomString()
     val pos = (1..3).map { KeyValue("$random-$it", "$random-$it") }
     rem.persist(*pos.toTypedArray()).test().verifyComplete()
 

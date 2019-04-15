@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import reactor.test.test
 import tech.simter.kv.dao.KeyValueDao
+import tech.simter.kv.dao.jpa.TestHelper.randomString
 import tech.simter.kv.po.KeyValue
 import tech.simter.reactive.jpa.ReactiveEntityManager
 import tech.simter.reactive.test.jpa.ReactiveDataJpaTest
-import java.util.*
 
 /**
  * @author RJ
@@ -21,7 +21,7 @@ class ValueOfMethodImplTest @Autowired constructor(
 ) {
   @Test
   fun `key not exists`() {
-    dao.valueOf(UUID.randomUUID().toString())
+    dao.valueOf(randomString())
       .test()
       .expectNextCount(0L)
       .verifyComplete()
@@ -29,11 +29,12 @@ class ValueOfMethodImplTest @Autowired constructor(
 
   @Test
   fun `key exists`() {
-    val po = KeyValue(UUID.randomUUID().toString(), "v")
-    rem.persist(po)              // prepare data
-      .then(dao.valueOf(po.k)) // invoke
-      .test()
-      .expectNext(po.v)      // verify
-      .verifyComplete()
+    // prepare data
+    val po = KeyValue(randomString(), "v")
+    rem.persist(po).test().verifyComplete()
+
+    // invoke and verify
+    dao.valueOf(po.k)
+      .test().expectNext(po.v).verifyComplete()
   }
 }

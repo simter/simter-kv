@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import reactor.test.test
 import tech.simter.kv.dao.KeyValueDao
+import tech.simter.kv.dao.jpa.TestHelper.randomString
 import tech.simter.kv.po.KeyValue
 import tech.simter.reactive.jpa.ReactiveEntityManager
 import tech.simter.reactive.test.jpa.ReactiveDataJpaTest
-import java.util.*
 
 /**
  * @author RJ
@@ -27,19 +27,19 @@ class FindMethodImplTest @Autowired constructor(
 
   @Test
   fun `find not exists key`() {
-    dao.find(UUID.randomUUID().toString()).test().verifyComplete()
+    dao.find(randomString()).test().verifyComplete()
   }
 
   @Test
   fun `find exists key`() {
-    val pos = (1..3).map { KeyValue("k-$it", "v-$it") }
-    rem
-      // prepare data
-      .persist(*pos.toTypedArray())
-      // invoke
-      .then(dao.find(*pos.map { it.k }.toTypedArray()))
+    // prepare data
+    val random = randomString()
+    val pos = (1..3).map { KeyValue("$random-$it", "$random-$it") }
+    rem.persist(*pos.toTypedArray()).test().verifyComplete()
+
+    // invoke and verify
+    dao.find(*pos.map { it.k }.toTypedArray())
       .test()
-      // verify
       .consumeNextWith { actualMap ->
         assertEquals(pos.size, actualMap.size)
         pos.forEach { assertEquals(it.v, actualMap[it.k]) }
