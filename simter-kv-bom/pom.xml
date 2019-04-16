@@ -25,6 +25,11 @@
       </dependency>
       <dependency>
         <groupId>tech.simter.kv</groupId>
+        <artifactId>simter-kv-data-r2dbc</artifactId>
+        <version>${simter-kv.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>tech.simter.kv</groupId>
         <artifactId>simter-kv-data-jpa</artifactId>
         <version>${simter-kv.version}</version>
       </dependency>

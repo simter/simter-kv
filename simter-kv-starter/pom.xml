@@ -401,5 +401,90 @@
         </dependency>
       </dependencies>
     </profile>
+    <profile>
+      <id>r2dbc-embedded-h2</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <db.platform>h2</db.platform>
+        <db.url>./target/${db.name}</db.url>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>tech.simter.kv</groupId>
+          <artifactId>simter-kv-data-r2dbc</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>io.r2dbc</groupId>
+          <artifactId>r2dbc-h2</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+
+        <!-- embedded h2 -->
+        <dependency>
+          <groupId>com.h2database</groupId>
+          <artifactId>h2</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>r2dbc-embedded-postgres</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <db.platform>postgres</db.platform>
+        <db.port>5432</db.port>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>tech.simter.kv</groupId>
+          <artifactId>simter-kv-data-r2dbc</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>io.r2dbc</groupId>
+          <artifactId>r2dbc-postgresql</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+
+        <!-- embedded postgres -->
+        <dependency>
+          <groupId>tech.simter</groupId>
+          <artifactId>simter-embedded-database-ext</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>ru.yandex.qatools.embed</groupId>
+          <artifactId>postgresql-embedded</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>r2dbc-postgres</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <db.platform>postgres</db.platform>
+        <db.port>5432</db.port>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>tech.simter.kv</groupId>
+          <artifactId>simter-kv-data-r2dbc</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>io.r2dbc</groupId>
+          <artifactId>r2dbc-postgresql</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+    </profile>
   </profiles>
 </project>
