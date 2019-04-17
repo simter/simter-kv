@@ -75,7 +75,13 @@ class AppConfiguration @Autowired constructor(
    */
   @Bean
   fun rootRoutes() = router {
-    "/".nest { GET("/") { ok().contentType(TEXT_HTML_UTF8).syncBody(rootPage) } }
+    "/".nest {
+      // root /
+      GET("/") { ok().contentType(TEXT_HTML_UTF8).syncBody(rootPage) }
+
+      // OPTIONS /*
+      OPTIONS("/**") { noContent().build() }
+    }
   }
 
   /**
