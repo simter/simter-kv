@@ -2,7 +2,7 @@ package tech.simter.kv.service
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 import tech.simter.kv.OPERATION_DELETE
 import tech.simter.kv.OPERATION_READ
@@ -11,7 +11,7 @@ import tech.simter.kv.PACKAGE
 import tech.simter.kv.dao.KeyValueDao
 import tech.simter.reactive.security.ModuleAuthorizer
 
-@Component
+@Service
 class KeyValueServiceImpl @Autowired constructor(
   @Qualifier("$PACKAGE.service.ModuleAuthorizer")
   private val moduleAuthorizer: ModuleAuthorizer,
