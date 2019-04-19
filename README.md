@@ -1,13 +1,24 @@
 # Simter Key-Value Modules
 
-## Requirement
+## Data Structure
 
-- Maven 3.6+
-- Kotlin 1.3+
-- Java 8+
-- Spring Framework 5.1+
-- Spring Boot 2.1+
-- Reactor 3.2+
+**Domain Object: [KeyValue]={k, v}**
+
+| Property Name | Value Type | Remark          |
+|---------------|------------|-----------------|
+| k             | String     | Key, maxLen=100 |
+| v             | String     | Value           |
+
+[KeyValue]: ./simter-kv-data/src/main/kotlin/tech/simter/kv/po/KeyValue.kt
+
+**Database Table: name=st_kv**
+
+| Column Name | Column Type  | Remark          |
+|-------------|--------------|-----------------|
+| k           | varchar(100) | Key, maxLen=100 |
+| v           | text         | Value           |
+
+> Different database should have different column type, check database script from [here](./simter-kv-data/src/main/resources/tech/simter/kv/sql).
 
 ## Maven Modules
 
@@ -22,6 +33,14 @@
 | 7  | simter-kv-rest-webflux        | jar  | simter-kv-parent       | Rest API By WebFlux
 | 8  | simter-kv-starter             | jar  | simter-kv-parent       | Microservice Starter
 
+## Requirement
+
+- Maven 3.6+
+- Kotlin 1.3+
+- Java 8+
+- Spring Framework 5.1+
+- Spring Boot 2.1+
+- Reactor 3.2+
 
 [simter-build]: https://github.com/simter/simter-build/tree/master
 [simter-kv]: https://github.com/simter/simter-kv
