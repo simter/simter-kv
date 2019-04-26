@@ -1,5 +1,6 @@
 package tech.simter.kv.dao.jpa
 
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
@@ -8,8 +9,9 @@ import tech.simter.kv.dao.KeyValueDao
 import tech.simter.kv.dao.jpa.TestHelper.randomKeyValue
 import tech.simter.kv.dao.jpa.TestHelper.randomString
 import tech.simter.kv.po.KeyValue
-import tech.simter.reactive.jpa.ReactiveEntityManager
 import tech.simter.reactive.test.jpa.ReactiveDataJpaTest
+import tech.simter.reactive.test.jpa.TestEntityManager
+import java.util.*
 
 /**
  * @author RJ
@@ -17,7 +19,7 @@ import tech.simter.reactive.test.jpa.ReactiveDataJpaTest
 @SpringJUnitConfig(UnitTestConfiguration::class)
 @ReactiveDataJpaTest
 class SaveMethodImplTest @Autowired constructor(
-  val rem: ReactiveEntityManager,
+  val rem: TestEntityManager,
   val dao: KeyValueDao
 ) {
   @Test
@@ -33,12 +35,7 @@ class SaveMethodImplTest @Autowired constructor(
     dao.save(mapOf(po.k to po.v)).test().verifyComplete()
 
     // verify saved
-    rem.createQuery("select kv from KeyValue kv where kv.k = :key", KeyValue::class.java)
-      .setParameter("key", po.k)
-      .singleResult
-      .test()
-      .expectNext(po)
-      .verifyComplete()
+    assertEquals(po, rem.find(KeyValue::class.java, po.k).get())
   }
 
   @Test
@@ -50,12 +47,13 @@ class SaveMethodImplTest @Autowired constructor(
 
     // verify saved
     pos.forEach {
-      rem.createQuery("select kv from KeyValue kv where kv.k = :key", KeyValue::class.java)
-        .setParameter("key", it.k)
-        .singleResult
-        .test()
-        .expectNext(it)
-        .verifyComplete()
+      assertEquals(
+        Optional.of(it),
+        rem.querySingle { em ->
+          em.createQuery("select kv from KeyValue kv where kv.k = :key", KeyValue::class.java)
+            .setParameter("key", it.k)
+        }
+      )
     }
   }
 }

@@ -7,8 +7,8 @@ import reactor.test.test
 import tech.simter.kv.dao.KeyValueDao
 import tech.simter.kv.dao.jpa.TestHelper.randomString
 import tech.simter.kv.po.KeyValue
-import tech.simter.reactive.jpa.ReactiveEntityManager
 import tech.simter.reactive.test.jpa.ReactiveDataJpaTest
+import tech.simter.reactive.test.jpa.TestEntityManager
 
 /**
  * @author RJ
@@ -16,7 +16,7 @@ import tech.simter.reactive.test.jpa.ReactiveDataJpaTest
 @SpringJUnitConfig(UnitTestConfiguration::class)
 @ReactiveDataJpaTest
 class ValueOfMethodImplTest @Autowired constructor(
-  val rem: ReactiveEntityManager,
+  val rem: TestEntityManager,
   val dao: KeyValueDao
 ) {
   @Test
@@ -31,7 +31,7 @@ class ValueOfMethodImplTest @Autowired constructor(
   fun `key exists`() {
     // prepare data
     val po = KeyValue(randomString(), "v")
-    rem.persist(po).test().verifyComplete()
+    rem.persist(po)
 
     // invoke and verify
     dao.valueOf(po.k)

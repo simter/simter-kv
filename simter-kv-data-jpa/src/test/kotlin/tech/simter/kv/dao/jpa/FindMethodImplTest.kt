@@ -8,8 +8,8 @@ import reactor.test.test
 import tech.simter.kv.dao.KeyValueDao
 import tech.simter.kv.dao.jpa.TestHelper.randomString
 import tech.simter.kv.po.KeyValue
-import tech.simter.reactive.jpa.ReactiveEntityManager
 import tech.simter.reactive.test.jpa.ReactiveDataJpaTest
+import tech.simter.reactive.test.jpa.TestEntityManager
 
 /**
  * @author RJ
@@ -17,7 +17,7 @@ import tech.simter.reactive.test.jpa.ReactiveDataJpaTest
 @SpringJUnitConfig(UnitTestConfiguration::class)
 @ReactiveDataJpaTest
 class FindMethodImplTest @Autowired constructor(
-  val rem: ReactiveEntityManager,
+  val rem: TestEntityManager,
   val dao: KeyValueDao
 ) {
   @Test
@@ -35,7 +35,7 @@ class FindMethodImplTest @Autowired constructor(
     // prepare data
     val random = randomString()
     val pos = (1..3).map { KeyValue("$random-$it", "$random-$it") }
-    rem.persist(*pos.toTypedArray()).test().verifyComplete()
+    rem.persist(*pos.toTypedArray())
 
     // invoke and verify
     dao.find(*pos.map { it.k }.toTypedArray())
