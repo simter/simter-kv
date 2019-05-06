@@ -56,7 +56,7 @@ Use `-D {property-name}={property-value}` to override default value. Such as:
 mvn test -D db.name=testdb
 ```
 
-## Maven Profiles:
+## Maven Profiles
 
 | SN | Name              | Type               | Default | Supported |
 |----|-------------------|--------------------|---------|:---------:|
@@ -79,7 +79,7 @@ mvn test -P {profile-name}
 
 > `embedded-postgres` and `embedded-mysql` depend on module [simter-embedded-database-ext].
 
-## YML Files:
+## YML Files
 
 | SN | Name                            | Remark               |
 |----|---------------------------------|----------------------|
