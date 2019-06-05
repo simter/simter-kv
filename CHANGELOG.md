@@ -1,5 +1,42 @@
 # simter-kv changelog
 
+## 0.7.0-M4 2019-05-10
+
+- Rename simter-kv-dependencies to simter-kv-bom
+- Upgrade to simter-1.2.0-M5
+- Implements data-r2dbc
+- Use TestEntityManager instead ReactiveEntityManager
+
+## 0.7.0-M3 2019-04-12
+
+- Rename TABLE_NAME to TABLE_KV
+- Rename PACKAGE_NAME to PACKAGE
+- Rename simter-kv-build to simter-kv
+- Rename groupId tech.simter to tech.simter.kv [#9](https://github.com/simter/simter-kv/issues/9)
+- Support static file on starter [#10](https://github.com/simter/simter-kv/issues/10)
+
+## 0.7.0-M2 2019-04-11
+
+- Rename maven property jpa.ddl-auto to db.jpa-ddl-auto
+- Change default database username to tester
+- Support EclipseLink for JPA implementation [#7](https://github.com/simter/simter-kv/issues/7)
+- Rename KeyValue.Key|Value to KeyValue.k|v to avoid use reserved word
+- Add run all data-jpa test script - test.sh
+- Set starter default profile to reactive-embedded-mongodb
+- Add Rest API document
+- Upgrade to simter-1.2.0-M3
+- Simplify data-jpa module profiles
+
+## 0.7.0-M1 2019-04-08
+
+- Support use ModuleAuthorizer to verify permission when call service method
+- Seperate each dao.jpa method test to a standalone test class
+- Add h2, hsql, derby and mysql sql
+- Support embedded-postgres test on module data-jpa
+- Support embedded-mysql test on module data-jpa
+- Support embedded-derby test on module data-jpa
+- Convert module data-jpa's block dao to reactive by ReactiveJpaWrapper
+
 ## 0.6.0 2019-01-14
 
 - Upgrade to simter-build-1.1.0 and simter-dependencies-1.1.0
