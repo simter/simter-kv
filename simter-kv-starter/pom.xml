@@ -29,6 +29,7 @@
     <db.jpa-implementation>none</db.jpa-implementation>
     <db.jpa-quote-sql>false</db.jpa-quote-sql>
     <db.continue-on-error>false</db.continue-on-error>
+    <db.disabled-datasource>false</db.disabled-datasource>
     <logging.file>target/test.log</logging.file>
   </properties>
   <dependencies>
@@ -60,8 +61,36 @@
       <artifactId>jackson-datatype-jsr353</artifactId>
       <scope>runtime</scope>
     </dependency>
+
+    <!-- log -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <scope>runtime</scope>
+    </dependency>
   </dependencies>
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <excludes>
+          <exclude>META-INF/**</exclude>
+        </excludes>
+        <filtering>true</filtering>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>META-INF/**</include>
+        </includes>
+        <filtering>false</filtering>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
@@ -117,7 +146,7 @@
       <properties>
         <kotlin.compiler.incremental>false</kotlin.compiler.incremental>
         <db.name>st_kv</db.name>
-        <db.username>st_kv</db.username>
+        <db.username>kv</db.username>
         <db.init-mode>never</db.init-mode>
         <logging.file>${project.artifactId}-${project.version}.log</logging.file>
       </properties>
@@ -137,6 +166,11 @@
         <dependency>
           <groupId>tech.simter.kv</groupId>
           <artifactId>simter-kv-dao-mongo</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
           <scope>runtime</scope>
         </dependency>
 
@@ -162,6 +196,103 @@
         <dependency>
           <groupId>tech.simter.kv</groupId>
           <artifactId>simter-kv-dao-mongo</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>r2dbc-embedded-h2</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <db.platform>h2</db.platform>
+        <db.init-mode>always</db.init-mode>
+        <db.disabled-datasource>true</db.disabled-datasource>
+        <db.url>./target/${db.name}</db.url>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>tech.simter.kv</groupId>
+          <artifactId>simter-kv-dao-r2dbc</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>io.r2dbc</groupId>
+          <artifactId>r2dbc-h2</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+
+        <!-- embedded h2 -->
+        <dependency>
+          <groupId>com.h2database</groupId>
+          <artifactId>h2</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>r2dbc-embedded-postgres</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <db.platform>postgres</db.platform>
+        <!-- default postgres port is 5432, plus 1 to avoid conflict -->
+        <db.port>5433</db.port>
+        <db.init-mode>always</db.init-mode>
+        <db.disabled-datasource>true</db.disabled-datasource>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>tech.simter.kv</groupId>
+          <artifactId>simter-kv-dao-r2dbc</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>io.r2dbc</groupId>
+          <artifactId>r2dbc-postgresql</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+
+        <!-- embedded postgres -->
+        <dependency>
+          <groupId>tech.simter</groupId>
+          <artifactId>simter-embedded-database-ext</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>ru.yandex.qatools.embed</groupId>
+          <artifactId>postgresql-embedded</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>r2dbc-postgres</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <db.platform>postgres</db.platform>
+        <db.port>5432</db.port>
+        <db.init-mode>never</db.init-mode>
+        <db.disabled-datasource>true</db.disabled-datasource>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>tech.simter.kv</groupId>
+          <artifactId>simter-kv-dao-r2dbc</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>io.r2dbc</groupId>
+          <artifactId>r2dbc-postgresql</artifactId>
           <scope>runtime</scope>
         </dependency>
       </dependencies>
@@ -397,91 +528,6 @@
         <dependency>
           <groupId>mysql</groupId>
           <artifactId>mysql-connector-java</artifactId>
-          <scope>runtime</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-    <profile>
-      <id>r2dbc-embedded-h2</id>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-      <properties>
-        <db.platform>h2</db.platform>
-        <db.url>./target/${db.name}</db.url>
-      </properties>
-      <dependencies>
-        <dependency>
-          <groupId>tech.simter.kv</groupId>
-          <artifactId>simter-kv-dao-r2dbc</artifactId>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>io.r2dbc</groupId>
-          <artifactId>r2dbc-h2</artifactId>
-          <scope>runtime</scope>
-        </dependency>
-
-        <!-- embedded h2 -->
-        <dependency>
-          <groupId>com.h2database</groupId>
-          <artifactId>h2</artifactId>
-          <scope>runtime</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-    <profile>
-      <id>r2dbc-embedded-postgres</id>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-      <properties>
-        <db.platform>postgres</db.platform>
-        <db.port>5432</db.port>
-      </properties>
-      <dependencies>
-        <dependency>
-          <groupId>tech.simter.kv</groupId>
-          <artifactId>simter-kv-dao-r2dbc</artifactId>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>io.r2dbc</groupId>
-          <artifactId>r2dbc-postgresql</artifactId>
-          <scope>runtime</scope>
-        </dependency>
-
-        <!-- embedded postgres -->
-        <dependency>
-          <groupId>tech.simter</groupId>
-          <artifactId>simter-embedded-database-ext</artifactId>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>ru.yandex.qatools.embed</groupId>
-          <artifactId>postgresql-embedded</artifactId>
-          <scope>runtime</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-    <profile>
-      <id>r2dbc-postgres</id>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-      <properties>
-        <db.platform>postgres</db.platform>
-        <db.port>5432</db.port>
-      </properties>
-      <dependencies>
-        <dependency>
-          <groupId>tech.simter.kv</groupId>
-          <artifactId>simter-kv-dao-r2dbc</artifactId>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>io.r2dbc</groupId>
-          <artifactId>r2dbc-postgresql</artifactId>
           <scope>runtime</scope>
         </dependency>
       </dependencies>

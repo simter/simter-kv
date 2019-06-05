@@ -4,10 +4,10 @@ spring:
   datasource:
     platform: @db.platform@
     url: @db.url@    # for h2
-    name: @db.name@  # for postgres
-    username: @db.username@
     host: @db.host@
     port: @db.port@
+    name: @db.name@  # for postgres
+    username: @db.username@
     password: @db.password@
     continue-on-error: @db.continue-on-error@
     sql-script-encoding: UTF-8
