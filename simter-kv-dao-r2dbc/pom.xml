@@ -7,7 +7,7 @@
     <version>${revision}</version>
     <relativePath>../simter-kv-parent</relativePath>
   </parent>
-  <artifactId>simter-kv-data-r2dbc</artifactId>
+  <artifactId>simter-kv-dao-r2dbc</artifactId>
   <packaging>jar</packaging>
   <description>Dao Implementation By R2DBC</description>
   <developers>
@@ -34,7 +34,7 @@
     </dependency>
     <dependency>
       <groupId>tech.simter.kv</groupId>
-      <artifactId>simter-kv-data</artifactId>
+      <artifactId>simter-kv-core</artifactId>
     </dependency>
     <dependency>
       <groupId>io.r2dbc</groupId>

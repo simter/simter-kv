@@ -7,7 +7,7 @@
     <version>${revision}</version>
     <relativePath>../simter-kv-parent</relativePath>
   </parent>
-  <artifactId>simter-kv-data</artifactId>
+  <artifactId>simter-kv-core</artifactId>
   <packaging>jar</packaging>
   <description>Data API</description>
   <developers>

@@ -1,4 +1,4 @@
-# simter-kv-data-r2dbc
+# simter-kv-dao-r2dbc
 
 The [KeyValueDao] implementation by [R2DBC].
 

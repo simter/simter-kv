@@ -20,22 +20,22 @@
     <dependencies>
       <dependency>
         <groupId>tech.simter.kv</groupId>
-        <artifactId>simter-kv-data</artifactId>
+        <artifactId>simter-kv-core</artifactId>
         <version>${simter-kv.version}</version>
       </dependency>
       <dependency>
         <groupId>tech.simter.kv</groupId>
-        <artifactId>simter-kv-data-r2dbc</artifactId>
+        <artifactId>simter-kv-dao-mongo</artifactId>
         <version>${simter-kv.version}</version>
       </dependency>
       <dependency>
         <groupId>tech.simter.kv</groupId>
-        <artifactId>simter-kv-data-jpa</artifactId>
+        <artifactId>simter-kv-dao-r2dbc</artifactId>
         <version>${simter-kv.version}</version>
       </dependency>
       <dependency>
         <groupId>tech.simter.kv</groupId>
-        <artifactId>simter-kv-data-reactive-mongo</artifactId>
+        <artifactId>simter-kv-dao-jpa</artifactId>
         <version>${simter-kv.version}</version>
       </dependency>
       <dependency>

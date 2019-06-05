@@ -7,7 +7,7 @@
     <version>${revision}</version>
     <relativePath>../simter-kv-parent</relativePath>
   </parent>
-  <artifactId>simter-kv-data-reactive-mongo</artifactId>
+  <artifactId>simter-kv-dao-mongo</artifactId>
   <packaging>jar</packaging>
   <description>Dao Implementation By Reactive MongoDB</description>
   <developers>
@@ -19,7 +19,7 @@
   <dependencies>
     <dependency>
       <groupId>tech.simter.kv</groupId>
-      <artifactId>simter-kv-data</artifactId>
+      <artifactId>simter-kv-core</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
