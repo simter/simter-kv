@@ -5,15 +5,15 @@ import io.mockk.every
 import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.MediaType
+import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import org.springframework.test.web.reactive.server.WebTestClient.bindToRouterFunction
 import org.springframework.web.reactive.config.EnableWebFlux
 import org.springframework.web.reactive.function.server.RouterFunctions.route
 import reactor.core.publisher.Mono
-import tech.simter.kv.po.KeyValue
+import tech.simter.kv.core.KeyValueService
+import tech.simter.kv.impl.ImmutableKeyValue
 import tech.simter.kv.rest.webflux.handler.FindKeyValueHandler.Companion.REQUEST_PREDICATE
-import tech.simter.kv.service.KeyValueService
 import java.util.*
 import javax.json.Json
 
@@ -40,7 +40,7 @@ class FindKeyValueHandlerTest @Autowired constructor(
     client.get().uri("/$key")
       .exchange()
       .expectStatus().isOk
-      .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+      .expectHeader().contentType(APPLICATION_JSON)
       .expectBody()
       .jsonPath("$.$key").isEqualTo(value)
 
@@ -66,7 +66,7 @@ class FindKeyValueHandlerTest @Autowired constructor(
   @Test
   fun findMulti() {
     // mock
-    val kvList = (1..3).map { KeyValue("k-$it", "v-$it") }
+    val kvList = (1..3).map { ImmutableKeyValue("k-$it", "v-$it") }
     val expected = Mono.just(kvList.associate { it.k to it.v })
     val keyArray = kvList.map { it.k }.toTypedArray()
     every { service.find(*keyArray) } returns expected
@@ -77,7 +77,7 @@ class FindKeyValueHandlerTest @Autowired constructor(
     client.get().uri("/" + keyArray.joinToString(","))
       .exchange()
       .expectStatus().isOk
-      .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+      .expectHeader().contentType(APPLICATION_JSON)
       .expectBody()
       .json(expectedJson.build().toString())
 

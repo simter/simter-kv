@@ -18,20 +18,21 @@
 | k           | varchar(100) | Key, maxLen=100 |
 | v           | text         | Value           |
 
-> Different database should have different column type, check database script from [here](./simter-kv-data/src/main/resources/tech/simter/kv/sql).
+> Different database should have different column type, check database script from [here](./simter-kv-core/src/main/resources/tech/simter/kv/sql).
 
 ## Maven Modules
 
-| Sn | Name                          | Type | Parent                 | Remark
-|----|-------------------------------|------|------------------------|--------
-| 1  | [simter-kv]                   | pom  | [simter-build]         | Build these modules and define global properties and pluginManagement
-| 2  | simter-kv-bom                 | pom  | simter-kv              | Bom of these modules
-| 3  | simter-kv-parent              | pom  | simter-kv              | Define global dependencies and plugins
-| 4  | simter-kv-data                | jar  | simter-kv-parent       | Service and Dao Interfaces
-| 5  | simter-kv-data-reactive-mongo | jar  | simter-kv-parent       | Dao Implementation By Reactive MongoDB
-| 6  | simter-kv-data-jpa            | jar  | simter-kv-parent       | Dao Implementation By JPA
-| 7  | simter-kv-rest-webflux        | jar  | simter-kv-parent       | Rest API By WebFlux
-| 8  | simter-kv-starter             | jar  | simter-kv-parent       | Microservice Starter
+| Sn | Name                   | Type | Parent                 | Remark
+|----|------------------------|------|------------------------|--------
+| 1  | [simter-kv]            | pom  | [simter-build]         | Build these modules and define global properties and pluginManagement
+| 2  | simter-kv-bom          | pom  | simter-kv              | Bom
+| 3  | simter-kv-parent       | pom  | simter-kv              | Define global dependencies and plugins
+| 4  | simter-kv-core         | jar  | simter-kv-parent       | Service and Dao Interfaces
+| 5  | simter-kv-dao-mongo    | jar  | simter-kv-parent       | Dao Implementation By Reactive MongoDB
+| 6  | simter-kv-dao-r2dbc    | jar  | simter-kv-parent       | Dao Implementation By R2DBC
+| 7  | simter-kv-dao-jpa      | jar  | simter-kv-parent       | Dao Implementation By JPA
+| 8  | simter-kv-rest-webflux | jar  | simter-kv-parent       | Rest API By WebFlux
+| 9  | simter-kv-starter      | jar  | simter-kv-parent       | Microservice Starter
 
 ## Requirement
 

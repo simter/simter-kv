@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.server.RequestPredicates.DELETE
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 import reactor.core.publisher.Mono
-import tech.simter.kv.service.KeyValueService
+import tech.simter.kv.core.KeyValueService
 
 /**
  * The [HandlerFunction] for delete single key-value pair or multiple key-value pairs.

@@ -5,14 +5,14 @@ import io.mockk.every
 import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.MediaType
+import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import org.springframework.test.web.reactive.server.WebTestClient.bindToRouterFunction
 import org.springframework.web.reactive.config.EnableWebFlux
 import org.springframework.web.reactive.function.server.RouterFunctions.route
 import reactor.core.publisher.Mono
+import tech.simter.kv.core.KeyValueService
 import tech.simter.kv.rest.webflux.handler.SaveKeyValueHandler.Companion.REQUEST_PREDICATE
-import tech.simter.kv.service.KeyValueService
 import java.util.*
 import javax.json.Json
 
@@ -32,7 +32,7 @@ class SaveKeyValueHandlerTest @Autowired constructor(
   fun saveNone() {
     // invoke
     client.post().uri("/")
-      .contentType(MediaType.APPLICATION_JSON_UTF8)
+      .contentType(APPLICATION_JSON)
       .syncBody("{}")
       .exchange()
       .expectStatus().isNoContent
@@ -51,7 +51,7 @@ class SaveKeyValueHandlerTest @Autowired constructor(
 
     // invoke
     client.post().uri("/")
-      .contentType(MediaType.APPLICATION_JSON_UTF8)
+      .contentType(APPLICATION_JSON)
       .syncBody("{\"$key\":\"$value\"}")
       .exchange()
       .expectStatus().isNoContent
@@ -70,7 +70,7 @@ class SaveKeyValueHandlerTest @Autowired constructor(
 
     // invoke
     client.post().uri("/")
-      .contentType(MediaType.APPLICATION_JSON_UTF8)
+      .contentType(APPLICATION_JSON)
       .syncBody(kvJson.build().toString())
       .exchange()
       .expectStatus().isNoContent

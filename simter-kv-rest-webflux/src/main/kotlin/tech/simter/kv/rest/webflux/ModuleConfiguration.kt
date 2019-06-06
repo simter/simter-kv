@@ -23,7 +23,7 @@ import tech.simter.reactive.web.Utils.TEXT_PLAIN_UTF8
  * @author RJ
  */
 @Configuration("$PACKAGE.rest.webflux.ModuleConfiguration")
-@ComponentScan("$PACKAGE.rest.webflux")
+@ComponentScan
 class ModuleConfiguration @Autowired constructor(
   @Value("\${module.rest-context-path.simter-kv:/kv}") private val contextPath: String,
   @Value("\${module.version.simter-kv:UNKNOWN}") private val version: String,

@@ -27,7 +27,8 @@ import java.util.concurrent.TimeUnit
 @Configuration("$PACKAGE.starter.AppConfiguration")
 @EnableWebFlux
 class AppConfiguration @Autowired constructor(
-  @Value("\${module.version.simter-kv:UNKNOWN}") private val version: String
+  @Value("\${module.version.simter:UNKNOWN}") private val simterVersion: String,
+  @Value("\${module.version.simter-kv:UNKNOWN}") private val kvVersion: String
 ) {
   /**
    * Register by method [DelegatingWebFluxConfiguration.setConfigurers].
@@ -67,7 +68,10 @@ class AppConfiguration @Autowired constructor(
   private val rootPage: String = """
     <h2>Simter Key-Value Micro Service</h2>
     <div>Start at : $startTime</div>
-    <div>Version : $version</div>
+    <div>Version : $kvVersion</div>
+    <ul>
+      <li>simter-$simterVersion</li>
+    </ul>
   """.trimIndent()
 
   /**

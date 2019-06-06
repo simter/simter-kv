@@ -1,4 +1,6 @@
-module.version.simter-kv: @project.version@
+module.version:
+  simter: @simter.version@
+  simter-kv: @project.version@
 module.authorization.simter-kv.defaultPermission: "Allow"   # Allow|Deny
 simter.jwt:
   secret-key: @simter.jwt.secret-key@
