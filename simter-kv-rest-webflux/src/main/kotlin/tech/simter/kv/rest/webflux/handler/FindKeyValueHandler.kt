@@ -1,7 +1,7 @@
 package tech.simter.kv.rest.webflux.handler
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.MediaType
+import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.HandlerFunction
 import org.springframework.web.reactive.function.server.RequestPredicate
@@ -50,7 +50,7 @@ class FindKeyValueHandler @Autowired constructor(
       if (keys.size == 1) service.valueOf(keys[0]).map { mapOf(keys[0] to it) } // {key: value}
       else service.find(*keys.toTypedArray())  // {key1: value1, ...}
       )
-      .flatMap { ok().contentType(MediaType.APPLICATION_JSON_UTF8).syncBody(it) }
+      .flatMap { ok().contentType(APPLICATION_JSON).syncBody(it) }
       .switchIfEmpty(noContent().build())
   }
 

@@ -2,7 +2,7 @@ package tech.simter.kv.starter
 
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.springframework.http.MediaType
+import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.test.web.reactive.server.WebTestClient
 import java.util.*
 import javax.json.Json
@@ -13,13 +13,14 @@ import javax.json.Json
  */
 @Disabled
 class IntegrationTest {
+  private fun randomString() = UUID.randomUUID().toString()
   private val webClient = WebTestClient.bindToServer().baseUrl("http://localhost:8085").build()
   private val contextPath = ""
 
   @Test
   fun findOne() {
     // prepare data
-    val key = UUID.randomUUID().toString()
+    val key = randomString()
     val value = "v"
     val map = mapOf(key to value)
     save(map)
@@ -28,14 +29,14 @@ class IntegrationTest {
     webClient.get().uri("$contextPath/$key")
       .exchange()
       .expectStatus().isOk
-      .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+      .expectHeader().contentType(APPLICATION_JSON)
       .expectBody()
       .json(map2JsonString(map))
   }
 
   @Test
   fun findOneButNotFound() {
-    val key = UUID.randomUUID().toString()
+    val key = randomString()
     webClient.get().uri("$contextPath/$key")
       .exchange()
       .expectStatus().isNoContent
@@ -51,7 +52,7 @@ class IntegrationTest {
     webClient.get().uri("$contextPath/" + map.keys.joinToString(","))
       .exchange()
       .expectStatus().isOk
-      .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+      .expectHeader().contentType(APPLICATION_JSON)
       .expectBody()
       .json(map2JsonString(map))
   }
@@ -63,7 +64,7 @@ class IntegrationTest {
 
   @Test
   fun saveOne() {
-    save(mapOf(UUID.randomUUID().toString() to "v"))
+    save(mapOf(randomString() to "v"))
   }
 
   @Test
@@ -74,17 +75,17 @@ class IntegrationTest {
   private fun save(map: Map<String, String>) {
     // invoke save
     webClient.post().uri(contextPath)
-      .contentType(MediaType.APPLICATION_JSON_UTF8)
+      .contentType(APPLICATION_JSON)
       .syncBody(map2JsonString(map))
       .exchange()
       .expectStatus().isNoContent
 
     // verify saved
-    if (!map.isEmpty()) {
+    if (map.isNotEmpty()) {
       webClient.get().uri("$contextPath/" + map.keys.joinToString(","))
         .exchange()
         .expectStatus().isOk
-        .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+        .expectHeader().contentType(APPLICATION_JSON)
         .expectBody()
         .json(map2JsonString(map))
     }
@@ -100,14 +101,14 @@ class IntegrationTest {
 
   @Test
   fun deleteNotExistsKey() {
-    val key = UUID.randomUUID().toString()
+    val key = randomString()
     webClient.delete().uri("$contextPath/$key").exchange().expectStatus().isNoContent
   }
 
   @Test
   fun deleteOne() {
     // prepare data
-    val key = UUID.randomUUID().toString()
+    val key = randomString()
     val value = "v"
     val map = mapOf(key to value)
     save(map)

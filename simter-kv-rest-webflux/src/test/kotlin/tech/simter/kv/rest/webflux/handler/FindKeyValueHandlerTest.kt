@@ -5,7 +5,7 @@ import io.mockk.every
 import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.MediaType
+import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import org.springframework.test.web.reactive.server.WebTestClient.bindToRouterFunction
 import org.springframework.web.reactive.config.EnableWebFlux
@@ -40,7 +40,7 @@ class FindKeyValueHandlerTest @Autowired constructor(
     client.get().uri("/$key")
       .exchange()
       .expectStatus().isOk
-      .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+      .expectHeader().contentType(APPLICATION_JSON)
       .expectBody()
       .jsonPath("$.$key").isEqualTo(value)
 
@@ -77,7 +77,7 @@ class FindKeyValueHandlerTest @Autowired constructor(
     client.get().uri("/" + keyArray.joinToString(","))
       .exchange()
       .expectStatus().isOk
-      .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+      .expectHeader().contentType(APPLICATION_JSON)
       .expectBody()
       .json(expectedJson.build().toString())
 
