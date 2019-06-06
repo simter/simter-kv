@@ -7,7 +7,7 @@ import org.springframework.web.reactive.function.server.*
 import org.springframework.web.reactive.function.server.RequestPredicates.POST
 import org.springframework.web.reactive.function.server.RequestPredicates.contentType
 import reactor.core.publisher.Mono
-import tech.simter.kv.service.KeyValueService
+import tech.simter.kv.core.KeyValueService
 
 /**
  * The [HandlerFunction] for create or update key-value pairs.

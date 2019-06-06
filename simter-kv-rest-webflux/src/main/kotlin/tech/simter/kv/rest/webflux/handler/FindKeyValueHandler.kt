@@ -11,7 +11,7 @@ import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.ServerResponse.noContent
 import org.springframework.web.reactive.function.server.ServerResponse.ok
 import reactor.core.publisher.Mono
-import tech.simter.kv.service.KeyValueService
+import tech.simter.kv.core.KeyValueService
 
 /**
  * The [HandlerFunction] for find single key-value pair or multiple key-value pairs.

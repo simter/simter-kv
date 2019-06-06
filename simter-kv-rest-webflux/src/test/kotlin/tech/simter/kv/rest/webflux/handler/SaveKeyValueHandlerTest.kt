@@ -12,7 +12,7 @@ import org.springframework.web.reactive.config.EnableWebFlux
 import org.springframework.web.reactive.function.server.RouterFunctions.route
 import reactor.core.publisher.Mono
 import tech.simter.kv.rest.webflux.handler.SaveKeyValueHandler.Companion.REQUEST_PREDICATE
-import tech.simter.kv.service.KeyValueService
+import tech.simter.kv.core.KeyValueService
 import java.util.*
 import javax.json.Json
 
