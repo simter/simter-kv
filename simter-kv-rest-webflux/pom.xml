@@ -9,7 +9,7 @@
   </parent>
   <artifactId>simter-kv-rest-webflux</artifactId>
   <packaging>jar</packaging>
-  <description>Rest API By WebFlux</description>
+  <description>Rest API Implementation By WebFlux</description>
   <developers>
     <developer>
       <name>RJ.Hwang</name>

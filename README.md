@@ -1,4 +1,6 @@
-# Simter Key-Value Modules
+# simter-kv
+
+Simple Application Key-Value Pair Manager.
 
 ## Data Structure
 
@@ -9,7 +11,7 @@
 | k             | String     | Key, maxLen=100 |
 | v             | String     | Value           |
 
-[KeyValue]: ./simter-kv-data/src/main/kotlin/tech/simter/kv/po/KeyValue.kt
+[KeyValue]: ./simter-kv-core/src/main/kotlin/tech/simter/kv/core/KeyValue.kt
 
 **Database Table: name=st_kv**
 
@@ -27,11 +29,11 @@
 | 1  | [simter-kv]            | pom  | [simter-build]         | Build these modules and define global properties and pluginManagement
 | 2  | simter-kv-bom          | pom  | simter-kv              | Bom
 | 3  | simter-kv-parent       | pom  | simter-kv              | Define global dependencies and plugins
-| 4  | simter-kv-core         | jar  | simter-kv-parent       | Service and Dao Interfaces
-| 5  | simter-kv-dao-mongo    | jar  | simter-kv-parent       | Dao Implementation By Reactive MongoDB
-| 6  | simter-kv-dao-r2dbc    | jar  | simter-kv-parent       | Dao Implementation By R2DBC
-| 7  | simter-kv-dao-jpa      | jar  | simter-kv-parent       | Dao Implementation By JPA
-| 8  | simter-kv-rest-webflux | jar  | simter-kv-parent       | Rest API By WebFlux
+| 4  | simter-kv-core         | jar  | simter-kv-parent       | Core API: [KeyValue], [KeyValueDao] and [KeyValueService]
+| 5  | simter-kv-dao-mongo    | jar  | simter-kv-parent       | [KeyValueDao] Implementation By Reactive MongoDB
+| 6  | simter-kv-dao-r2dbc    | jar  | simter-kv-parent       | [KeyValueDao] Implementation By R2DBC
+| 7  | simter-kv-dao-jpa      | jar  | simter-kv-parent       | [KeyValueDao] Implementation By JPA
+| 8  | simter-kv-rest-webflux | jar  | simter-kv-parent       | [Rest API] Implementation By WebFlux
 | 9  | simter-kv-starter      | jar  | simter-kv-parent       | Microservice Starter
 
 ## Requirement
@@ -43,5 +45,9 @@
 - Spring Boot 2.1+
 - Reactor 3.2+
 
-[simter-build]: https://github.com/simter/simter-build/tree/master
+[simter-build]: https://github.com/simter/simter-build
 [simter-kv]: https://github.com/simter/simter-kv
+[KeyValue]: https://github.com/simter/simter-kv/blob/master/simter-kv-core/src/main/kotlin/tech/simter/kv/core/KeyValue.kt
+[KeyValueDao]: https://github.com/simter/simter-kv/blob/master/simter-kv-core/src/main/kotlin/tech/simter/kv/core/KeyValueDao.kt
+[KeyValueService]: https://github.com/simter/simter-kv/blob/master/simter-kv-core/src/main/kotlin/tech/simter/kv/core/KeyValueService.kt
+[Rest API]: ./docs/rest-api.md

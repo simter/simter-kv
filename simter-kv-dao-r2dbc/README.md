@@ -37,10 +37,10 @@ mvn test -D db.name=testdb
 ## Maven Profiles:
 
 | Name              | Default | Supported |
-|-------------------|---------|-----------|
-| embedded-h2       | √       | √         |
-| embedded-postgres |         | √         |
-| postgres          |         | √         |
+|-------------------|:-------:|:---------:|
+| embedded-h2       |    √    |     √     |
+| embedded-postgres |         |     √     |
+| postgres          |         |     √     |
 
 The default profile is `embedded-h2`.
 Use `-P {profile-name}` to override default. Such as:
@@ -53,7 +53,5 @@ mvn test -P {profile-name}
 
 
 [R2DBC]: https://r2dbc.io
-[KeyValueDao]: https://github.com/simter/simter-kv/blob/master/simter-kv-data/src/main/kotlin/tech/simter/kv/dao/YmdDao.kt
-[sql/postgres/schema-create.sql]: https://github.com/simter/simter-kv/blob/master/simter-kv-data/src/main/resources/tech/simter/kv/sql/postgres/schema-create.sql
-[R2dbcProperties]: https://github.com/simter/simter-r2dbc-ext/blob/master/src/main/kotlin/tech/simter/r2dbc/R2dbcProperties.kt
+[KeyValueDao]: https://github.com/simter/simter-kv/blob/master/simter-kv-core/src/main/kotlin/tech/simter/kv/core/KeyValueDao.kt
 [simter-embedded-database-ext]: https://github.com/simter/simter-embedded-database-ext
