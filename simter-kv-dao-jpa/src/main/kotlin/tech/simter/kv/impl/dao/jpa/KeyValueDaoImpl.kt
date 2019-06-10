@@ -1,9 +1,8 @@
 package tech.simter.kv.impl.dao.jpa
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Repository
 import reactor.core.publisher.Mono
-import reactor.core.publisher.toMono
 import tech.simter.kv.core.KeyValueDao
 import tech.simter.reactive.jpa.ReactiveJpaWrapper
 
@@ -12,7 +11,7 @@ import tech.simter.reactive.jpa.ReactiveJpaWrapper
  *
  * @author RJ
  */
-@Component
+@Repository
 class KeyValueDaoImpl @Autowired constructor(
   private val blockDao: KeyValueBlockDao,
   private val wrapper: ReactiveJpaWrapper
@@ -25,7 +24,7 @@ class KeyValueDaoImpl @Autowired constructor(
   override fun find(vararg keys: String): Mono<Map<String, String>> {
     return if (keys.isEmpty()) Mono.empty()
     else wrapper.fromCallable { blockDao.find(*keys) }
-      .flatMap { if (it.isEmpty()) Mono.empty() else it.toMono() }
+      .flatMap { if (it.isEmpty()) Mono.empty() else Mono.just(it) }
   }
 
   override fun save(keyValues: Map<String, String>): Mono<Void> {

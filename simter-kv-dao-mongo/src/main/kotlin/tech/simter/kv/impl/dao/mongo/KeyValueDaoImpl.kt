@@ -1,7 +1,7 @@
 package tech.simter.kv.impl.dao.mongo
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Repository
 import reactor.core.publisher.Mono
 import tech.simter.kv.core.KeyValueDao
 import tech.simter.kv.impl.dao.mongo.po.KeyValuePo
@@ -11,7 +11,7 @@ import tech.simter.kv.impl.dao.mongo.po.KeyValuePo
  *
  * @author RJ
  */
-@Component
+@Repository
 class KeyValueDaoImpl @Autowired constructor(
   private val repository: KeyValueReactiveRepository
 ) : KeyValueDao {

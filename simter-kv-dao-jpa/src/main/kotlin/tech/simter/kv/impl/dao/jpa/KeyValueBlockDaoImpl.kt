@@ -1,7 +1,7 @@
 package tech.simter.kv.impl.dao.jpa
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 import tech.simter.kv.impl.dao.jpa.po.KeyValuePo
 import java.util.*
@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext
  *
  * @author RJ
  */
-@Component
+@Repository
 internal class KeyValueBlockDaoImpl @Autowired constructor(
   @PersistenceContext private val em: EntityManager,
   private val repository: KeyValueJpaRepository

@@ -5,7 +5,7 @@ import io.r2dbc.client.Update
 import io.r2dbc.spi.ConnectionFactory
 import io.r2dbc.spi.Row
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Repository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.core.publisher.toMono
@@ -13,13 +13,12 @@ import tech.simter.kv.TABLE_KV
 import tech.simter.kv.core.KeyValueDao
 import tech.simter.kv.impl.ImmutableKeyValue
 
-
 /**
  * The r2dbc-client implementation of [KeyValueDao].
  *
  * @author RJ
  */
-@Component
+@Repository
 class KeyValueDaoImplByR2dbcClient @Autowired constructor(
   connectionFactory: ConnectionFactory
 ) : KeyValueDao {
