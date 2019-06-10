@@ -1,5 +1,10 @@
 # simter-kv changelog
 
+## 0.7.0-M5 2019-06-10
+
+- Upgrade to simter-1.2.0-M6
+- Refactor module structure to make core api simplify and clear [#12](https://github.com/simter/simter-kv/issues/12)
+
 ## 0.7.0-M4 2019-05-10
 
 - Rename simter-kv-dependencies to simter-kv-bom
