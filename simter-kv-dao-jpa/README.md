@@ -1,5 +1,7 @@
 # simter-kv-data-jpa
 
+The [KeyValueDao] implementation by [JPA].
+
 ## JPA Provider
 
 | Name          | Supported |
@@ -92,3 +94,5 @@ mvn test -P {profile-name}
 [simter-embedded-database-ext]: https://github.com/simter/simter-embedded-database-ext
 [Hibernate]: https://hibernate.org
 [EclipseLink]: https://www.eclipse.org/eclipselink
+[JPA]: https://jcp.org/en/jsr/detail?id=338
+[KeyValueDao]: https://github.com/simter/simter-kv/blob/master/simter-kv-core/src/main/kotlin/tech/simter/kv/core/KeyValueDao.kt

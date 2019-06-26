@@ -35,7 +35,7 @@
 ## 0.7.0-M1 2019-04-08
 
 - Support use ModuleAuthorizer to verify permission when call service method
-- Seperate each dao.jpa method test to a standalone test class
+- Separate each dao.jpa method test to a standalone test class
 - Add h2, hsql, derby and mysql sql
 - Support embedded-postgres test on module data-jpa
 - Support embedded-mysql test on module data-jpa
