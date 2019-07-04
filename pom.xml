@@ -5,7 +5,7 @@
   <parent>
     <groupId>tech.simter</groupId>
     <artifactId>simter-build</artifactId>
-    <version>1.2.0-M6</version>
+    <version>1.2.0</version>
     <!-- lookup parent from repository -->
     <relativePath/>
   </parent>
@@ -17,11 +17,7 @@
   <properties>
     <revision>0.7-SNAPSHOT</revision>
     <simter-kv.version>${revision}</simter-kv.version>
-    <simter-dependencies.version>1.2.0-M6</simter-dependencies.version>
-    <spring.version>${spring.milestone.version}</spring.version>
-    <spring-boot.version>${spring-boot.milestone.version}</spring-boot.version>
-    <reactor.version>${reactor.milestone.version}</reactor.version>
-    <reactor-kotlin-extensions.version>1.0.0.M1</reactor-kotlin-extensions.version>
+    <simter-dependencies.version>1.2.0</simter-dependencies.version>
   </properties>
   <modules>
     <module>simter-kv-bom</module>
