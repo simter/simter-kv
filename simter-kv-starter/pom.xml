@@ -782,4 +782,14 @@
       </dependencies>
     </profile>
   </profiles>
+  <url>https://github.com/simter/simter-kv/tree/master/simter-kv-starter</url>
+  <scm>
+    <url>https://github.com/simter/simter-kv.git</url>
+  </scm>
+  <developers>
+    <developer>
+      <name>RJ.Hwang</name>
+      <email>rongjihuang@gmail.com</email>
+    </developer>
+  </developers>
 </project>

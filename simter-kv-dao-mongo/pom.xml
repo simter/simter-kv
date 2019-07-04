@@ -11,12 +11,6 @@
   <artifactId>simter-kv-dao-mongo</artifactId>
   <packaging>jar</packaging>
   <description>Dao Implementation By Reactive MongoDB</description>
-  <developers>
-    <developer>
-      <name>RJ.Hwang</name>
-      <email>rongjihuang@gmail.com</email>
-    </developer>
-  </developers>
   <dependencies>
     <dependency>
       <groupId>tech.simter.kv</groupId>
@@ -39,4 +33,14 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <url>https://github.com/simter/simter-kv/tree/master/simter-kv-dao-mongo</url>
+  <scm>
+    <url>https://github.com/simter/simter-kv.git</url>
+  </scm>
+  <developers>
+    <developer>
+      <name>RJ.Hwang</name>
+      <email>rongjihuang@gmail.com</email>
+    </developer>
+  </developers>
 </project>
