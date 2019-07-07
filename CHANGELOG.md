@@ -1,5 +1,12 @@
 # simter-kv changelog
 
+## 0.7.0 2019-07-04
+
+- Upgrade to simter-1.2.0
+- Use stable spring version on main branch
+- Use milestone spring version for r2dbc
+- Support jpa-eclipselink-x profiles on starter module
+
 ## 0.7.0-M5 2019-06-10
 
 - Upgrade to simter-1.2.0-M6
