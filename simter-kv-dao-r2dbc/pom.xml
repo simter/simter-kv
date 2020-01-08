@@ -23,6 +23,8 @@
     <db.username>tester</db.username>
     <db.password>password</db.password>
     <db.url>~</db.url>
+    <db.protocol>~</db.protocol>
+    <db.driver-class>~</db.driver-class>
     <db.init-mode>never</db.init-mode>
     <db.continue-on-error>false</db.continue-on-error>
   </properties>
@@ -54,6 +56,7 @@
         <db.platform>h2</db.platform>
         <db.init-mode>always</db.init-mode>
         <db.url>./target/testdb</db.url>
+        <db.protocol>mem</db.protocol>
       </properties>
       <dependencies>
         <dependency>
@@ -75,9 +78,9 @@
       </activation>
       <properties>
         <db.platform>postgres</db.platform>
+        <db.init-mode>always</db.init-mode>
         <!-- default postgres port is 5432, plus 1 to avoid conflict -->
         <db.port>5433</db.port>
-        <db.init-mode>always</db.init-mode>
       </properties>
       <dependencies>
         <dependency>
@@ -106,8 +109,8 @@
       </activation>
       <properties>
         <db.platform>postgres</db.platform>
+        <db.init-mode>never</db.init-mode>
         <db.port>5432</db.port>
-        <db.init-mode>always</db.init-mode>
       </properties>
       <dependencies>
         <dependency>
