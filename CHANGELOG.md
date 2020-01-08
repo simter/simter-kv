@@ -1,5 +1,9 @@
 # simter-kv changelog
 
+## 0.8.0 2020-01-08
+
+- Upgrade to simter-1.3.0-M11
+
 ## 0.7.0 2019-07-04
 
 - Upgrade to simter-1.2.0
