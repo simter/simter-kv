@@ -81,7 +81,7 @@ class AppConfiguration @Autowired constructor(
   fun rootRoutes() = router {
     "/".nest {
       // root /
-      GET("/") { ok().contentType(TEXT_HTML_UTF8).syncBody(rootPage) }
+      GET("/") { ok().contentType(TEXT_HTML_UTF8).bodyValue(rootPage) }
 
       // OPTIONS /*
       OPTIONS("/**") { noContent().build() }
