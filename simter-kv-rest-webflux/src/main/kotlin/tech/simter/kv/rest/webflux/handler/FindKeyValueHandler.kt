@@ -50,7 +50,7 @@ class FindKeyValueHandler @Autowired constructor(
       if (keys.size == 1) service.valueOf(keys[0]).map { mapOf(keys[0] to it) } // {key: value}
       else service.find(*keys.toTypedArray())  // {key1: value1, ...}
       )
-      .flatMap { ok().contentType(APPLICATION_JSON).syncBody(it) }
+      .flatMap { ok().contentType(APPLICATION_JSON).bodyValue(it) }
       .switchIfEmpty(noContent().build())
   }
 

@@ -33,7 +33,7 @@ class SaveKeyValueHandlerTest @Autowired constructor(
     // invoke
     client.post().uri("/")
       .contentType(APPLICATION_JSON)
-      .syncBody("{}")
+      .bodyValue("{}")
       .exchange()
       .expectStatus().isNoContent
 
@@ -52,7 +52,7 @@ class SaveKeyValueHandlerTest @Autowired constructor(
     // invoke
     client.post().uri("/")
       .contentType(APPLICATION_JSON)
-      .syncBody("{\"$key\":\"$value\"}")
+      .bodyValue("{\"$key\":\"$value\"}")
       .exchange()
       .expectStatus().isNoContent
 
@@ -71,7 +71,7 @@ class SaveKeyValueHandlerTest @Autowired constructor(
     // invoke
     client.post().uri("/")
       .contentType(APPLICATION_JSON)
-      .syncBody(kvJson.build().toString())
+      .bodyValue(kvJson.build().toString())
       .exchange()
       .expectStatus().isNoContent
 

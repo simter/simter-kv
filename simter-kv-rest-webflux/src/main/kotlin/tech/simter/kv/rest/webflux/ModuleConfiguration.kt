@@ -48,7 +48,7 @@ class ModuleConfiguration @Autowired constructor(
       // DELETE /{key}
       DeleteKeyValueHandler.REQUEST_PREDICATE.invoke(deleteKeyValueHandler::handle)
       // GET /
-      GET("/") { ok().contentType(TEXT_PLAIN_UTF8).syncBody("simter-kv-$version") }
+      GET("/") { ok().contentType(TEXT_PLAIN_UTF8).bodyValue("simter-kv-$version") }
       // POST /
       SaveKeyValueHandler.REQUEST_PREDICATE.invoke(saveKeyValueHandler::handle)
     }

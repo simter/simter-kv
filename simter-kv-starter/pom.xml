@@ -23,6 +23,7 @@
     <db.username>tester</db.username>
     <db.password>password</db.password>
     <db.url>~</db.url>
+    <db.protocol>~</db.protocol>
     <db.driver-class>~</db.driver-class>
     <db.init-mode>always</db.init-mode>
     <db.jpa-ddl-auto>none</db.jpa-ddl-auto>
@@ -173,6 +174,7 @@
         <kotlin.compiler.incremental>false</kotlin.compiler.incremental>
         <db.name>st_kv</db.name>
         <db.username>kv</db.username>
+        <db.password>password</db.password>
         <db.init-mode>never</db.init-mode>
         <logging.file>${project.artifactId}-${project.version}.log</logging.file>
       </properties>
@@ -237,14 +239,11 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <spring.version>${spring.milestone.version}</spring.version>
-        <spring-data-releasetrain.version>${spring-data-releasetrain.milestone.version}</spring-data-releasetrain.version>
-        <spring-boot.version>${spring-boot.milestone.version}</spring-boot.version>
-
         <db.platform>h2</db.platform>
         <db.init-mode>always</db.init-mode>
         <db.disabled-datasource>true</db.disabled-datasource>
         <db.url>./target/${db.name}</db.url>
+        <db.protocol>mem</db.protocol>
       </properties>
       <dependencies>
         <dependency>
@@ -272,15 +271,11 @@
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <spring.version>${spring.milestone.version}</spring.version>
-        <spring-data-releasetrain.version>${spring-data-releasetrain.milestone.version}</spring-data-releasetrain.version>
-        <spring-boot.version>${spring-boot.milestone.version}</spring-boot.version>
-
         <db.platform>postgres</db.platform>
-        <!-- default postgres port is 5432, plus 1 to avoid conflict -->
-        <db.port>5433</db.port>
         <db.init-mode>always</db.init-mode>
         <db.disabled-datasource>true</db.disabled-datasource>
+        <!-- default postgres port is 5432, plus 1 to avoid conflict -->
+        <db.port>5433</db.port>
       </properties>
       <dependencies>
         <dependency>
@@ -313,14 +308,10 @@
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <spring.version>${spring.milestone.version}</spring.version>
-        <spring-data-releasetrain.version>${spring-data-releasetrain.milestone.version}</spring-data-releasetrain.version>
-        <spring-boot.version>${spring-boot.milestone.version}</spring-boot.version>
-
         <db.platform>postgres</db.platform>
-        <db.port>5432</db.port>
         <db.init-mode>never</db.init-mode>
         <db.disabled-datasource>true</db.disabled-datasource>
+        <db.port>5432</db.port>
       </properties>
       <dependencies>
         <dependency>
@@ -343,6 +334,7 @@
       <properties>
         <db.jpa-implementation>hibernate</db.jpa-implementation>
         <db.platform>h2</db.platform>
+        <db.protocol>mem</db.protocol>
       </properties>
       <dependencies>
         <dependency>
@@ -579,6 +571,7 @@
       <properties>
         <db.jpa-implementation>eclipselink</db.jpa-implementation>
         <db.platform>h2</db.platform>
+        <db.protocol>mem</db.protocol>
       </properties>
       <dependencies>
         <dependency>
