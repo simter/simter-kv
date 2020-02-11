@@ -76,7 +76,7 @@ class IntegrationTest {
     // invoke save
     webClient.post().uri(contextPath)
       .contentType(APPLICATION_JSON)
-      .syncBody(map2JsonString(map))
+      .bodyValue(map2JsonString(map))
       .exchange()
       .expectStatus().isNoContent
 
