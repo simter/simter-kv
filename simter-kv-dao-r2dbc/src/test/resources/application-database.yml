@@ -1,0 +1,52 @@
+spring.test.database.replace: none
+spring.datasource:
+  platform: @db.platform@
+  name: @db.name@
+  host: @db.host@
+  port: @db.port@
+  url: @db.url@
+  protocol: @db.protocol@
+  username: @db.username@
+  password: @db.password@
+  continue-on-error: @db.continue-on-error@
+  sql-script-encoding: UTF-8
+  initialization-mode: @db.init-mode@ # never|embedded|always
+  # available when initialization-mode=embedded|always
+  schema:
+    # drop
+    - classpath:tech/simter/kv/sql/@db.platform@/schema-drop.sql
+    # create
+    - classpath:tech/simter/kv/sql/@db.platform@/schema-create.sql
+  data:
+    - classpath:tech/simter/kv/sql/@db.platform@/data.sql
+  driver-class-name: @db.driver-class@
+simter.embedded-database:
+  concat-sql-script: true # default false, true - save concatenate sql content to file target/{platform}.sql
+  disabled-datasource: true # default false, true - not auto instance and register a datasource
+  postgres:
+    port: @db.port@
+    # available 9.5.16-1, 9.6.12-1, 10.7-1, 11.2-1
+    version: @postgres-embedded.version@
+    # default http://get.enterprisedb.com/postgresql/, can set to file:///C://Users//simter//download/
+    download-url: ~
+logging.level: # TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF
+  #tech.simter.r2dbc: INFO # INFO - show execute sql and custom r2dbc converters, DEBUG - show R2dbcProperties
+  #tech.simter.embeddeddatabase: INFO # INFO - Starting embedded database: url=..., DEBUG - Load script
+  #cn.gftaxi.zhiti.impl.dao: INFO # INFO to show grabbed and saved size
+
+  #---- r2dbc client ----#
+  org.springframework.data.r2dbc.core.DefaultDatabaseClient: DEBUG # DEBUG to show sql
+  #org.springframework.data.r2dbc.core.NamedParameterExpander: DEBUG # DEBUG to show sql
+
+  #---- r2dbc driver----#
+  #io.r2dbc.h2.client.SessionClient: DEBUG # DEBUG to show postgres request and Response
+  #io.r2dbc.postgresql.client.ReactorNettyClient: DEBUG # DEBUG to show postgres request and Response
+
+  #---- jdbc ----#
+  org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactory: INFO # INFO - Starting embedded database: url='jdbc:h2:mem:...', username='sa'
+  #org.springframework.jdbc.datasource.init.ScriptUtils: DEBUG # DEBUG - show executing SQL script file and result
+
+  #---- embedded postgres ----#
+  #de.flapdoodle.embed: DEBUG
+  #ru.yandex.qatools.embed: DEBUG
+  #ru.yandex.qatools.embed.postgresql.PostgresProcess: INFO # INFO - trying to stop postgresql

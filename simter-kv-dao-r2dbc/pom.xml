@@ -34,10 +34,6 @@
       <artifactId>simter-kv-core</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.r2dbc</groupId>
-      <artifactId>r2dbc-client</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-r2dbc</artifactId>
     </dependency>
@@ -105,7 +101,7 @@
       </activation>
       <properties>
         <db.platform>postgres</db.platform>
-        <db.init-mode>never</db.init-mode>
+        <db.init-mode>always</db.init-mode>
         <db.port>5432</db.port>
       </properties>
       <dependencies>

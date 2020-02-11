@@ -5,16 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import reactor.kotlin.test.test
 import tech.simter.kv.core.KeyValueDao
-import tech.simter.kv.impl.dao.r2dbc.TestHelper.Companion.randomKeyValue
-import tech.simter.kv.impl.dao.r2dbc.TestHelper.Companion.randomString
+import tech.simter.kv.impl.dao.r2dbc.TestHelper.randomString
 
 /**
  * @author RJ
  */
 @SpringBootTest(classes = [UnitTestConfiguration::class])
 class ValueOfMethodImplTest @Autowired constructor(
-  val helper: TestHelper,
-  val dao: KeyValueDao
+  private val repository: KeyValueRepository,
+  private val dao: KeyValueDao
 ) {
   @Test
   fun `key not exists`() {
@@ -25,12 +24,12 @@ class ValueOfMethodImplTest @Autowired constructor(
   @Test
   fun `key exists`() {
     // prepare data
-    val po = randomKeyValue()
-    helper.insert(po)
-      .test().verifyComplete()
+    val po = repository.save(TestHelper.randomKeyValue()).block()!!
 
     // invoke and verify
     dao.valueOf(po.k)
-      .test().expectNext(po.v).verifyComplete()
+      .test()
+      .expectNext(po.v)
+      .verifyComplete()
   }
 }
