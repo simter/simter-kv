@@ -32,6 +32,8 @@ See [rest-api.md](../docs/rest-api.md).
 | 4.1 | r2dbc-embedded-h2                 |    √    |     √     |
 | 4.2 | r2dbc-embedded-postgres           |         |     √     |
 | 4.3 | r2dbc-postgres                    |         |     √     |
+| 4.4 | r2dbc-embedded-mysql              |         |     √     |
+| 4.5 | r2dbc-mysql                       |         |     √     |
 
 Use `-P {profile-name}` to override the defaults. Such as:
 

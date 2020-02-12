@@ -8,13 +8,15 @@ Run below command to test the compatibility with different embedded database:
 
 ```
 mvn test -P embedded-h2 \
-&& mvn test -P embedded-postgres
+&& mvn test -P embedded-postgres \
+&& mvn test -P embedded-mysql
 ```
 
 If want to run test on host database, manual run below command:
 
 ```
-mvn test -P postgres
+mvn test -P postgres \
+&& mvn test -P mysql
 ```
 
 > Could change the host database connection params through below `Maven Properties`.
@@ -41,6 +43,8 @@ mvn test -D db.name=testdb
 | embedded-h2       |    √    |     √     |
 | embedded-postgres |         |     √     |
 | postgres          |         |     √     |
+| embedded-mysql    |         |     √     |
+| mysql             |         |     √     |
 
 The default profile is `embedded-h2`.
 Use `-P {profile-name}` to override default. Such as:
@@ -49,7 +53,7 @@ Use `-P {profile-name}` to override default. Such as:
 mvn test -P {profile-name}
 ```
 
-> `embedded-postgres` depends on module [simter-embedded-database-ext].
+> `embedded-postgres` 和 `embedded-mysql` depends on module [simter-embedded-database-ext].
 
 
 [R2DBC]: https://r2dbc.io
