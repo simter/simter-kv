@@ -161,6 +161,24 @@
         </dependency>
       </dependencies>
     </profile>
+    <profile>
+      <id>mssql</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <db.platform>mssql</db.platform>
+        <db.init-mode>always</db.init-mode>
+        <db.port>1433</db.port>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>io.r2dbc</groupId>
+          <artifactId>r2dbc-mssql</artifactId>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+    </profile>
   </profiles>
   <url>https://github.com/simter/simter-kv/tree/master/simter-kv-dao-r2dbc</url>
   <scm>

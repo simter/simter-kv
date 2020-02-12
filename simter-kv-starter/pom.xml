@@ -388,6 +388,29 @@
       </dependencies>
     </profile>
     <profile>
+      <id>r2dbc-mssql</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <db.platform>mssql</db.platform>
+        <db.init-mode>never</db.init-mode>
+        <db.port>1433</db.port>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>tech.simter.kv</groupId>
+          <artifactId>simter-kv-dao-r2dbc</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>io.r2dbc</groupId>
+          <artifactId>r2dbc-mssql</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
       <id>jpa-hibernate-embedded-h2</id>
       <activation>
         <activeByDefault>false</activeByDefault>

@@ -16,7 +16,8 @@ If want to run test on host database, manual run below command:
 
 ```
 mvn test -P postgres \
-&& mvn test -P mysql
+&& mvn test -P mysql \
+&& mvn test -P mssql
 ```
 
 > Could change the host database connection params through below `Maven Properties`.
@@ -45,6 +46,7 @@ mvn test -D db.name=testdb
 | postgres          |         |     √     |
 | embedded-mysql    |         |     √     |
 | mysql             |         |     √     |
+| mssql             |         |     √     |
 
 The default profile is `embedded-h2`.
 Use `-P {profile-name}` to override default. Such as:

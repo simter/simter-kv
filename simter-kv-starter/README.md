@@ -34,6 +34,7 @@ See [rest-api.md](../docs/rest-api.md).
 | 4.3 | r2dbc-postgres                    |         |     √     |
 | 4.4 | r2dbc-embedded-mysql              |         |     √     |
 | 4.5 | r2dbc-mysql                       |         |     √     |
+| 4.6 | r2dbc-mssql                       |         |     √     |
 
 Use `-P {profile-name}` to override the defaults. Such as:
 
