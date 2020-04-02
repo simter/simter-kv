@@ -8,6 +8,7 @@ spring.datasource:
   protocol: @db.protocol@
   username: @db.username@
   password: @db.password@
+  options: @db.options@
   continue-on-error: @db.continue-on-error@
   sql-script-encoding: UTF-8
   initialization-mode: @db.init-mode@ # never|embedded|always
