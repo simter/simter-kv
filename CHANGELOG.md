@@ -1,5 +1,17 @@
 # simter-kv changelog
 
+## 0.9.0 2020-04-03
+
+- Rename `spring.version` to `spring-framework.version`
+- Upgrade to simter-1.3.0-M13
+- Change to use stable spring version on dao-r2dbc module
+- Remove r2dbc-client implementation [#15](https://github.com/simter/simter-kv/issues/15)
+    > Use spring-data-r2dbc to implement KeyValueDao instead of r2dbc-client
+- Support r2dbc-mysql [#16](https://github.com/simter/simter-kv/issues/16)
+- Support r2dbc-mssql [#17](https://github.com/simter/simter-kv/issues/17)
+- Add db.options property for embedded-h2
+- Minimize Hikari config
+
 ## 0.8.0 2020-01-08
 
 - Upgrade to simter-1.3.0-M11
