@@ -173,7 +173,7 @@
       </activation>
       <properties>
         <kotlin.compiler.incremental>false</kotlin.compiler.incremental>
-        <db.name>st_kv</db.name>
+        <db.name>kv</db.name>
         <db.username>kv</db.username>
         <db.password>password</db.password>
         <db.init-mode>never</db.init-mode>
