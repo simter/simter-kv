@@ -24,7 +24,7 @@
     <db.password>password</db.password>
     <db.url>~</db.url>
     <db.protocol>~</db.protocol>
-    <db.options>~</db.options>
+    <db.options>{}</db.options>
     <db.driver-class>~</db.driver-class>
     <db.init-mode>always</db.init-mode>
     <db.jpa-ddl-auto>none</db.jpa-ddl-auto>

@@ -20,7 +20,7 @@
     <db.password>password</db.password>
     <db.url>~</db.url>
     <db.protocol>~</db.protocol>
-    <db.options>~</db.options>
+    <db.options>{}</db.options>
     <db.driver-class>~</db.driver-class>
     <db.init-mode>never</db.init-mode>
     <db.continue-on-error>false</db.continue-on-error>
