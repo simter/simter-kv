@@ -18,15 +18,15 @@ import tech.simter.reactive.web.Utils.TEXT_PLAIN_UTF8
  * All configuration for this module.
  *
  * Register a `RouterFunction<ServerResponse>` with all routers for this module.
- * The default context-path of this router is '/kv'. And can be config by property `module.rest-context-path.simter-kv`.
+ * The default context-path of this router is '/kv'. And can be config by property `simter-kv.rest-context-path`.
  *
  * @author RJ
  */
 @Configuration("$PACKAGE.rest.webflux.ModuleConfiguration")
 @ComponentScan
 class ModuleConfiguration @Autowired constructor(
-  @Value("\${module.rest-context-path.simter-kv:/kv}") private val contextPath: String,
-  @Value("\${module.version.simter-kv:UNKNOWN}") private val version: String,
+  @Value("\${simter-kv.rest-context-path:/kv}") private val contextPath: String,
+  @Value("\${simter-kv.version:UNKNOWN}") private val version: String,
   private val getValueHandler: FindKeyValueHandler,
   private val saveKeyValueHandler: SaveKeyValueHandler,
   private val deleteKeyValueHandler: DeleteKeyValueHandler
@@ -34,8 +34,7 @@ class ModuleConfiguration @Autowired constructor(
   private val logger = LoggerFactory.getLogger(ModuleConfiguration::class.java)
 
   init {
-    logger.warn("module.version.simter-kv='{}'", version)
-    logger.warn("module.rest-context-path.simter-kv='{}'", contextPath)
+    logger.warn("simter-kv.rest-context-path='{}'", contextPath)
   }
 
   /** Register a `RouterFunction<ServerResponse>` with all routers for this module */
