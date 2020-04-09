@@ -21,14 +21,14 @@ import tech.simter.reactive.security.properties.PermissionStrategy
 import java.util.*
 
 /**
- * See `application.yml` key `module.authorization.simter-kv` value.
+ * See `application.yml` key [AUTHORIZER_KEY] value.
  */
 @SpringBootTest(classes = [ModuleConfiguration::class])
 @MockkBean(KeyValueDao::class, ReactiveSecurityService::class)
 class ModuleAuthorizerConfigTest @Autowired constructor(
   private val properties: ModuleAuthorizeProperties,
   private val securityService: ReactiveSecurityService,
-  @Qualifier("$PACKAGE.ModuleAuthorizer")
+  @Qualifier("$AUTHORIZER_KEY.authorizer")
   private val moduleAuthorizer: ModuleAuthorizer,
   private val dao: KeyValueDao,
   private val service: KeyValueService

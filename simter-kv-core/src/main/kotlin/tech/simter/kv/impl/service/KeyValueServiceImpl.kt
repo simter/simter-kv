@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
+import tech.simter.kv.AUTHORIZER_KEY
 import tech.simter.kv.OPERATION_DELETE
 import tech.simter.kv.OPERATION_READ
 import tech.simter.kv.OPERATION_SAVE
-import tech.simter.kv.PACKAGE
 import tech.simter.kv.core.KeyValueDao
 import tech.simter.kv.core.KeyValueService
 import tech.simter.reactive.security.ModuleAuthorizer
@@ -19,7 +19,7 @@ import tech.simter.reactive.security.ModuleAuthorizer
  */
 @Service
 class KeyValueServiceImpl @Autowired constructor(
-  @Qualifier("$PACKAGE.ModuleAuthorizer")
+  @Qualifier("$AUTHORIZER_KEY.authorizer")
   private val moduleAuthorizer: ModuleAuthorizer,
   private val dao: KeyValueDao
 ) : KeyValueService {

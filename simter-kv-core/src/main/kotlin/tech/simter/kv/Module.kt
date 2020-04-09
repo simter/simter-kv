@@ -3,6 +3,9 @@ package tech.simter.kv
 /** The module's package name */
 const val PACKAGE = "tech.simter.kv"
 
+/** The authorizer key */
+const val AUTHORIZER_KEY = "simter-kv.authorization"
+
 /** Entities table name */
 const val TABLE_KV = "st_kv"
 
