@@ -1,35 +1,56 @@
 package tech.simter.kv.starter
 
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.io.ClassPathResource
 import org.springframework.http.CacheControl
 import org.springframework.http.HttpHeaders.ORIGIN
+import org.springframework.http.MediaType.TEXT_HTML
 import org.springframework.web.cors.reactive.CorsUtils
 import org.springframework.web.reactive.config.*
+import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.server.router
 import org.springframework.web.server.ServerWebExchange
 import org.springframework.web.server.WebFilter
 import org.springframework.web.server.WebFilterChain
 import tech.simter.kv.PACKAGE
-import tech.simter.reactive.web.Utils.TEXT_HTML_UTF8
 import java.time.OffsetDateTime
 import java.util.concurrent.TimeUnit
 
 /**
  * Application WebFlux Configuration.
  *
- * see [WebFlux config API](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#webflux-config-enable)
+ * See [WebFlux config API](https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#webflux-config-enable)
  *
  * @author RJ
  */
 @Configuration("$PACKAGE.starter.AppConfiguration")
 @EnableWebFlux
 class AppConfiguration @Autowired constructor(
-  @Value("\${module.version.simter:UNKNOWN}") private val simterVersion: String,
-  @Value("\${module.version.simter-kv:UNKNOWN}") private val kvVersion: String
+  @Value("\${simter-kv.rest-context-path}") private val contextPath: String,
+  @Value("\${simter.jwt.require-authorized}") private val requireAuthorized: Boolean,
+  @Value("\${server.port}") private val serverPort: String,
+  @Value("\${logging.file}") private val loggingFile: String,
+  @Value("\${simter-kv.version:UNKNOWN}") private val simterKvVersion: String,
+  @Value("\${simter-kv.dependency-version.simter:UNKNOWN}") private val simterVersion: String,
+  @Value("\${simter-kv.dependency-version.kotlin:UNKNOWN}") private val kotlinVersion: String,
+  @Value("\${simter-kv.dependency-version.spring-framework:UNKNOWN}") private val springFrameworkVersion: String,
+  @Value("\${simter-kv.dependency-version.spring-boot:UNKNOWN}") private val springBootVersion: String
 ) {
+  private final val logger = LoggerFactory.getLogger(AppConfiguration::class.java)
+
+  init {
+    if (logger.isInfoEnabled) {
+      logger.info("simter-kv.rest-context-path={}", contextPath)
+      logger.info("simter.jwt.require-authorized={}", requireAuthorized)
+      logger.info("server.port={}", serverPort)
+      logger.info("logging.file={}", loggingFile)
+    }
+  }
+
   /**
    * Register by method [DelegatingWebFluxConfiguration.setConfigurers].
    *
@@ -64,14 +85,27 @@ class AppConfiguration @Autowired constructor(
     }
   }
 
-  private val startTime = OffsetDateTime.now()
   private val rootPage: String = """
-    <h2>Simter Key-Value Micro Service</h2>
-    <div>Start at : $startTime</div>
-    <div>Version : $kvVersion</div>
-    <ul>
-      <li>simter-$simterVersion</li>
-    </ul>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width">
+      <title>simter-kv</title>
+      <style>html{background-color:#000;color:#fff}</style>
+    </head>
+    <body>
+      <h2>Simter Key-Value Micro Service</h2>
+      <div>Start at : ${OffsetDateTime.now()}</div>
+      <div>Version : $simterKvVersion</div>
+      <ul>
+        <li>simter-$simterVersion</li>
+        <li>kotlin-$kotlinVersion</li>
+        <li>spring-$springFrameworkVersion</li>
+        <li>spring-boot-$springBootVersion</li>
+      </ul>
+    </body>
+    </html>
   """.trimIndent()
 
   /**
@@ -81,7 +115,11 @@ class AppConfiguration @Autowired constructor(
   fun rootRoutes() = router {
     "/".nest {
       // root /
-      GET("/") { ok().contentType(TEXT_HTML_UTF8).bodyValue(rootPage) }
+      GET("/") { ok().contentType(TEXT_HTML).bodyValue(rootPage) }
+      // '/favicon.ico'
+      GET("/favicon.ico") {
+        ok().body(BodyInserters.fromResource(ClassPathResource("META-INF/resources/static/favicon.ico")))
+      }
 
       // OPTIONS /*
       OPTIONS("/**") { noContent().build() }
@@ -97,8 +135,8 @@ class AppConfiguration @Autowired constructor(
   fun corsFilter4StaticFile(): WebFilter {
     return WebFilter { exchange: ServerWebExchange, chain: WebFilterChain ->
       val request = exchange.request
-      if (CorsUtils.isCorsRequest(request)                          // cross origin
-        && !CorsUtils.isPreFlightRequest(request)                   // not OPTION request
+      if (CorsUtils.isCorsRequest(request)                         // cross origin
+        && !CorsUtils.isPreFlightRequest(request)                  // not OPTION request
         && request.path.value().startsWith("/static/")) {   // only for static file dir
         // Add Access-Control-Allow-Origin header
         exchange.response.headers.add("Access-Control-Allow-Origin", request.headers.getFirst(ORIGIN))
