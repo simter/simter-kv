@@ -1,5 +1,13 @@
 # simter-kv changelog
 
+## 0.10.0 2020-04-09
+
+- Fixed jpa-eclipselink error
+- Package starter finalName with platform type as suffix
+- Log main config property on starter with info level
+- Rename property 'module.rest-context-path.simter-kv' to 'simter-kv.rest-context-path'
+- Rename property 'module.authorization.simter-kv' to 'simter-kv.authorization'
+
 ## 0.9.0 2020-04-03
 
 - Rename `spring.version` to `spring-framework.version`
