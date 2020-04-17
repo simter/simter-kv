@@ -98,6 +98,7 @@ class AppConfiguration @Autowired constructor(
       <h2>Simter Key-Value Micro Service</h2>
       <div>Start at : ${OffsetDateTime.now()}</div>
       <div>Version : $simterKvVersion</div>
+      <div>Server Port : $serverPort</div>
       <ul>
         <li>simter-$simterVersion</li>
         <li>kotlin-$kotlinVersion</li>
