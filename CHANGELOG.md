@@ -1,5 +1,9 @@
 # simter-kv changelog
 
+## 0.12.0 2020-05-08
+
+- Upgrade to simter-1.3.0-M15
+
 ## 0.11.0 2020-04-16
 
 - Upgrade to simter-1.3.0-M14
