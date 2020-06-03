@@ -1,13 +1,11 @@
 package tech.simter.kv.impl.dao.r2dbc
 
 import org.springframework.data.r2dbc.core.DatabaseClient
-import org.springframework.stereotype.Component
 import reactor.core.publisher.Mono
 import tech.simter.kv.TABLE_KV
 import tech.simter.kv.impl.dao.r2dbc.po.KeyValuePo
 import java.util.*
 
-@Component
 object TestHelper {
   /** 清空数据库各表的数据 */
   fun cleanDatabase(databaseClient: DatabaseClient): Mono<Void> {

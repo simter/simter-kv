@@ -3,20 +3,23 @@ package tech.simter.kv.impl.dao.r2dbc
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest
 import org.springframework.data.r2dbc.core.DatabaseClient
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import reactor.kotlin.test.test
 import tech.simter.kv.TABLE_KV
 import tech.simter.kv.core.KeyValueDao
-import tech.simter.kv.impl.ImmutableKeyValue
 import tech.simter.kv.impl.dao.r2dbc.TestHelper.randomKeyValue
 import tech.simter.kv.impl.dao.r2dbc.TestHelper.randomString
 import tech.simter.kv.impl.dao.r2dbc.po.KeyValuePo
 
 /**
+ * Test [KeyValueDaoImpl.save].
+ *
  * @author RJ
  */
-@SpringBootTest(classes = [UnitTestConfiguration::class])
+@SpringJUnitConfig(UnitTestConfiguration::class)
+@DataR2dbcTest
 class SaveMethodImplTest @Autowired constructor(
   private val databaseClient: DatabaseClient,
   private val repository: KeyValueRepository,
