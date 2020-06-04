@@ -19,4 +19,10 @@ data class KeyValuePo(
   @Column(length = 100)
   override val k: String,
   override val v: String
-) : KeyValue
+) : KeyValue {
+  companion object {
+    fun from(kv: KeyValue): KeyValuePo {
+      return if (kv is KeyValuePo) kv else KeyValuePo(k = kv.k, v = kv.v)
+    }
+  }
+}

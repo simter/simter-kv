@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import reactor.kotlin.test.test
 import tech.simter.kv.core.KeyValueDao
-import tech.simter.kv.impl.dao.jpa.TestHelper.randomKeyValue
-import tech.simter.kv.impl.dao.jpa.TestHelper.randomString
+import tech.simter.kv.impl.dao.jpa.TestHelper.randomKeyValuePo
 import tech.simter.kv.impl.dao.jpa.po.KeyValuePo
 import tech.simter.reactive.test.jpa.ReactiveDataJpaTest
 import tech.simter.reactive.test.jpa.TestEntityManager
+import tech.simter.util.RandomUtils.randomString
 import java.util.*
 
 /**
@@ -31,7 +31,7 @@ class SaveMethodImplTest @Autowired constructor(
   @Test
   fun `save one`() {
     // do save
-    val po = randomKeyValue()
+    val po = randomKeyValuePo()
     dao.save(mapOf(po.k to po.v)).test().verifyComplete()
 
     // verify saved

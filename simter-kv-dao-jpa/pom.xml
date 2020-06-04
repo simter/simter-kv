@@ -52,6 +52,11 @@
       <artifactId>simter-reactive-jpa</artifactId>
     </dependency>
     <dependency>
+      <groupId>tech.simter.kv</groupId>
+      <artifactId>simter-kv-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>tech.simter.reactive</groupId>
       <artifactId>simter-reactive-test</artifactId>
       <scope>test</scope>
