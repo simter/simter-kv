@@ -15,8 +15,7 @@ import tech.simter.kv.core.KeyValueDao
  */
 @Repository
 class KeyValueDaoImpl @Autowired constructor(
-  private val databaseClient: DatabaseClient,
-  private val repository: KeyValueRepository
+  private val databaseClient: DatabaseClient
 ) : KeyValueDao {
   override fun valueOf(key: String): Mono<String> {
     return databaseClient.execute("select v from $TABLE_KV where k = :key")

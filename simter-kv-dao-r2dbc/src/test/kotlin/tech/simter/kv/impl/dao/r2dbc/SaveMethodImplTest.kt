@@ -9,9 +9,10 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import reactor.kotlin.test.test
 import tech.simter.kv.TABLE_KV
 import tech.simter.kv.core.KeyValueDao
-import tech.simter.kv.impl.dao.r2dbc.TestHelper.randomKeyValue
-import tech.simter.kv.impl.dao.r2dbc.TestHelper.randomString
+import tech.simter.kv.impl.dao.r2dbc.TestHelper.randomKeyValuePo
 import tech.simter.kv.impl.dao.r2dbc.po.KeyValuePo
+import tech.simter.kv.test.TestHelper.randomValue
+import tech.simter.util.RandomUtils.randomString
 
 /**
  * Test [KeyValueDaoImpl.save].
@@ -33,7 +34,7 @@ class SaveMethodImplTest @Autowired constructor(
   @Test
   fun `create one`() {
     // do save
-    val po = randomKeyValue()
+    val po = randomKeyValuePo()
     dao.save(mapOf(po.k to po.v)).test().verifyComplete()
 
     // verify saved
@@ -46,7 +47,7 @@ class SaveMethodImplTest @Autowired constructor(
   @Test
   fun `create many`() {
     // do save
-    val pos = (1..3).map { randomKeyValue() }
+    val pos = (1..3).map { randomKeyValuePo() }
     val map = pos.associate { it.k to it.v }
     dao.save(map).test().verifyComplete()
 
@@ -68,10 +69,10 @@ class SaveMethodImplTest @Autowired constructor(
   @Test
   fun `update one`() {
     // prepare data
-    val po = repository.save(randomKeyValue()).block()!!
+    val po = repository.save(randomKeyValuePo()).block()!!
 
     // do update
-    val newValue = randomString()
+    val newValue = randomValue()
     dao.save(mapOf(po.k to newValue)).test().verifyComplete()
 
     // verify updated
@@ -84,10 +85,10 @@ class SaveMethodImplTest @Autowired constructor(
   @Test
   fun `update many`() {
     // prepare data
-    val pos = (1..3).map { repository.save(randomKeyValue()).block()!! }
+    val pos = (1..3).map { repository.save(randomKeyValuePo()).block()!! }
 
     // do update
-    val newValue = randomString()
+    val newValue = randomValue()
     dao.save(pos.associate { it.k to newValue }).test().verifyComplete()
 
     // verify updated

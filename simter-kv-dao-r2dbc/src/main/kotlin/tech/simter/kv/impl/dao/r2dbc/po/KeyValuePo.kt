@@ -19,4 +19,10 @@ data class KeyValuePo(
   override fun isNew(): Boolean {
     return true
   }
+
+  companion object {
+    fun from(kv: KeyValue): KeyValuePo {
+      return if (kv is KeyValuePo) kv else KeyValuePo(k = kv.k, v = kv.v)
+    }
+  }
 }

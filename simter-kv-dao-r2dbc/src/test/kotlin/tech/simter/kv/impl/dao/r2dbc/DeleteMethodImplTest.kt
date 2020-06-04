@@ -8,8 +8,8 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import reactor.kotlin.test.test
 import tech.simter.kv.TABLE_KV
 import tech.simter.kv.core.KeyValueDao
-import tech.simter.kv.impl.dao.r2dbc.TestHelper.randomKeyValue
-import tech.simter.kv.impl.dao.r2dbc.TestHelper.randomString
+import tech.simter.kv.impl.dao.r2dbc.TestHelper.randomKeyValuePo
+import tech.simter.kv.test.TestHelper.randomKey
 
 /**
  * Test [KeyValueDaoImpl.delete].
@@ -25,19 +25,18 @@ class DeleteMethodImplTest @Autowired constructor(
 ) {
   @Test
   fun `delete nothing`() {
-    // delete nothing
     dao.delete().test().verifyComplete()
   }
 
   @Test
   fun `delete not exists key`() {
-    dao.delete(randomString()).test().verifyComplete()
+    dao.delete(randomKey()).test().verifyComplete()
   }
 
   @Test
   fun `delete one`() {
     // prepare data
-    val po = repository.save(randomKeyValue()).block()!!
+    val po = repository.save(randomKeyValuePo()).block()!!
 
     // delete it
     dao.delete(po.k).test().verifyComplete()
@@ -49,7 +48,7 @@ class DeleteMethodImplTest @Autowired constructor(
   @Test
   fun `delete many`() {
     // prepare data
-    val pos = (1..3).map { repository.save(randomKeyValue()).block()!! }
+    val pos = (1..3).map { repository.save(randomKeyValuePo()).block()!! }
 
     // do delete
     dao.delete(*pos.map { it.k }.toTypedArray()).test().verifyComplete()

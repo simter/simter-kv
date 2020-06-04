@@ -7,7 +7,7 @@ import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import reactor.kotlin.test.test
 import tech.simter.kv.core.KeyValueDao
-import tech.simter.kv.impl.dao.r2dbc.TestHelper.randomString
+import tech.simter.kv.test.TestHelper.randomKey
 
 /**
  * Test [KeyValueDaoImpl.find].
@@ -28,13 +28,13 @@ class FindMethodImplTest @Autowired constructor(
 
   @Test
   fun `find not exists key`() {
-    dao.find(randomString()).test().verifyComplete()
+    dao.find(randomKey()).test().verifyComplete()
   }
 
   @Test
   fun `find exists key`() {
     // prepare data
-    val pos = (1..3).map { repository.save(TestHelper.randomKeyValue()).block()!! }
+    val pos = (1..3).map { repository.save(TestHelper.randomKeyValuePo()).block()!! }
 
     // invoke and verify
     dao.find(*pos.map { it.k }.toTypedArray())
