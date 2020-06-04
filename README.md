@@ -20,7 +20,7 @@ Simple Application Key-Value Pair Manager.
 | k           | varchar(100) | Key, maxLen=100 |
 | v           | text         | Value           |
 
-> Different database should have different column type, check database script from [here](./simter-kv-core/src/main/resources/tech/simter/kv/sql).
+> The different database should have different column type, check database script from [here](./simter-kv-core/src/main/resources/tech/simter/kv/sql).
 
 ## Maven Modules
 
@@ -42,7 +42,7 @@ Simple Application Key-Value Pair Manager.
 - Kotlin 1.3+
 - Java 8+
 - Spring Framework 5.2+
-- Spring Boot 2.2+
+- Spring Boot 2.3+
 - Reactor 3.3+
 
 [simter-build]: https://github.com/simter/simter-build

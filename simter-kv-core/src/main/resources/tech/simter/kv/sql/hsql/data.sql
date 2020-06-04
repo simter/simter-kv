@@ -1,2 +1,1 @@
--- module version
-insert into st_kv (k, v) values ('module-version-simter-kv', '${project.version}');
+insert into st_kv (k, v) values ('simter-kv.version', '${project.version}');

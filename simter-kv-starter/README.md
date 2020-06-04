@@ -1,14 +1,5 @@
 #  Simter Key-Value Server
 
-## Requirement
-
-- Maven 3.6+
-- Kotlin 1.3+
-- Java 8+
-- Spring Framework 5.1+
-- Spring Boot 2.1+
-- Reactor 3.2+
-
 ## Supported Rest API
 
 See [rest-api.md](../docs/rest-api.md).

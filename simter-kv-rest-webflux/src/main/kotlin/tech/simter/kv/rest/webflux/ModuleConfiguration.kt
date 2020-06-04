@@ -35,6 +35,7 @@ class ModuleConfiguration @Autowired constructor(
 
   init {
     logger.warn("simter-kv.rest-context-path='{}'", contextPath)
+    logger.warn("simter-kv.version='{}'", version)
   }
 
   /** Register a `RouterFunction<ServerResponse>` with all routers for this module */
@@ -46,10 +47,11 @@ class ModuleConfiguration @Autowired constructor(
       FindKeyValueHandler.REQUEST_PREDICATE.invoke(getValueHandler::handle)
       // DELETE /{key}
       DeleteKeyValueHandler.REQUEST_PREDICATE.invoke(deleteKeyValueHandler::handle)
-      // GET /
-      GET("/") { ok().contentType(TEXT_PLAIN_UTF8).bodyValue("simter-kv-$version") }
       // POST /
       SaveKeyValueHandler.REQUEST_PREDICATE.invoke(saveKeyValueHandler::handle)
+
+      // GET /
+      GET("/") { ok().contentType(TEXT_PLAIN_UTF8).bodyValue("simter-kv-$version") }
     }
   }
 }

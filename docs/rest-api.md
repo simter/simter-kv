@@ -1,12 +1,14 @@
-# Rest API for simter-kv
-
-The following `{context-path}` could be configured by property `module.rest-context-path.simter-kv`. Its default value is `/kv`.
+# Rest API 
 
 Provide rest APIs:
 
-1. Find key-value pairs by key.
-2. Create or update key-value pairs.
-3. Delete key-value pairs by key.
+| Sn | Method | Url                  | Description
+|----|--------|----------------------|-------------
+| 1  | GET    | {context-path}/{key} | Find key-value pairs by key
+| 2  | POST   | {context-path}/      | Create or update key-value pairs
+| 3  | DELETE | {context-path}/{key} | Delete key-value pairs by key
+
+The `{context-path}` could be configured by property `simter-kv.rest-context-path`. Its default value is `/kv`.
 
 ## 1. Find key-value pairs by key
 
@@ -42,7 +44,7 @@ Content-Type: application/json;charset=UTF-8
 
 ## 2. Create or update key-value pairs
 
-If the key is exists update its value, otherwise create a new key-value pair.
+If the key is exists, update its value, otherwise create a new key-value pair.
 
 ### Request
 

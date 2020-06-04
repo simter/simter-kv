@@ -39,7 +39,7 @@ class SaveKeyValueHandler @Autowired constructor(
     return request.bodyToMono<Map<String, String>>() // {k1: v1, ...}
       .flatMap {
         when {
-          it.isEmpty() -> Mono.empty<Void>()
+          it.isEmpty() -> Mono.empty()
           else -> service.save(it)
         }.then()
       }
