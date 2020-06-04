@@ -26,6 +26,7 @@
     <module>simter-kv-dao-mongo</module>
     <module>simter-kv-dao-r2dbc</module>
     <module>simter-kv-dao-jpa</module>
+    <module>simter-kv-dao-web</module>
     <module>simter-kv-rest-webflux</module>
     <module>simter-kv-starter</module>
   </modules>

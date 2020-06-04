@@ -45,6 +45,11 @@
       </dependency>
       <dependency>
         <groupId>tech.simter.kv</groupId>
+        <artifactId>simter-kv-dao-web</artifactId>
+        <version>${simter-kv.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>tech.simter.kv</groupId>
         <artifactId>simter-kv-rest-webflux</artifactId>
         <version>${simter-kv.version}</version>
       </dependency>
