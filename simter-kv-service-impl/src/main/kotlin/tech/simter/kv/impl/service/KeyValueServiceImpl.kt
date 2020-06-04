@@ -24,26 +24,22 @@ class KeyValueServiceImpl @Autowired constructor(
   private val dao: KeyValueDao
 ) : KeyValueService {
   override fun valueOf(key: String): Mono<String> {
-    return moduleAuthorizer.verifyHasPermission(OPERATION_READ).then(
-      dao.valueOf(key)
-    )
+    return moduleAuthorizer.verifyHasPermission(OPERATION_READ)
+      .then(Mono.defer { dao.valueOf(key) })
   }
 
   override fun find(vararg keys: String): Mono<Map<String, String>> {
-    return moduleAuthorizer.verifyHasPermission(OPERATION_READ).then(
-      dao.find(*keys)
-    )
+    return moduleAuthorizer.verifyHasPermission(OPERATION_READ)
+      .then(Mono.defer { dao.find(*keys) })
   }
 
   override fun save(keyValues: Map<String, String>): Mono<Void> {
-    return moduleAuthorizer.verifyHasPermission(OPERATION_SAVE).then(
-      dao.save(keyValues)
-    )
+    return moduleAuthorizer.verifyHasPermission(OPERATION_SAVE)
+      .then(Mono.defer { dao.save(keyValues) })
   }
 
   override fun delete(vararg keys: String): Mono<Void> {
-    return moduleAuthorizer.verifyHasPermission(OPERATION_DELETE).then(
-      dao.delete(*keys)
-    )
+    return moduleAuthorizer.verifyHasPermission(OPERATION_DELETE)
+      .then(Mono.defer { dao.delete(*keys) })
   }
 }

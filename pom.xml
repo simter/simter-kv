@@ -22,6 +22,7 @@
     <module>simter-kv-parent</module>
     <module>simter-kv-core</module>
     <module>simter-kv-test</module>
+    <module>simter-kv-service-impl</module>
     <module>simter-kv-dao-mongo</module>
     <module>simter-kv-dao-r2dbc</module>
     <module>simter-kv-dao-jpa</module>

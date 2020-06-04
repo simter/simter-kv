@@ -20,6 +20,16 @@
       </dependency>
       <dependency>
         <groupId>tech.simter.kv</groupId>
+        <artifactId>simter-kv-test</artifactId>
+        <version>${simter-kv.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>tech.simter.kv</groupId>
+        <artifactId>simter-kv-service-impl</artifactId>
+        <version>${simter-kv.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>tech.simter.kv</groupId>
         <artifactId>simter-kv-dao-mongo</artifactId>
         <version>${simter-kv.version}</version>
       </dependency>

@@ -6,7 +6,7 @@ const val PACKAGE = "tech.simter.kv"
 /** The authorizer key */
 const val AUTHORIZER_KEY = "simter-kv.authorization"
 
-/** Entities table name */
+/** The table name */
 const val TABLE_KV = "st_kv"
 
 /** The operation name */
