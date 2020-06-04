@@ -30,6 +30,7 @@ Simple Application Key-Value Pair Manager.
 | 2  | simter-kv-bom          | pom  | simter-kv              | Bom
 | 3  | simter-kv-parent       | pom  | simter-kv              | Define global dependencies and plugins
 | 4  | simter-kv-core         | jar  | simter-kv-parent       | Core API: [KeyValue], [KeyValueDao] and [KeyValueService]
+| 4  | simter-kv-test         | jar  | simter-kv-parent       | Core API: [KeyValue], [KeyValueDao] and [KeyValueService]
 | 5  | simter-kv-dao-mongo    | jar  | simter-kv-parent       | [KeyValueDao] Implementation By Reactive MongoDB
 | 6  | simter-kv-dao-r2dbc    | jar  | simter-kv-parent       | [KeyValueDao] Implementation By R2DBC
 | 7  | simter-kv-dao-jpa      | jar  | simter-kv-parent       | [KeyValueDao] Implementation By JPA

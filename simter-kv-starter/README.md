@@ -67,17 +67,4 @@ nohup java -jar {package-name}.jar > /dev/null &
 
 ## Run Integration Test
 
-Run test in the real server.
-
-1. Start server. Such as `mvn spring-boot:run`
-2. Run [IntegrationTest.kt]
-
-
-[Embedded MongoDB]: https://github.com/flapdoodle-oss/de.flapdoodle.embed.mongo#embedded-mongodb
-[MongoDB]: https://www.mongodb.com
-[HyperSQL]: http://hsqldb.org
-[PostgreSQL]: https://www.postgresql.org
-[Embedded PostgreSQL]: https://github.com/yandex-qatools/postgresql-embedded
-[MySQL]: https://www.mysql.com
-[Embedded MySQL]: https://github.com/wix/wix-embedded-mysql
-[IntegrationTest.kt]: https://github.com/simter/simter-kv/blob/master/simter-kv-starter/src/test/kotlin/tech/simter/kv/starter/IntegrationTest.kt
+Run test in the real server. See [simter-kv-test/README.md](../simter-kv-test/README.md).
