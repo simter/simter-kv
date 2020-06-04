@@ -12,8 +12,9 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import reactor.core.publisher.Mono
 import reactor.kotlin.test.test
 import tech.simter.kv.core.KeyValueDao
+import tech.simter.kv.impl.dao.mongo.TestHelper.randomKeyValuePo
 import tech.simter.kv.impl.dao.mongo.po.KeyValuePo
-import java.util.*
+import tech.simter.kv.test.TestHelper.randomKey
 
 /**
  * Test [KeyValueDaoImpl].
@@ -40,10 +41,10 @@ class KeyValueDaoImplTest @Autowired constructor(
   @Test
   fun valueOf() {
     // verify not exists
-    dao.valueOf(UUID.randomUUID().toString()).test().expectNextCount(0L).verifyComplete()
+    dao.valueOf(randomKey()).test().verifyComplete()
 
     // prepare data
-    val po = KeyValuePo(UUID.randomUUID().toString(), "v")
+    val po = randomKeyValuePo()
     operations.insert(po).test().expectNextCount(1).verifyComplete()
 
     // verify exists
@@ -53,10 +54,10 @@ class KeyValueDaoImplTest @Autowired constructor(
   @Test
   fun find() {
     // 1. none key
-    dao.find().test().expectNextCount(0L).verifyComplete()
+    dao.find().test().verifyComplete()
 
     // 2. not found
-    dao.find(UUID.randomUUID().toString()).test().expectNextCount(0L).verifyComplete()
+    dao.find(randomKey()).test().verifyComplete()
 
     // 3. found
     // 3.1 prepare data
@@ -75,15 +76,15 @@ class KeyValueDaoImplTest @Autowired constructor(
   @Test
   fun saveNone() {
     val none = mapOf<String, String>()
-    dao.save(none).test().expectNextCount(0L).verifyComplete()
+    dao.save(none).test().verifyComplete()
   }
 
   @Test
   fun saveOne() {
-    val po = KeyValuePo(UUID.randomUUID().toString(), "v")
+    val po = randomKeyValuePo()
 
     // verify result
-    dao.save(mapOf(po.k to po.v)).test().expectNextCount(0L).verifyComplete()
+    dao.save(mapOf(po.k to po.v)).test().verifyComplete()
 
     // verify saved
     operations.findById(po.k, KeyValuePo::class.java).test().expectNext(po).verifyComplete()
@@ -94,7 +95,7 @@ class KeyValueDaoImplTest @Autowired constructor(
     val pos = (1..3).map { KeyValuePo("k-$it", "v-$it") }
 
     // verify result
-    dao.save(pos.associate { it.k to it.v }).test().expectNextCount(0L).verifyComplete()
+    dao.save(pos.associate { it.k to it.v }).test().verifyComplete()
 
     // verify saved
     pos.forEach {
@@ -108,10 +109,10 @@ class KeyValueDaoImplTest @Autowired constructor(
   @Test
   fun delete() {
     // 1. none key
-    dao.delete().test().expectNextCount(0L).verifyComplete()
+    dao.delete().test().verifyComplete()
 
     // 2. delete not exists key
-    dao.delete(UUID.randomUUID().toString()).test().expectNextCount(0L).verifyComplete()
+    dao.delete(randomKey()).test().verifyComplete()
 
     // 3. delete exists key
     // 3.1 prepare data
@@ -119,7 +120,7 @@ class KeyValueDaoImplTest @Autowired constructor(
     operations.insertAll(pos).test().expectNextCount(pos.size.toLong()).verifyComplete()
 
     // 3.2 invoke and verify result
-    dao.delete(*pos.map { it.k }.toTypedArray()).test().expectNextCount(0L).verifyComplete()
+    dao.delete(*pos.map { it.k }.toTypedArray()).test().verifyComplete()
 
     // 3.3 verify deleted
     operations.count(query(where("k").`in`(pos.map { it.k })), KeyValuePo::class.java)
