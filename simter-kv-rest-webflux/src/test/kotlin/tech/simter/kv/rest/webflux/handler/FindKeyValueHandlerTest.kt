@@ -11,8 +11,8 @@ import org.springframework.test.web.reactive.server.WebTestClient.bindToRouterFu
 import org.springframework.web.reactive.config.EnableWebFlux
 import org.springframework.web.reactive.function.server.RouterFunctions.route
 import reactor.core.publisher.Mono
+import tech.simter.kv.core.KeyValue
 import tech.simter.kv.core.KeyValueService
-import tech.simter.kv.impl.ImmutableKeyValue
 import tech.simter.kv.rest.webflux.handler.FindKeyValueHandler.Companion.REQUEST_PREDICATE
 import java.util.*
 import javax.json.Json
@@ -66,7 +66,7 @@ class FindKeyValueHandlerTest @Autowired constructor(
   @Test
   fun findMulti() {
     // mock
-    val kvList = (1..3).map { ImmutableKeyValue("k-$it", "v-$it") }
+    val kvList = (1..3).map { KeyValue.of("k-$it", "v-$it") }
     val expected = Mono.just(kvList.associate { it.k to it.v })
     val keyArray = kvList.map { it.k }.toTypedArray()
     every { service.find(*keyArray) } returns expected

@@ -12,9 +12,9 @@ import reactor.kotlin.test.test
 import tech.simter.kv.OPERATION_DELETE
 import tech.simter.kv.OPERATION_READ
 import tech.simter.kv.OPERATION_SAVE
+import tech.simter.kv.core.KeyValue
 import tech.simter.kv.core.KeyValueDao
 import tech.simter.kv.core.KeyValueService
-import tech.simter.kv.impl.ImmutableKeyValue
 import tech.simter.reactive.security.ModuleAuthorizer
 import tech.simter.reactive.security.ReactiveSecurityService
 import java.util.*
@@ -32,6 +32,7 @@ class KeyValueServiceImplTest @Autowired constructor(
   private val service: KeyValueService
 ) {
   private fun randomString() = UUID.randomUUID().toString()
+
   @Test
   fun getValueSuccess() {
     // mock
@@ -96,7 +97,7 @@ class KeyValueServiceImplTest @Autowired constructor(
   @Test
   fun findMulti() {
     // mock
-    val kvs = (1..3).map { ImmutableKeyValue("k-$it", "v-$it") }.associate { it.k to it.v }
+    val kvs = (1..3).map { KeyValue.of("k-$it", "v-$it") }.associate { it.k to it.v }
     val expected = Mono.just(kvs)
     every { dao.find(*anyVararg()) } returns expected
     every { moduleAuthorizer.verifyHasPermission(OPERATION_READ) } returns Mono.empty()
@@ -138,7 +139,7 @@ class KeyValueServiceImplTest @Autowired constructor(
   @Test
   fun saveMulti() {
     // mock
-    val kvs = (1..3).map { ImmutableKeyValue("k-$it", "v-$it") }.associate { it.k to it.v }
+    val kvs = (1..3).map { KeyValue.of("k-$it", "v-$it") }.associate { it.k to it.v }
     every { dao.save(kvs) } returns Mono.empty()
     every { moduleAuthorizer.verifyHasPermission(OPERATION_SAVE) } returns Mono.empty()
 
