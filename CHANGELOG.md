@@ -1,5 +1,15 @@
 # simter-kv changelog
 
+## 0.13.0 2020-06-05
+
+- Add module simter-kv-dao-web
+- Add module simter-kv-service-impl
+- Polishing - dao-mongo|jpa|r2dbc unit test code
+- Add module simter-kv-test
+- Move ImmutableKeyValue to KeyValue.Impl
+- Use `@DataR2dbcTest` instead of `@SpringBootTest` on dap-r2dbc module
+- Upgrade to simter-2.0.0-M1
+
 ## 0.12.0 2020-05-08
 
 - Upgrade to simter-1.3.0-M15
