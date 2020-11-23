@@ -1,5 +1,10 @@
 # simter-kv changelog
 
+## 1.0.0 - 2020-11-23
+
+- Upgrade to simter-2.0.0 (spring-boot-2.3.6)
+- First stable version.
+
 ## 0.13.0 2020-06-05
 
 - Add module simter-kv-dao-web
