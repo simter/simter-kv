@@ -4,12 +4,13 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest
-import org.springframework.data.r2dbc.core.DatabaseClient
+import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import reactor.kotlin.test.test
 import tech.simter.kv.TABLE_KV
 import tech.simter.kv.core.KeyValueDao
 import tech.simter.kv.impl.dao.r2dbc.TestHelper.randomKeyValuePo
+import tech.simter.kv.impl.dao.r2dbc.TestHelper.rowToKeyValuePo
 import tech.simter.kv.impl.dao.r2dbc.po.KeyValuePo
 import tech.simter.kv.test.TestHelper.randomValue
 import tech.simter.util.RandomUtils.randomString
@@ -44,6 +45,7 @@ class SaveMethodImplTest @Autowired constructor(
       .verifyComplete()
   }
 
+
   @Test
   fun `create many`() {
     // do save
@@ -52,10 +54,9 @@ class SaveMethodImplTest @Autowired constructor(
     dao.save(map).test().verifyComplete()
 
     // verify saved
-    databaseClient.execute("select k, v from $TABLE_KV where k in (:keys)")
+    databaseClient.sql("select k, v from $TABLE_KV where k in (:keys)")
       .bind("keys", pos.map { it.k })
-      .`as`(KeyValuePo::class.java)
-      .fetch()
+      .map(rowToKeyValuePo)
       .all()
       .collectList()
       .test()
@@ -92,10 +93,9 @@ class SaveMethodImplTest @Autowired constructor(
     dao.save(pos.associate { it.k to newValue }).test().verifyComplete()
 
     // verify updated
-    databaseClient.execute("select k, v from $TABLE_KV where k in (:keys)")
+    databaseClient.sql("select k, v from $TABLE_KV where k in (:keys)")
       .bind("keys", pos.map { it.k })
-      .`as`(KeyValuePo::class.java)
-      .fetch()
+      .map(rowToKeyValuePo)
       .all()
       .collectList()
       .test()
@@ -118,10 +118,9 @@ class SaveMethodImplTest @Autowired constructor(
     dao.save(map).test().verifyComplete()
 
     // verify
-    databaseClient.execute("select k, v from $TABLE_KV where k in (:keys)")
+    databaseClient.sql("select k, v from $TABLE_KV where k in (:keys)")
       .bind("keys", listOf(toUpdate.k, toCreate.k))
-      .`as`(KeyValuePo::class.java)
-      .fetch()
+      .map(rowToKeyValuePo)
       .all()
       .collectList()
       .test()

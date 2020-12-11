@@ -1,7 +1,7 @@
 package tech.simter.kv.impl.dao.r2dbc
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.r2dbc.core.DatabaseClient
+import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.stereotype.Repository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
@@ -18,7 +18,7 @@ class KeyValueDaoImpl @Autowired constructor(
   private val databaseClient: DatabaseClient
 ) : KeyValueDao {
   override fun valueOf(key: String): Mono<String> {
-    return databaseClient.execute("select v from $TABLE_KV where k = :key")
+    return databaseClient.sql("select v from $TABLE_KV where k = :key")
       .bind("key", key)
       .map { row -> row.get("v", String::class.java) }
       .one()
@@ -28,10 +28,10 @@ class KeyValueDaoImpl @Autowired constructor(
     return if (keys.isEmpty()) Mono.empty()
     else (
       if (keys.size == 1)
-        databaseClient.execute("select k, v from $TABLE_KV where k = :key")
+        databaseClient.sql("select k, v from $TABLE_KV where k = :key")
           .bind("key", keys[0])
       else
-        databaseClient.execute("select k, v from $TABLE_KV where k in (:keys)")
+        databaseClient.sql("select k, v from $TABLE_KV where k in (:keys)")
           .bind("keys", keys.toList())
       )
       .map { row -> arrayOf(row.get("k", String::class.java), row.get("v", String::class.java)) }
@@ -42,7 +42,7 @@ class KeyValueDaoImpl @Autowired constructor(
 
   override fun save(keyValues: Map<String, String>): Mono<Void> {
     return if (keyValues.isEmpty()) Mono.empty()
-    else databaseClient.execute("select k from $TABLE_KV where k in (:keys)")
+    else databaseClient.sql("select k from $TABLE_KV where k in (:keys)")
       .bind("keys", keyValues.keys.toList())
       .map { row -> row.get("k", String::class.java) }
       .all()
@@ -57,14 +57,14 @@ class KeyValueDaoImpl @Autowired constructor(
 
         val monoList = toUpdateList.map {
           // do update
-          databaseClient.execute(updateSql)
+          databaseClient.sql(updateSql)
             .bind("key", it.key)
             .bind("value", it.value)
             .fetch()
             .rowsUpdated()
         } + toCreateList.map {
           // do create
-          databaseClient.execute(createSql)
+          databaseClient.sql(createSql)
             .bind("key", it.key)
             .bind("value", it.value)
             .fetch()
@@ -80,10 +80,10 @@ class KeyValueDaoImpl @Autowired constructor(
     return if (keys.isEmpty()) Mono.empty()
     else (
       if (keys.size == 1)
-        databaseClient.execute("delete from $TABLE_KV where k = :key")
+        databaseClient.sql("delete from $TABLE_KV where k = :key")
           .bind("key", keys[0])
       else
-        databaseClient.execute("delete from $TABLE_KV where k in (:keys)")
+        databaseClient.sql("delete from $TABLE_KV where k in (:keys)")
           .bind("keys", keys.toList())
       )
       .fetch()
