@@ -3,7 +3,7 @@ package tech.simter.kv.impl.dao.r2dbc
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest
-import org.springframework.data.r2dbc.core.DatabaseClient
+import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import reactor.kotlin.test.test
 import tech.simter.kv.TABLE_KV
@@ -54,7 +54,7 @@ class DeleteMethodImplTest @Autowired constructor(
     dao.delete(*pos.map { it.k }.toTypedArray()).test().verifyComplete()
 
     // verify deleted
-    databaseClient.execute("select k from $TABLE_KV where k in (:keys)")
+    databaseClient.sql("select k from $TABLE_KV where k in (:keys)")
       .bind("keys", pos.map { it.k })
       .fetch()
       .all()

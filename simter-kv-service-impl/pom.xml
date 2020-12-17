@@ -13,6 +13,10 @@
   <description>Service API Implementation</description>
   <dependencies>
     <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+    </dependency>
+    <dependency>
       <groupId>tech.simter.kv</groupId>
       <artifactId>simter-kv-core</artifactId>
     </dependency>
