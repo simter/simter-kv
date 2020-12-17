@@ -40,6 +40,10 @@ logging.level: # TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF
   #tech.simter.r2dbc: INFO # INFO - show execute sql and custom r2dbc converters, DEBUG - show R2dbcProperties
   #tech.simter.embeddeddatabase: INFO # INFO - Starting embedded database: url=..., DEBUG - Load script
 
+  # spring transaction
+  #org.springframework.transaction: TRACE
+  #org.springframework.transaction.interceptor: TRACE
+
   #---- r2dbc client ----#
   #org.springframework.data.r2dbc.core.DefaultDatabaseClient: DEBUG # DEBUG to show sql
   #org.springframework.data.r2dbc.core.NamedParameterExpander: DEBUG # DEBUG to show sql
