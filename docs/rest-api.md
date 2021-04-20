@@ -12,7 +12,9 @@ The `{context-path}` could be configured by property `simter-kv.rest-context-pat
 
 ## 1. Find key-value pairs by key
 
-Find single key-value pair or multiple key-value pairs. Multiple keys combine with comma. The key could not contains comma symbol `','`.
+Find single key-value pair or multiple key-value pairs. Multiple keys combine with the comma. The key could not contain comma symbol `','`.
+
+If the {key} contains a char `%`, use fuzzy search to find all the matched key-value pair, otherwise use equation way.
 
 ### Request
 

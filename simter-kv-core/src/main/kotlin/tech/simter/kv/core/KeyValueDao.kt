@@ -19,6 +19,8 @@ interface KeyValueDao {
   /**
    * Find all key-value pairs by keys.
    *
+   * If the key in [keys] contains a char `%`, use fuzzy search to find all the matched key-value pair, otherwise use equation way.
+   *
    * @param[keys] the keys
    * @return [Mono] emitting key-value pairs store in a map if at lease one key exists or [Mono.empty] otherwise.
    */
