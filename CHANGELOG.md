@@ -1,5 +1,11 @@
 # simter-kv changelog
 
+## 2.0.0-M2 - 2021-04-21
+
+- Upgrade to simter-3.0.0-M2 (spring-boot-2.4.5)
+- Add fuzzy search api
+    > If the key contains a char `%`, use fuzzy search to find all the matched key-value pair, otherwise use equation way.
+
 ## 2.0.0-M1 - 2020-12-17
 
 - Upgrade to simter-3.0.0-M1 (spring-boot-2.4.1)
