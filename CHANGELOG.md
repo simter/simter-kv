@@ -1,5 +1,11 @@
 # simter-kv changelog
 
+## 2.0.0-M3 - 2021-07-30
+
+- Upgrade to simter-3.0.0-M3 (spring-boot-2.5.3)
+- Simplify unit test class name
+    > Such as rename `Delete...Test` to `DeleteTest`
+
 ## 2.0.0-M2 - 2021-04-21
 
 - Upgrade to simter-3.0.0-M2 (spring-boot-2.4.5)
