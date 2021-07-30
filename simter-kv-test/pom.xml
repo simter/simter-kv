@@ -43,7 +43,7 @@
     </dependency>
   </dependencies>
   <properties>
-    <server-url>http://localhost:8085/kv</server-url>
+    <server.url>http://localhost:8085/kv</server.url>
   </properties>
   <build>
     <plugins>
