@@ -1,10 +1,43 @@
 spring:
   main.banner-mode: 'off'
-  profiles.active:
-    - database
+  test.database.replace: none
+  sql.init:
+    platform: @db.platform@
+    encoding: UTF-8
+    mode: @db.init-mode@ # never|embedded|always
+    # available when mode=embedded|always
+    schema-locations:
+      # drop
+      - classpath:tech/simter/kv/sql/@db.platform@/schema-drop.sql
+      # create
+      - classpath:tech/simter/kv/sql/@db.platform@/schema-create.sql
+    data-locations:
+      - classpath:tech/simter/kv/sql/@db.platform@/data.sql
+  r2dbc:
+    url: @db.url@
+    username: @db.username@
+    password: @db.password@
+    pool:
+      #enabled: true  # depends on r2dbc-pool
+      initial-size: 1 # default 10
+      max-size: 5     # default 10
 logging:
   file.name: target/test.log
   level: # TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF
     root: ERROR
     tech.simter.kv: WARN
-    #org.springframework: WARN
+    #tech.simter.r2dbc.R2dbcConfiguration: INFO # INFO to show custom r2dbc converters register
+
+    #---- spring data ----#
+    #org.springframework.data.convert.CustomConversions: DEBUG # DEBUG to show spring custom converter
+    #org.springframework.data.repository.core.support.RepositoryFactorySupport: DEBUG # DEBUG to show repository instance creation
+    #org.springframework.data.repository.config.RepositoryConfigurationDelegate: TRACE # TRACE to show repository delegate
+
+    #---- spring r2dbc ----#
+    #org.springframework.r2dbc.connection.init.ScriptUtils: DEBUG # DEBUG to show `Executing...[sql/h2/schema-drop.sql]`
+    #org.springframework.r2dbc.core.DefaultDatabaseClient: DEBUG # DEBUG to show sql
+    #org.springframework.r2dbc.connection.R2dbcTransactionManager: DEBUG # DEBUG to show transaction
+
+    #---- r2dbc driver----#
+    #io.r2dbc.h2.client.SessionClient: DEBUG # DEBUG to show postgres request and Response
+    #io.r2dbc.postgresql.client.ReactorNettyClient: DEBUG # DEBUG to show postgres request and Response
