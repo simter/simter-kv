@@ -16,7 +16,7 @@ import tech.simter.kv.test.TestHelper.randomKeyValue
  */
 @SpringJUnitConfig(UnitTestConfiguration::class)
 @WebFluxTest
-class ValueOfMethodImplTest @Autowired constructor(
+class ValueOfTest @Autowired constructor(
   private val dao: KeyValueDao
 ) {
   @Test

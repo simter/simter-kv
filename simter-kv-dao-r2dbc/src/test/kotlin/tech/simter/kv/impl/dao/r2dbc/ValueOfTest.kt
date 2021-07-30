@@ -16,7 +16,7 @@ import tech.simter.kv.test.TestHelper.randomKey
  */
 @SpringJUnitConfig(UnitTestConfiguration::class)
 @DataR2dbcTest
-class ValueOfMethodImplTest @Autowired constructor(
+class ValueOfTest @Autowired constructor(
   private val repository: KeyValueRepository,
   private val dao: KeyValueDao
 ) {

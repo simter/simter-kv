@@ -18,7 +18,7 @@ import java.util.*
  */
 @SpringJUnitConfig(UnitTestConfiguration::class)
 @ReactiveDataJpaTest
-class SaveMethodImplTest @Autowired constructor(
+class SaveTest @Autowired constructor(
   val rem: TestEntityManager,
   val dao: KeyValueDao
 ) {

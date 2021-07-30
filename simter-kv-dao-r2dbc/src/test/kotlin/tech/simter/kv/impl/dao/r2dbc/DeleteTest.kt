@@ -18,7 +18,7 @@ import tech.simter.kv.test.TestHelper.randomKey
  */
 @SpringJUnitConfig(UnitTestConfiguration::class)
 @DataR2dbcTest
-class DeleteMethodImplTest @Autowired constructor(
+class DeleteTest @Autowired constructor(
   private val databaseClient: DatabaseClient,
   private val repository: KeyValueRepository,
   private val dao: KeyValueDao

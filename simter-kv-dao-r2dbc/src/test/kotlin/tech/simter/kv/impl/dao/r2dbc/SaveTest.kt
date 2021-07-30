@@ -22,7 +22,7 @@ import tech.simter.util.RandomUtils.randomString
  */
 @SpringJUnitConfig(UnitTestConfiguration::class)
 @DataR2dbcTest
-class SaveMethodImplTest @Autowired constructor(
+class SaveTest @Autowired constructor(
   private val databaseClient: DatabaseClient,
   private val repository: KeyValueRepository,
   private val dao: KeyValueDao

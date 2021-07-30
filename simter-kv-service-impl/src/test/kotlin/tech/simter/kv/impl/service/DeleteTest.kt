@@ -20,7 +20,7 @@ import tech.simter.reactive.security.ModuleAuthorizer
  * @author RJ
  */
 @SpringJUnitConfig(UnitTestConfiguration::class)
-class DeleteMethodImplTest @Autowired constructor(
+class DeleteTest @Autowired constructor(
   private val moduleAuthorizer: ModuleAuthorizer,
   private val dao: KeyValueDao,
   private val service: KeyValueService

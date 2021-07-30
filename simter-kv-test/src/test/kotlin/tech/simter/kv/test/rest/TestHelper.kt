@@ -7,7 +7,7 @@ import tech.simter.kv.test.TestHelper.randomKeyValue
 
 object TestHelper {
   /** create one kv */
-  fun createOneKeyValue(
+  fun createOne(
     client: WebTestClient,
     kv: KeyValue = randomKeyValue()
   ): KeyValue {

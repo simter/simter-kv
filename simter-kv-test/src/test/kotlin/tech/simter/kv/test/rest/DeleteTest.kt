@@ -1,46 +1,45 @@
-package tech.simter.kv.impl.dao.web
+package tech.simter.kv.test.rest
 
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import org.springframework.test.web.reactive.server.WebTestClient
-import reactor.kotlin.test.test
-import tech.simter.kv.core.KeyValueDao
 import tech.simter.kv.test.TestHelper.randomKey
 import tech.simter.kv.test.TestHelper.randomKeyValue
+import tech.simter.kv.test.rest.TestHelper.createOne
 
 /**
- * Test [KeyValueDaoImpl.delete].
+ * Test delete.
  *
  * @author RJ
  */
 @SpringJUnitConfig(UnitTestConfiguration::class)
 @WebFluxTest
-class DeleteMethodImplTest @Autowired constructor(
-  private val client: WebTestClient,
-  private val dao: KeyValueDao
+class DeleteTest @Autowired constructor(
+  private val client: WebTestClient
 ) {
   @Test
-  fun `delete nothing`() {
-    dao.delete().test().verifyComplete()
-  }
-
-  @Test
   fun `delete not exists key`() {
-    dao.delete(randomKey()).test().verifyComplete()
+    client.delete().uri("/${randomKey()}")
+      .exchange()
+      .expectStatus().isNoContent
+      .expectBody().isEmpty
   }
 
   @Test
   fun `delete one`() {
     // prepare data
     val kv = randomKeyValue()
-    dao.save(mapOf(kv.k to kv.v)).test().verifyComplete()
+    createOne(client = client, kv = kv)
 
     // delete it
-    dao.delete(kv.k).test().verifyComplete()
+    client.delete().uri("/${kv.k}")
+      .exchange()
+      .expectStatus().isNoContent
+      .expectBody().isEmpty
 
-    // verify deleted
+    // check deleted
     client.get().uri("/${kv.k}")
       .exchange()
       .expectStatus().isNoContent
@@ -48,17 +47,21 @@ class DeleteMethodImplTest @Autowired constructor(
   }
 
   @Test
-  fun `delete many`() {
+  fun `delete multiple`() {
     // prepare data
-    val kvs = (1..3).map { randomKeyValue() }
-    val map = kvs.associate { it.k to it.v }
-    dao.save(map).test().verifyComplete()
+    val kv1 = randomKeyValue()
+    val kv2 = randomKeyValue()
+    createOne(client = client, kv = kv1)
+    createOne(client = client, kv = kv2)
 
-    // do delete
-    dao.delete(*kvs.map { it.k }.toTypedArray()).test().verifyComplete()
+    // delete it
+    client.delete().uri("/${kv1.k},${kv2.k}")
+      .exchange()
+      .expectStatus().isNoContent
+      .expectBody().isEmpty
 
-    // verify deleted
-    client.get().uri("/${kvs.joinToString(",")}")
+    // check deleted
+    client.get().uri("/${kv1.k},${kv2.k}")
       .exchange()
       .expectStatus().isNoContent
       .expectBody().isEmpty

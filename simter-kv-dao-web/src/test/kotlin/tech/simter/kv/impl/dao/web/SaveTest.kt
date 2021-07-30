@@ -19,7 +19,7 @@ import tech.simter.kv.test.TestHelper.randomValue
  */
 @SpringJUnitConfig(UnitTestConfiguration::class)
 @WebFluxTest
-class SaveMethodImplTest @Autowired constructor(
+class SaveTest @Autowired constructor(
   private val client: WebTestClient,
   private val dao: KeyValueDao
 ) {

@@ -1,24 +1,24 @@
-package tech.simter.kv.impl.dao.jpa
+package tech.simter.kv.impl.dao.web
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 import reactor.kotlin.test.test
 import tech.simter.kv.core.KeyValueDao
-import tech.simter.kv.impl.dao.jpa.po.KeyValuePo
+import tech.simter.kv.test.TestHelper
 import tech.simter.kv.test.TestHelper.randomKey
-import tech.simter.reactive.test.jpa.ReactiveDataJpaTest
-import tech.simter.reactive.test.jpa.TestEntityManager
 
 /**
+ * Test [KeyValueDaoImpl.find].
+ *
  * @author RJ
  */
 @SpringJUnitConfig(UnitTestConfiguration::class)
-@ReactiveDataJpaTest
-class FindMethodImplTest @Autowired constructor(
-  val rem: TestEntityManager,
-  val dao: KeyValueDao
+@WebFluxTest
+class FindTest @Autowired constructor(
+  private val dao: KeyValueDao
 ) {
   @Test
   fun `find nothing`() {
@@ -33,16 +33,17 @@ class FindMethodImplTest @Autowired constructor(
   @Test
   fun `find exists key`() {
     // prepare data
-    val random = randomKey()
-    val pos = (1..3).map { KeyValuePo("$random-$it", "$random-$it") }
-    rem.persist(*pos.toTypedArray())
+    val kvs = (1..3).map { TestHelper.randomKeyValue() }
+    val map = kvs.associate { it.k to it.v }
+    dao.save(map).test().verifyComplete()
 
     // invoke and verify
-    dao.find(*pos.map { it.k }.toTypedArray())
+    dao.find(*kvs.map { it.k }.toTypedArray())
       .test()
-      .consumeNextWith { actualMap ->
-        assertEquals(pos.size, actualMap.size)
-        pos.forEach { assertEquals(it.v, actualMap[it.k]) }
-      }.verifyComplete()
+      .assertNext { result ->
+        assertEquals(kvs.size, result.size)
+        kvs.forEach { assertEquals(it.v, result[it.k]) }
+      }
+      .verifyComplete()
   }
 }

@@ -21,7 +21,7 @@ import tech.simter.util.RandomUtils.randomString
  */
 @SpringJUnitConfig(UnitTestConfiguration::class)
 @DataR2dbcTest
-class FindMethodImplTest @Autowired constructor(
+class FindTest @Autowired constructor(
   private val repository: KeyValueRepository,
   private val dao: KeyValueDao
 ) {
