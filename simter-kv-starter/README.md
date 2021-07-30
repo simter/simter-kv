@@ -31,8 +31,10 @@ mvn spring-boot:run -P r2dbc-postgres
 | Property Name | Default Value | Remark
 |---------------|---------------|--------
 | port          | 8085          | Web server port
-| db.host       | localhost     | Database host
+| db.host       | localhost     | Database connect host
+| db.port       |               | Database connect port
 | db.name       | testdb        | Database name
+| db.url        |               | Database connect url
 | db.username   | tester        | Database connect username
 | db.password   | password      | Database connect password
 | db.init-mode  | always        | Init database: `never` or `always`

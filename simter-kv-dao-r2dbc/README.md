@@ -18,9 +18,9 @@ mvn test -P h2 \
 
 | Property Name | Default Value | Remark                    |
 |---------------|---------------|---------------------------|
-| db.host       |               | Database connect host     |
+| db.host       | localhost     | Database connect host     |
 | db.port       |               | Database connect port     |
-| db.name       |               | Database name             |
+| db.name       | testdb        | Database name             |
 | db.url        |               | Database connect url      |
 | db.username   | tester        | Database connect username |
 | db.password   | password      | Database connect password |
