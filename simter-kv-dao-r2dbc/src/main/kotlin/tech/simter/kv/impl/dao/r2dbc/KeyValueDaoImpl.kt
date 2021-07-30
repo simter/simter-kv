@@ -49,7 +49,6 @@ class KeyValueDaoImpl @Autowired constructor(
           "k in (:keys)" + if (fuzzyMatchConditions.isEmpty()) "" else (" or " + fuzzyMatchConditions.joinToString(" or "))
         }
         sql += " order by k asc"
-        println(sql)
         var spec = databaseClient.sql(sql)
 
         // bind params

@@ -9,7 +9,7 @@ import tech.simter.reactive.web.Utils.createClientHttpConnector
 
 @Configuration
 class UnitTestConfiguration @Autowired constructor(
-  @Value("\${server-url}")
+  @Value("\${server.url}")
   private val serverUrl: String,
   @Value("\${proxy.host:#{null}}")
   private val proxyHost: String?,
