@@ -1,5 +1,10 @@
 # simter-kv changelog
 
+## 2.0.0-M4 - 2022-01-06
+
+- Upgrade to simter-3.0.0-M6 (spring-boot-2.6.2)
+- Set starter to no r2dbc-pool config by default 
+
 ## 2.0.0-M3 - 2021-07-30
 
 - Upgrade to simter-3.0.0-M3 (spring-boot-2.5.3)
