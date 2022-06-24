@@ -24,28 +24,28 @@ Simple Application Key-Value Pair Manager.
 
 ## Maven Modules
 
-| Sn | Name                   | Type | Parent                 | Remark
-|----|------------------------|------|------------------------|--------
-| 1  | [simter-kv]            | pom  | [simter-build]         | Build these modules and define global properties and pluginManagement
-| 2  | simter-kv-bom          | pom  | simter-kv              | Bom
-| 3  | simter-kv-parent       | pom  | simter-kv              | Define global dependencies and plugins
-| 4  | simter-kv-core         | jar  | simter-kv-parent       | Core API: [KeyValue], [KeyValueDao] and [KeyValueService]
-| 5  | simter-kv-test         | jar  | simter-kv-parent       | Common unit test helper method
-| 6  | simter-kv-dao-mongo    | jar  | simter-kv-parent       | [KeyValueDao] Implementation By Reactive MongoDB
-| 7  | simter-kv-dao-r2dbc    | jar  | simter-kv-parent       | [KeyValueDao] Implementation By R2DBC
-| 8  | simter-kv-dao-jpa      | jar  | simter-kv-parent       | [KeyValueDao] Implementation By JPA
-| 9  | simter-kv-service-impl | jar  | simter-kv-parent       | Default [KeyValueService] Implementation
-| 10 | simter-kv-rest-webflux | jar  | simter-kv-parent       | [Rest API] Implementation By WebFlux
-| 11 | simter-kv-starter      | jar  | simter-kv-parent       | Microservice Starter
+| Sn  | Name                   | Type | Parent           | Remark                                                                |
+|-----|------------------------|------|------------------|-----------------------------------------------------------------------|
+| 1   | [simter-kv]            | pom  | [simter-build]   | Build these modules and define global properties and pluginManagement |
+| 2   | simter-kv-bom          | pom  | simter-kv        | Bom                                                                   |
+| 3   | simter-kv-parent       | pom  | simter-kv        | Define global dependencies and plugins                                |
+| 4   | simter-kv-core         | jar  | simter-kv-parent | Core API: [KeyValue], [KeyValueDao] and [KeyValueService]             |
+| 5   | simter-kv-test         | jar  | simter-kv-parent | Common unit test helper method                                        |
+| 6   | simter-kv-dao-mongo    | jar  | simter-kv-parent | [KeyValueDao] Implementation By Reactive MongoDB                      |
+| 7   | simter-kv-dao-r2dbc    | jar  | simter-kv-parent | [KeyValueDao] Implementation By R2DBC                                 |
+| 8   | simter-kv-dao-jpa      | jar  | simter-kv-parent | [KeyValueDao] Implementation By JPA                                   |
+| 9   | simter-kv-service-impl | jar  | simter-kv-parent | Default [KeyValueService] Implementation                              |
+| 10  | simter-kv-rest-webflux | jar  | simter-kv-parent | [Rest API] Implementation By WebFlux                                  |
+| 11  | simter-kv-starter      | jar  | simter-kv-parent | Microservice Starter                                                  |
 
 ## Requirement
 
-- Maven 3.6+
-- Kotlin 1.5+
-- Java 8+
-- Spring Framework 5.3+
-- Spring Boot 2.5+
-- Reactor 3.4+
+- Java 17+
+- Maven 3.8+
+- Spring Boot 2.7+
+    - Spring Framework 5.3+
+    - Kotlin 1.6+
+    - Reactor 3.4+
 
 [simter-build]: https://github.com/simter/simter-build
 [simter-kv]: https://github.com/simter/simter-kv
